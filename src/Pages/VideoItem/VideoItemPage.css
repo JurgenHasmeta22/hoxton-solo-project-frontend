@@ -37,7 +37,7 @@ section.container-VideoPage aside.right-menu {
 
 section.container-VideoPage header.header {
     grid-area: header;
-    outline: 1px solid #000;
+    
     width: 100%;
     display: grid;
     grid-template: 
@@ -51,7 +51,7 @@ section.container-VideoPage header.header {
 
 section.container-VideoPage header.header .header-sub-1 {
     grid-area: header-sub-1;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -60,7 +60,7 @@ section.container-VideoPage header.header .header-sub-1 {
 
 section.container-VideoPage header.header .header-sub-2 {
     grid-area: header-sub-2;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -69,7 +69,7 @@ section.container-VideoPage header.header .header-sub-2 {
 
 section.container-VideoPage header.header .header-sub-3 {
     grid-area: header-sub-3;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;

@@ -10,6 +10,7 @@ export const useStore = create<AppStoreState>((set, get):AppStoreState => ({
     searchTerm: "",
     user: null,
     userItem: null,
+    
     setVideos: (arrayFromServer) => {
         set({videos: arrayFromServer})
     },

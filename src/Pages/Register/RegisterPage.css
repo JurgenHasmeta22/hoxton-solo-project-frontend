@@ -1,0 +1,161 @@
+.signup-page-wrapper {
+  display: grid;
+  place-content: center;
+  height: 50%;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.left-main-wrapper {
+  display: grid;
+  place-content: center;
+  width: 122%;
+}
+#signup-page-img {
+  display: grid;
+  place-content: center;
+  /* width: 100%; */
+  height: 100%;
+  object-fit: contain;
+}
+.right-main-wrapper {
+  display: grid;
+  align-content: start;
+}
+#signup-form {
+  display: grid;
+  gap: 1rem;
+  place-content: space-between;
+  position: sticky;
+  top: 30px;
+  backdrop-filter: blur(10px);
+  width: 300px;
+  border-radius: 5px;
+}
+#signup-form h1 {
+  font-family: "Permanent Marker";
+  color: #7f4f24;
+  font-size: 40px;
+  width: 300px;
+}
+/* #signup-form label {
+  display: grid;
+  align-content: center;
+  height: 30px;
+} */
+#signup-form input {
+  display: grid;
+  height: 30px;
+  border-radius: 5px;
+  border-style: none;
+  padding: 10px;
+  font-size: 13px;
+}
+#name-lastname-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem;
+}
+#name-lastname-wrapper input {
+  width: 142px;
+  height: 30px;
+}
+#username input {
+  width: 300px;
+}
+#select-gender-wrapper {
+  display: grid;
+}
+#radio-text {
+  text-align: center;
+  font-weight: 650;
+}
+#radio-wrapper {
+  display: grid;
+  /* grid-template-columns: 100px 100px 100px; */
+  grid-template-columns: repeat(3, auto);
+}
+.radio-wrapper {
+  display: grid;
+  /* place-content: center; */
+  width: 100px;
+}
+.input-wrapper {
+  display: grid;
+  place-content: center;
+}
+#male,
+#female,
+#other {
+  width: 15px;
+  display: grid;
+}
+.radio-wrapper label {
+  display: grid;
+  place-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+#birthday-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  justify-content: center;
+  align-content: center;
+}
+#birthday-wrapper label {
+  display: grid;
+  place-content: center;
+  font-weight: 650;
+}
+#birthday-wrapper input {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  font-size: 15px;
+  justify-content: center;
+}
+#phone-number {
+  display: grid;
+  width: 300px;
+}
+#email {
+  display: grid;
+  width: 300px;
+}
+#password {
+  display: grid;
+  width: 300px;
+}
+#signup-form button {
+  display: grid;
+  width: 300px;
+  height: 40px;
+  place-content: center;
+  border-style: none;
+  border-radius: 5px;
+  font-family: "Permanent Marker";
+  background-color: #7f4f24;
+  color: whitesmoke;
+  transition: 0.3s;
+}
+#signup-form button:hover {
+  cursor: pointer;
+  transform: translate(-3px);
+  transition: 0.3s;
+}
+#login-link-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  font-weight: 600;
+  place-content: center;
+  gap: 1rem;
+  font-weight: 800;
+}
+#link {
+  display: grid;
+  color: #7f4f24;
+  transition: 0.3s;
+}
+#link:hover {
+  cursor: pointer;
+  transform: translate(-3px);
+  transition: 0.3s;
+}

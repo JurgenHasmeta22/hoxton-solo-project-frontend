@@ -7,26 +7,36 @@ section.container-menus {
     "left-menu mini-header" 0.08fr
     "left-menu main-menu" 0.82fr /
     0.15fr 0.85fr;
+    grid-gap: 15px 0px;
     /* overflow: scroll; */
+}
+
+.videoManiaLogo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #ee6d31;
+    font-style: italic;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 section.container-menus header.header {
     grid-area: header;
-    outline: 1px solid #000;
+    
     width: 100%;
     display: grid;
     grid-template: 
     "header-sub-1 header-sub-2 header-sub-3" 1fr /
-    0.2fr 0.9fr auto; /* this is where the bug was wich cause header problems, i had all three at 1fr 1fr 1fr but when i tried auto in the last part all went perfect when responsive*/
+    0.2fr 0.6fr 0.2fr; /* this is where the bug was wich cause header problems, i had all three at 1fr 1fr 1fr but when i tried auto in the last part all went perfect when responsive*/
     background-color: #f9f9f9;
-    grid-gap: 5px;
+    grid-gap: 15px;
     /* position: fixed;
     z-index: 1; */
 }
 
 section.container-menus header.mini-header {
     grid-area: mini-header;
-    outline: 1px solid #000;
+    
     width: 100%;
     display: grid;
     grid-template-rows: 1fr;
@@ -36,7 +46,7 @@ section.container-menus header.mini-header {
 
 section.container-menus aside.left-menu {
     grid-area: left-menu;
-    outline: 1px solid #000;
+    
     width: 100%;
     display: grid;
     grid-template: 
@@ -49,15 +59,15 @@ section.container-menus aside.left-menu {
     "left-menu-sub-7" 0.3fr
     "left-menu-sub-8"; 0.3fr */
     1fr;
-    overflow: scroll;
+    /* overflow: scroll; */
     grid-gap: 10px;
     background-color: #f9f9f9;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 section.container-menus main.main-menu {
     grid-area: main-menu;
-    outline: 1px solid #000;
+    
     width: 100%;
     display: grid;
     grid-template-rows: repeat(2, 1fr);
@@ -71,7 +81,7 @@ section.container-menus main.main-menu {
 
 section.container-menus header.header .header-sub-1 {
     grid-area: header-sub-1;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -80,7 +90,7 @@ section.container-menus header.header .header-sub-1 {
 
 section.container-menus header.header .header-sub-2 {
     grid-area: header-sub-2;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -89,7 +99,7 @@ section.container-menus header.header .header-sub-2 {
 
 section.container-menus header.header .header-sub-3 {
     grid-area: header-sub-3;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -99,7 +109,7 @@ section.container-menus header.header .header-sub-3 {
 
 section.container-menus aside.left-menu .left-menu-sub-1 {
     grid-area: left-menu-sub-1;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -110,7 +120,7 @@ section.container-menus aside.left-menu .left-menu-sub-1 {
 
 section.container-menus aside.left-menu .left-menu-sub-2 {
     grid-area: left-menu-sub-2;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -121,7 +131,7 @@ section.container-menus aside.left-menu .left-menu-sub-2 {
 
 section.container-menus aside.left-menu .left-menu-sub-3 {
     grid-area: left-menu-sub-3;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -132,7 +142,7 @@ section.container-menus aside.left-menu .left-menu-sub-3 {
 
 section.container-menus aside.left-menu .left-menu-sub-4 {
     grid-area: left-menu-sub-4;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
     display: grid;
     place-items: center;
     justify-content: center;
@@ -143,22 +153,22 @@ section.container-menus aside.left-menu .left-menu-sub-4 {
 
 /* section.container-menus aside.left-menu .left-menu-sub-5 {
     grid-area: left-menu-sub-5;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
 }
 
 section.container-menus aside.left-menu .left-menu-sub-6 {
     grid-area: left-menu-sub-6;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
 }
 
 section.container-menus aside.left-menu .left-menu-sub-7 {
     grid-area: left-menu-sub-7;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
 }
 
 section.container-menus aside.left-menu .left-menu-sub-8 {
     grid-area: left-menu-sub-8;
-    outline: 0.5px solid rgba(41, 19, 19, 0.363);
+    
 } */
 
 header.header .header-sub-1 .header-group-1 {
@@ -180,7 +190,7 @@ header.header .header-sub-2 .header-group-2 {
 
 header.header .header-sub-3 .header-group-3 {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 0.3fr 0.7fr;
     grid-gap: 5px;
     place-items: center;
     /* justify-content: center; */
