@@ -1,7 +1,26 @@
-import { Link } from "react-router-dom"
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { useStore } from "../../Zustand/store";
 import "./LoginPage.css"
 
-export default function LoginPage() {
+export default function LoginPage({validateUser}:any) {
+
+    const { 
+        user, 
+        handleEmailChangeLogin, 
+        handlePasswordChangeLogin, 
+        handleFormSubmitLogin 
+    } = useStore()
+
+    useEffect(() => {
+        validateUser();
+    }, []);
+
+    const navigate = useNavigate();
+
+    if (user) {
+        navigate("/home");
+    }
 
     return (
 
@@ -22,7 +41,7 @@ export default function LoginPage() {
                     <form
                         id="login-form"
                         onSubmit={function (e) {
-                            // handleFormSubmitSignIn(e);
+                            handleFormSubmitLogin(e);
                         }}
                     >
 
@@ -36,7 +55,7 @@ export default function LoginPage() {
                                 placeholder="Enter your email"
                                 required
                                 onChange={function (e) {
-                                // handleEmailChangeSignIn(e);
+                                handleEmailChangeLogin(e);
                                 }}
                             />
 
@@ -50,7 +69,7 @@ export default function LoginPage() {
                                 placeholder="Enter your password"
                                 required
                                 onChange={function (e) {
-                                    // handlePasswordChangeSignIn(e);
+                                    handlePasswordChangeLogin(e);
                                 }}
                             />
 

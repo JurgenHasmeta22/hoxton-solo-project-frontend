@@ -1,8 +1,33 @@
-import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useStore } from "../../Zustand/store"
 import "./RegisterPage.css"
 
-export default function RegisterPage() {
+export default function RegisterPage({validateUser}:any) {
 
+    const {
+        handleBirthdayRegister,
+        handleEmailRegister,
+        handleFormSubmitRegister,
+        handlePasswordChangeRegister,
+        handleGenderRegister,
+        handleLastNameRegister,
+        handleFirstNameRegister,
+        handleUserNameRegister,
+        handlePhoneNumberRegister,
+        user
+    } = useStore()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        validateUser()
+    }, [])
+  
+    if (user) {
+        navigate("/home")
+    }
+    
     return (
 
         <>
@@ -23,17 +48,17 @@ export default function RegisterPage() {
                 <div className="right-main-wrapper">
 
                     <form id="signup-form" onSubmit={function (e) {
-                        // handleFormSubmitSignUp(e)
+                        handleFormSubmitRegister(e)
                     }}>
                         
-                        <h1>SocialLounge</h1>
+                        <h1>VideoMania</h1>
 
                         <div id="name-lastname-wrapper">
 
                             <label id="name" htmlFor="">
 
                                 <input type="text" placeholder="Enter your first name" required onChange={function (e) {
-                                    // handleFirstNameChangeSignUp(e)
+                                    handleFirstNameRegister(e)
                                 }}/>
 
                             </label>
@@ -41,7 +66,7 @@ export default function RegisterPage() {
                             <label id="lastname" htmlFor="">
 
                                 <input type="text" placeholder="Enter your last name" required  onChange={function (e) {
-                                    // handleLastNameChangeSignUp(e)
+                                    handleLastNameRegister(e)
                                 }}/>
 
                             </label>
@@ -51,7 +76,7 @@ export default function RegisterPage() {
                         <label id="username" htmlFor="">
 
                             <input type="text" placeholder="Enter your username" required onChange={function (e) {
-                                // handleUserNameChangeSignUp(e)
+                                handleUserNameRegister(e)
                             }}/>
 
                         </label>
@@ -69,7 +94,7 @@ export default function RegisterPage() {
                                 <div className="input-wrapper">
 
                                     <input type="radio" id="male" name="gender" value="male" onChange={function (e) {
-                                        // handleGenderChangeSignUp(e)
+                                        handleGenderRegister(e)
                                     }}/>
 
                                 </div>
@@ -88,7 +113,7 @@ export default function RegisterPage() {
                                         name="gender"
                                         value="female"
                                         onChange={function (e) {
-                                            // handleGenderChangeSignUp(e)
+                                            handleGenderRegister(e)
                                         }}
                                     />
 
@@ -103,7 +128,7 @@ export default function RegisterPage() {
                                 <div className="input-wrapper">
 
                                     <input type="radio" id="other" name="gender" value="other" onChange={function (e) {
-                                        // handleGenderChangeSignUp(e)
+                                        handleGenderRegister(e)
                                     }}/>
 
                                 </div>
@@ -121,7 +146,7 @@ export default function RegisterPage() {
                             <label htmlFor="birthday">Birthday:</label>
 
                             <input type="date" id="birthday" name="birthday" onChange={function (e) {
-                                // handleBirthdayChangeSignUp(e)
+                                handleBirthdayRegister(e)
                             }}/>
 
                         </label>
@@ -134,7 +159,7 @@ export default function RegisterPage() {
                                 placeholder="Enter your phone number"
                                 required
                                 onChange={function (e) {
-                                    // handlePhoneNumberChangeSignUp(e)
+                                    handlePhoneNumberRegister(e)
                                 }}
                             />
 
@@ -143,7 +168,7 @@ export default function RegisterPage() {
                         <label htmlFor="">
 
                             <input type="text" id="email" placeholder="Enter your email" onChange={function (e) {
-                                // handleEmailChangeSignUp(e)
+                                handleEmailRegister(e)
                             }}/>
 
                         </label>
@@ -157,7 +182,7 @@ export default function RegisterPage() {
                                 placeholder="Enter your password"
                                 required
                                 onChange={function (e) {
-                                    // handlePasswordChangeSignUp(e)
+                                    handlePasswordChangeRegister(e)
                                 }}
                             />
 
@@ -171,7 +196,7 @@ export default function RegisterPage() {
 
                             You have an account?
 
-                            <Link id="link" to={"../Login"}>
+                            <Link id="link" to={"../login"}>
                                 Log In
                             </Link>
                             

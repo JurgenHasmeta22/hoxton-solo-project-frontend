@@ -1,45 +1,112 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+// #region 'Importing stuff'
+import { useEffect, useState } from "react"
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom"
+
+import "./App.css"
+
+import ErrorPage from "./Pages/Error/ErrorPage"
+import HomePage from "./Pages/Home/HomePage"
+import LoginPage from "./Pages/Login/LoginPage"
+import ProfilePage from "./Pages/Profile/ProfilePage"
+import RegisterPage from "./Pages/Register/RegisterPage"
+import VideoItemPage from "./Pages/VideoItem/VideoItemPage"
+import WelcomePage from "./Pages/Welcome/WelcomePage"
+import { useStore } from "./Zustand/store"
+// #endregion
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const { setUser, setVideos } = useStore()
+  
+  function getVideosFromServer () {
+
+    fetch(`http://localhost:4000/videos`)
+      .then(resp => resp.json())
+      .then(videosFromServer => setVideos(videosFromServer))
+      
+  }
+
+  useEffect(getVideosFromServer, [])
+
+  function validateUser() {
+
+    if (localStorage.token) {
+
+      fetch("http://localhost:4000/validate", {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+
+          if (data.error) {
+            console.log("Validation failed.");
+          } 
+          
+          
+          else {
+            setUser(data);
+          }
+
+      });
+
+    }
+
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+
+    <>
+
+      <Routes>
+
+        <Route index element={<Navigate replace to="/welcome" />} />
+        
+        <Route path="/home" element={
+          <HomePage />} 
+        />
+
+        <Route path="/videos/:id" element={
+          <VideoItemPage />} 
+        />
+
+        <Route path="/users/:id" element={
+          <ProfilePage />} 
+        />
+
+        <Route path="/login" element={
+          <LoginPage 
+            validateUser = {validateUser}
+          />} 
+        />
+
+        <Route path="/register" element={
+          <RegisterPage 
+            validateUser = {validateUser}
+          />} 
+        />
+        
+        <Route path="/welcome" element={
+          <WelcomePage />} 
+        />
+        
+        <Route path="*" element={
+          <ErrorPage/>} 
+        />
+      
+      </Routes>
+
+    </>
+
+  );
+
 }
 
-export default App
+export default App;
