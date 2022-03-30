@@ -6,6 +6,7 @@ export default function Message({msg}:any) {
   return (
 
     <div className='alert alert-info alert-dismissible fade show' role='alert'>
+      
       {msg}
 
       <button

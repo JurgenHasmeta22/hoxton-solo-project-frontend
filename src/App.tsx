@@ -19,6 +19,7 @@ import VideoItemPage from "./Pages/VideoItem/VideoItemPage"
 import WelcomePage from "./Pages/Welcome/WelcomePage"
 import ContactPage from "./Pages/Contact/ContactPage"
 import { useStore } from "./Zustand/store"
+import FileUpload from "./Components/FileUpload/FileUpload"
 // #endregion
 
 function App() {
@@ -106,6 +107,10 @@ function App() {
         
         <Route path="*" element={
           <ErrorPage/>} 
+        />
+
+        <Route path="/fileUpload" element={
+          <FileUpload />} 
         />
       
       </Routes>
