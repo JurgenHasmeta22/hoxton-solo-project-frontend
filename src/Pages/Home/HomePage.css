@@ -15,7 +15,7 @@ section.container-menus {
     font-size: 22px;
     font-weight: 900;
     letter-spacing: 3px;
-    color: #ee6d31;
+    color: #4190d1;
     font-style: italic;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -190,8 +190,7 @@ header.header .header-sub-2 .header-group-2 {
 
 header.header .header-sub-3 .header-group-3 {
     display: grid;
-    grid-template-columns: 0.3fr 0.7fr;
-    grid-gap: 5px;
+    grid-template-columns: 1fr;
     place-items: center;
     /* justify-content: center; */
     /* padding-right: 10px; */
@@ -202,13 +201,13 @@ header.header .header-sub-3 .header-group-3 button {
     text-transform: uppercase;
     border: 1px solid #065fd4;
     background-color: #fff;
-    font-size: 14px;
-    padding: 8px 12px;
+    font-size: 16px;
+    padding: 10px 20px;
     font-weight: 700;
     letter-spacing: 0.5px;
     font-family: 'Roboto', sans-serif;
     color: #065fd4;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     cursor: pointer;
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -29,10 +29,10 @@ export default function LoginPage({validateUser}:any) {
             <div className="login-page-wrapper">
 
                 <div className="left-main-wrapper">
-                    <img
-                    id="login-page-img"
-                    src="https://images.pexels.com/photos/4050401/pexels-photo-4050401.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                    alt=""
+                    <img className="special-image-1"
+                        id="login-page-img"
+                        src="/assets/images/computer1.jpg"
+                        alt=""
                     />
                 </div>
 
@@ -45,7 +45,7 @@ export default function LoginPage({validateUser}:any) {
                         }}
                     >
 
-                        <h1>SocialLounge</h1>
+                        <h1>VideoMania</h1>
 
                         <label htmlFor="">
 

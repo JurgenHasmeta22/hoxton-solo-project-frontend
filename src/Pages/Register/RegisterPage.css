@@ -24,16 +24,18 @@
 #signup-form {
   display: grid;
   gap: 1rem;
-  place-content: space-between;
+  /* place-content: space-between; */
   position: sticky;
   top: 30px;
   backdrop-filter: blur(10px);
-  width: 300px;
+  width: 400px;
+  height: auto;
   border-radius: 5px;
+  place-items: center;
 }
 #signup-form h1 {
   font-family: "Permanent Marker";
-  color: #7f4f24;
+  color: #4190d1;
   font-size: 40px;
   width: 300px;
 }
@@ -132,7 +134,7 @@
   border-style: none;
   border-radius: 5px;
   font-family: "Permanent Marker";
-  background-color: #7f4f24;
+  background-color: #4190d1;
   color: whitesmoke;
   transition: 0.3s;
 }
@@ -140,6 +142,11 @@
   cursor: pointer;
   transform: translate(-3px);
   transition: 0.3s;
+}
+
+.special-image-2 {
+  height: 100%;
+  width: 170%;
 }
 #login-link-wrapper {
   display: grid;
@@ -151,7 +158,7 @@
 }
 #link {
   display: grid;
-  color: #7f4f24;
+  color: #4190d1;
   transition: 0.3s;
 }
 #link:hover {

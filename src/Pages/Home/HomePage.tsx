@@ -37,9 +37,6 @@ export default function HomePage() {
                         <div className="header-sub-3">
 
                             <div className="header-group-3">
-
-                                <a href="#"><svg width="23px" height="23px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg></a>
-                                {/* <a href="#"></a> */}
                                 
                                 <button>
                                     <i className="material-icons special-icon">account_circle</i>
@@ -77,11 +74,6 @@ export default function HomePage() {
                             </div>
 
                             <div className="left-group-1">
-                                <a href="#"><i className="material-icons">local_fire_department</i></a>
-                                <span><a href="#">Home</a></span>
-                            </div>
-
-                            <div className="left-group-1">
                                 <a href="#"><i className="material-icons">subscriptions</i></a>
                                 <span><a href="#">Home</a></span>
                             </div>
@@ -91,27 +83,8 @@ export default function HomePage() {
                         <div className="left-menu-sub-2">
 
                             <div className="left-group-2">
-                                <a href="#"><i className="material-icons">library_add_check</i></a>
-                                <span><a href="#">Home</a></span>
-                            </div>
-
-                            <div className="left-group-2">
                                 <a href="#"><i className="material-icons">history</i></a>
                                 <span><a href="#">Home</a></span>
-                            </div>
-
-                        </div> 
-
-                        <div className="left-menu-sub-3">
-                            
-                            <div className="left-group-3">
-
-                                <p>Sign in to like videos, comment, and subscribe.</p>
-                                
-                                <button>
-                                    <i className="material-icons special-icon">account_circle</i>                        <span>Sign In</span>
-                                </button>
-
                             </div>
 
                         </div> 

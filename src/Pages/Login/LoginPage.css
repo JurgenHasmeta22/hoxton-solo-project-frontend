@@ -28,19 +28,21 @@
 #login-form {
   display: grid;
   gap: 1rem;
-  place-content: space-between;
+  /* place-content: space-between; */
   position: sticky;
   top: 150px;
   backdrop-filter: blur(10px);
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 5px;
+  place-items: center;
 }
 
 #login-form h1 {
   font-family: "Permanent Marker";
-  color: #7f4f24;
-  font-size: 40px;
+  color: #4190d1;
+  font-size: 44px;
+  letter-spacing: 5px;
 }
 
 #login-form label {
@@ -69,7 +71,7 @@
   border-style: none;
   border-radius: 5px;
   font-family: "Permanent Marker";
-  background-color: #7f4f24;
+  background-color: #4190d1;
   color: whitesmoke;
   transition: 0.3s;
 }
@@ -91,8 +93,17 @@
 
 #link {
   display: grid;
-  color: #7f4f24;
+  color: #4190d1;
   transition: 0.3s;
+  text-decoration: none;
+}
+
+.special-image-1 {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 100%;
+  width: 170%;
 }
 
 #link:hover {

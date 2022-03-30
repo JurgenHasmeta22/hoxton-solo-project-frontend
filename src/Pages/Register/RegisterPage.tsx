@@ -36,10 +36,9 @@ export default function RegisterPage({validateUser}:any) {
 
                 <div className="left-main-wrapper">
 
-                    <img
+                    <img className="special-image-2"
                         id="signup-page-img"
-                        src="https://images.pexels.com/photos/4050401/pexels-photo-4050401.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        // src="https://images.pexels.com/photos/1851415/pexels-photo-1851415.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                        src="/assets/images/computer2.jpg"
                         alt=""
                     />
 
