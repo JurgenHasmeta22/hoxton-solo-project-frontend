@@ -161,4 +161,52 @@ export const useStore = create<AppStoreState>((set, get):AppStoreState => ({
     },
     //#endregion
 
+    // #region 'Contact us state'
+    nameContactUs: "",
+    emailContactUs: "",
+    phoneContactUs: "",
+    subjectContactUs: "",
+    textAreaContactUs: "",
+    formContactUs: null,
+
+    handleContactSubmit: (e) => {
+
+        const {
+            nameContactUs, emailContactUs, subjectContactUs,
+            phoneContactUs, textAreaContactUs 
+        } = get()
+
+        const formData = {
+            name: nameContactUs,
+            email: emailContactUs,
+            phone: phoneContactUs,
+            subject: subjectContactUs,
+            description: textAreaContactUs
+        }
+
+        set({formContactUs: formData})
+
+    },
+
+    handleTextAreaChange: (e) => {
+        set({textAreaContactUs: e.target.value})
+    },
+
+    handlePhoneChange: (e) => {
+        set({phoneContactUs: e.target.value})
+    },
+
+    handleEmailChange: (e) => {
+        set({emailContactUs: e.target.value})
+    },
+    
+    handleSubjectChange: (e) => {
+        set({subjectContactUs: e.target.value})
+    },
+
+    handleNameChange: (e) => {
+        set({nameContactUs: e.target.value})
+    }
+    // #endregion
+
 }))

@@ -17,6 +17,7 @@ import ProfilePage from "./Pages/Profile/ProfilePage"
 import RegisterPage from "./Pages/Register/RegisterPage"
 import VideoItemPage from "./Pages/VideoItem/VideoItemPage"
 import WelcomePage from "./Pages/Welcome/WelcomePage"
+import ContactPage from "./Pages/Contact/ContactPage"
 import { useStore } from "./Zustand/store"
 // #endregion
 
@@ -83,6 +84,12 @@ function App() {
 
         <Route path="/login" element={
           <LoginPage 
+            validateUser = {validateUser}
+          />} 
+        />
+
+        <Route path="/contact" element={
+          <ContactPage 
             validateUser = {validateUser}
           />} 
         />

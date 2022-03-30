@@ -38,4 +38,16 @@ export default interface AppStoreState {
     handleEmailRegister: (e: any) => void,
     handlePasswordChangeRegister: (e: any) => void
 
+    nameContactUs: string,
+    emailContactUs: string,
+    phoneContactUs: string,
+    subjectContactUs: string,
+    textAreaContactUs: string,
+    formContactUs: null | Object,
+    handleContactSubmit: (e: any) => void
+    handleTextAreaChange: (e: any) => void
+    handlePhoneChange: (e: any) => void
+    handleEmailChange: (e: any) => void
+    handleSubjectChange: (e: any) => void
+    handleNameChange: (e: any) => void
 }

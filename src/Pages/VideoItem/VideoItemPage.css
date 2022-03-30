@@ -13,7 +13,7 @@ section.container-VideoPage {
 
 section.container-VideoPage main.main-menu {
     grid-area: main-menu;
-    outline: 0.5px solid #000;
+    /* outline: 0.5px solid #000; */
     background-color: #f9f9f9;
     display: grid;
     grid-template-rows: 0.9fr 0.1fr;
@@ -25,7 +25,7 @@ section.container-VideoPage main.main-menu {
 
 section.container-VideoPage aside.right-menu {
     grid-area: right-menu;
-    outline: 0.5px solid #000;
+    /* outline: 0.5px solid #000; */
     width: 100%;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -173,7 +173,7 @@ header.header .header-sub-2 .header-group-2 input:active {
 }
 
 aside.right-menu .right-menu-post {
-    outline: 0.1px solid #1e1f20;
+    /* outline: 0.1px solid #1e1f20; */
     display: grid;
     grid-template: 
     "image-post video-title" 0.5fr
@@ -223,7 +223,7 @@ main.main-menu .video-player {
 }
 
 main.main-menu .video-bottom {
-    outline: 0.5px solid #000;
+    /* outline: 0.5px solid #000; */
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
@@ -238,18 +238,6 @@ main.main-menu .video-bottom .header-video {
     grid-gap: 10px;
     padding-left: 50px;
 }
-
-/* main.main-menu .video-bottom .row-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    place-items: center;
-} */
-
-/* main.main-menu .video-bottom .group-video-1 {
-    display: grid;
-    grid-template-columns: 1fr;
-    place-items: center;
-} */
 
 main.main-menu .video-bottom .group-video-2 {
     display: grid;
@@ -279,13 +267,11 @@ main.main-menu .video-bottom .group-video-2 i {
     color: #065fd4;
 }
 
-
-
 main.main-menu .video-username {
     display: grid;
     /* place-items: center; */
     justify-content: left;
-    outline: 0.5px solid #000;
+    /* outline: 0.5px solid #000; */
 }
 
 main.main-menu .video-username .wrapper {
@@ -359,7 +345,7 @@ main.main-menu .video-ribbon {
     grid-gap: 10px;
     /* justify-content: center; */
     padding-left: 50px;
-    outline: 0.5px solid #111111;
+    /* outline: 0.5px solid #111111; */
 }
 
 main.main-menu .video-ribbon .ribbon-wrapper-row-1 {
@@ -405,7 +391,7 @@ main.main-menu .video-comments {
     display: grid;
     /* place-items: center; */
     justify-content: left;
-    outline: 0.5px solid #000;
+    /* outline: 0.5px solid #000; */
     grid-gap: 35px;
 }
 

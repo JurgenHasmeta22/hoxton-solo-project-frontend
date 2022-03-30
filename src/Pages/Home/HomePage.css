@@ -151,26 +151,6 @@ section.container-menus aside.left-menu .left-menu-sub-4 {
     /* align-content: start; */
 }
 
-/* section.container-menus aside.left-menu .left-menu-sub-5 {
-    grid-area: left-menu-sub-5;
-    
-}
-
-section.container-menus aside.left-menu .left-menu-sub-6 {
-    grid-area: left-menu-sub-6;
-    
-}
-
-section.container-menus aside.left-menu .left-menu-sub-7 {
-    grid-area: left-menu-sub-7;
-    
-}
-
-section.container-menus aside.left-menu .left-menu-sub-8 {
-    grid-area: left-menu-sub-8;
-    
-} */
-
 header.header .header-sub-1 .header-group-1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -212,6 +192,7 @@ header.header .header-sub-3 .header-group-3 button {
     display: grid;
     grid-template-columns: 1fr 1fr;
     place-items: center;
+    width: 150px;
 }
 
 header.header .header-sub-3 .header-group-3 button i {
@@ -231,7 +212,6 @@ header.header .header-sub-3 .header-group-3 button:hover {
 }
 
 header.header .header-sub-2 .header-group-2 .button-search {
-    
     display: grid;
     grid-template-columns: 1fr 0.1fr;
     width: 100%;
@@ -259,6 +239,11 @@ header.header .header-sub-2 .header-group-2 button {
     background-color: #f5eded;
     border: 1px solid #1e1f20;
     cursor: pointer;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
 }
 
 header.header .header-sub-2 .header-group-2 input:active {
@@ -442,7 +427,7 @@ aside.left-menu .left-menu-sub-4 .left-group-4 img {
 }
 
 main.main-menu .main-post {
-    outline: 0.5px solid #1e1f20;
+    /* outline: 0.5px solid #1e1f20; */
     display: grid;
     grid-template: 
     "image-post image-post image-post" 0.7fr

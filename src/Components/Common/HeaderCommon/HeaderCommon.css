@@ -1,0 +1,43 @@
+.header-welcome {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-gap: 20px;
+    background-color: #fb7145;
+    height: 70px;
+}
+
+.header-welcome .header-group-1 span {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 10px;
+    font-style: italic;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.header-group-2 button {
+    padding: 5px 15px;
+    border: none;
+    background-color: rgba(41, 100, 195, 0.267);
+    height: 40px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.header-group-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+}
+
+.header-group-2 {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-gap: 20px;
+    place-items: center;
+}
