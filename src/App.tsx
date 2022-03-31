@@ -83,6 +83,10 @@ function App() {
           <ProfilePage />} 
         />
 
+        <Route path="/profile" element={
+          <ProfilePage />} 
+        />
+
         <Route path="/login" element={
           <LoginPage 
             validateUser = {validateUser}

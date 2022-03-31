@@ -1,0 +1,102 @@
+section.container-profile-menus {
+    height: 100vh;
+    width: 100%;
+
+    display: grid;
+    grid-template-rows: 0.2fr 0.8fr;
+    grid-gap: 50px;
+
+    padding-top: 50px;
+}
+
+section.container-profile-menus .container-profile-nav {
+    display: grid;
+    grid-template-rows: 1fr;
+    place-items: center;
+}
+
+section.container-profile-menus .profile-info {
+    display: grid;
+    grid-template:
+    "image user" 0.5fr
+    "image subs" 0.5fr /
+    0.5fr auto;
+    grid-gap: 20px;
+    place-items: center;
+    place-content: center;
+}
+
+.profile-info img {
+    grid-area: image;
+    height: 100px;
+    width: 100px;
+}
+
+.profile-info span.subscribe-span {
+    grid-area: subs;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.profile-info span.userName-span {
+    grid-area: user;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.container-tabs {
+    display: grid;
+    grid-template-rows: 0.1fr 0.9fr;
+    grid-gap: 25px;
+}
+
+.container-tabs .list-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 0.25fr);
+    grid-gap: 30px;
+    place-items: center;
+    background-color: rgb(236, 235, 235);
+}
+
+.clicked {
+    border-bottom: 1px solid #000;
+    color:rgb(231, 118, 118)
+}
+
+.list-tabs li {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.container-tabs .upload-video {
+    display: grid;
+    grid-template-rows: 50px 70px 50px;
+    place-content: center;
+    place-items: center;
+}
+
+.upload-video h2 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.upload-video p {
+    font-size: 16px;
+    width: 75ch;
+    font-style: italic;
+}
+
+.upload-video button {
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 15px 15px;
+    background-color: rgb(243, 63, 63);
+    border: none;
+    outline: none;
+}
