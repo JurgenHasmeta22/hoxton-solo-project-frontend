@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
+import "./FileUpload.css"
 
 export default function FileUpload() {
 
@@ -75,9 +76,10 @@ export default function FileUpload() {
 
     <Fragment>
 
-      {message ? <Message msg={message} /> : null}
+      {/* @ts-ignore */}
+      {message ? <Message msg={message} setMessage = {setMessage} /> : null}
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="file-upload-form">
 
         <div className='custom-file mb-4'>
 
@@ -88,9 +90,9 @@ export default function FileUpload() {
             onChange={onChange}
           />
 
-          <label className='custom-file-label' htmlFor='customFile'>
+          {/* <label className='custom-file-label' htmlFor='customFile'>
             {filename}
-          </label>
+          </label> */}
 
         </div>
 
@@ -98,8 +100,8 @@ export default function FileUpload() {
 
         <input
           type='submit'
-          value='Upload'
-          className='btn btn-primary btn-block mt-4'
+          value='Upload Video'
+          className='upload-button'
         />
 
       </form>

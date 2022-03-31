@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Message({msg}:any) {
+export default function Message({msg, setMessage}:any) {
 
   return (
 
@@ -14,6 +14,9 @@ export default function Message({msg}:any) {
         className='close'
         data-dismiss='alert'
         aria-label='Close'
+        onClick={() => {
+          setMessage('')
+        }}
       >
 
         <span aria-hidden='true'>&times;</span>

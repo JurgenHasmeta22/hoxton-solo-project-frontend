@@ -74,7 +74,7 @@ section.container-profile-menus .profile-info {
 
 .container-tabs .upload-video {
     display: grid;
-    grid-template-rows: 50px 70px 50px;
+    grid-template-rows: 80px 80px 150px;
     place-content: center;
     place-items: center;
 }

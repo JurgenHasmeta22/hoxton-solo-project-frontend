@@ -1,5 +1,6 @@
 import { useState } from "react"
 import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
+import FileUpload from "../../Components/FileUpload/FileUpload"
 import "./ProfilePage.css"
 
 export default function ProfilePage() {
@@ -54,9 +55,12 @@ export default function ProfilePage() {
                         tab === "home" ? (
 
                             <div className="upload-video">
+
                                 <h2>Upload a video to get started</h2>
                                 <p>Start sharing your story and connecting with viewers. Videos you upload will show up here.</p>
-                                <button>Upload Video</button>
+                                {/* <button>Upload Video</button> */}
+
+                                <FileUpload />
                             </div>
 
                         ): tab === "videos" ? (
@@ -64,11 +68,13 @@ export default function ProfilePage() {
                             <div className="container-videos">
 
                                 <div className="main-post">
+
                                     <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
                                     <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
                                     <h2 className="video-title">If Apple made window blind</h2>
                                     <span className="video-user">seatbeans22</span>
                                     <span className="video-views">153K views - 3 weeks ago </span>
+                                
                                 </div>
 
                             </div>
@@ -86,11 +92,13 @@ export default function ProfilePage() {
                             <div className="container-playlists">
 
                                 <div className="main-post">
+
                                     <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
                                     <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
                                     <h2 className="video-title">If Apple made window blind</h2>
                                     <span className="video-user">seatbeans22</span>
                                     <span className="video-views">153K views - 3 weeks ago </span>
+                                
                                 </div>
 
                             </div>

@@ -6,12 +6,19 @@
     height: 70px;
 }
 
-.header-welcome .header-group-1 span {
+.header-welcome .header-group-1 span.special-logo {
     font-size: 24px;
+    cursor: pointer;
     font-weight: 900;
     letter-spacing: 10px;
     font-style: italic;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.header-welcome .header-group-1 span {
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .header-group-2 button {
@@ -31,7 +38,7 @@
 
 .header-group-1 {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 0.33fr);
     place-items: center;
 }
 
