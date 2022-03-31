@@ -4,8 +4,8 @@ section.container-menus {
     display: grid;
     grid-template: 
     "header header" 0.1fr
-    "left-menu mini-header" 0.08fr
-    "left-menu main-menu" 0.82fr /
+    "mini-header mini-header" 0.08fr
+    "main-menu main-menu" 0.82fr /
     0.15fr 0.85fr;
     grid-gap: 15px 0px;
     /* overflow: scroll; */
@@ -70,8 +70,8 @@ section.container-menus main.main-menu {
     
     width: 100%;
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    grid-gap: 30px;
+    grid-template-columns: repeat(4, 0.25fr);
+    grid-gap: 20px;
     place-items: center;
     justify-content: center;
     overflow: scroll; 
@@ -426,63 +426,6 @@ aside.left-menu .left-menu-sub-4 .left-group-4 img {
     border-radius: 20px;
 }
 
-main.main-menu .main-post {
-    /* outline: 0.5px solid #1e1f20; */
-    display: grid;
-    grid-template: 
-    "image-post image-post image-post" 0.7fr
-    "icon-post video-title video-title" 0.2fr
-    "icon-post video-user video-user" 0.05fr
-    "icon-post video-views video-views" 0.05fr /
-    0.2fr 0.4fr 0.4fr;
-    grid-row-gap: 5px;
-    grid-column-gap: 3px;
-    /* grid-area: main-post; */
-}
-
-main.main-menu .main-post:hover
-{
-    transform: scale(1.2);
-    margin-right: 3%;
-    margin-left: 3%;
-    transition: 1s;
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-}
-
-main.main-menu .main-post .video-title {
-    grid-area: video-title;
-    font-size: 14px;
-    padding-bottom: 5px;
-}
-
-main.main-menu .main-post .video-user {
-    grid-area: video-user;
-    font-size: 12px;
-}
-
-main.main-menu .main-post .video-views {
-    grid-area: video-views;
-    font-size: 12px;
-}
-
-main.main-menu .main-post img.image-post {
-    height: 150px;
-    width: 260px;
-    grid-area: image-post;
-}
-
-main.main-menu .main-post img.icon-post {
-    border-radius: 20px;
-    height: 36px;
-    width: 36px;
-    grid-area: icon-post;
-}
-
-
-
 main.main-menu .row-wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -490,10 +433,6 @@ main.main-menu .row-wrapper {
     place-items: center;
     justify-content: center;
 }
-
-
-
-
 
 @media screen and (max-width: 1250px) {
     header.mini-header ul.elements-wrapper {

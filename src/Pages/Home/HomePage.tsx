@@ -1,6 +1,22 @@
+import { useEffect } from "react"
+import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
+import { useStore } from "../../Zustand/store"
 import "./HomePage.css"
 
 export default function HomePage() {
+
+    const { videos, setVideos } = useStore()
+
+    async function getVideosFromServer():Promise<void> {
+
+        await fetch(`http://localhost:4000/videos`)
+          .then(resp => resp.json())
+          .then(videosFromServer => setVideos(videosFromServer))
+
+    }
+
+    //@ts-ignore
+    useEffect(getVideosFromServer, [])
 
     return (
 
@@ -64,178 +80,20 @@ export default function HomePage() {
 
                     </header>
 
-                    <aside className="left-menu">
-
-                        <div className="left-menu-sub-1">
-
-                            <div className="left-group-1">
-                                <a href="#"><i className="material-icons">home</i></a>
-                                <span><a href="#">Home</a></span>
-                            </div>
-
-                            <div className="left-group-1">
-                                <a href="#"><i className="material-icons">subscriptions</i></a>
-                                <span><a href="#">Home</a></span>
-                            </div>
-
-                        </div> 
-
-                        <div className="left-menu-sub-2">
-
-                            <div className="left-group-2">
-                                <a href="#"><i className="material-icons">history</i></a>
-                                <span><a href="#">Home</a></span>
-                            </div>
-
-                        </div> 
-         
-                    </aside>
-
                     <main className="main-menu">
 
-                        <div className="row-wrapper">
+                        {
 
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
+                            videos.map(video => 
+                                
+                                <HomeVideo 
+                                    key = {video.id}
+                                    video = {video}
+                                />  
+                                
+                            )
 
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-2.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-3.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-4.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                        </div>
-
-                        <div className="row-wrapper">
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-5.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-6.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-7.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post icons-post" src="assets/images/main/foto-8.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                        </div>
-
-                        <div className="row-wrapper">
-                            
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-2.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-3.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-4.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                        </div>
-
-                        <div className="row-wrapper">
-                            
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-2.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-3.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                            <div className="main-post">
-                                <img className="image-post" src="assets/images/main/foto-4.webp" alt="" />
-                                <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                <h2 className="video-title">If Apple made window blind</h2>
-                                <span className="video-user">seatbeans22</span>
-                                <span className="video-views">153K views - 3 weeks ago </span>
-                            </div>
-
-                        </div>
+                        }
 
                     </main>
                     
