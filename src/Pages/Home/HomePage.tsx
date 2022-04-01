@@ -5,7 +5,7 @@ import "./HomePage.css"
 
 export default function HomePage() {
 
-    const { videos, setVideos } = useStore()
+    const { videos, setVideos, setCategories, categories } = useStore()
 
     async function getVideosFromServer():Promise<void> {
 
@@ -15,8 +15,19 @@ export default function HomePage() {
 
     }
 
+    async function getCategoriesFromServer():Promise<void> {
+
+        await fetch(`http://localhost:4000/categories`)
+          .then(resp => resp.json())
+          .then(categoriesFromServer => setCategories(categoriesFromServer))
+
+    }
+
     //@ts-ignore
     useEffect(getVideosFromServer, [])
+
+    //@ts-ignore
+    useEffect(getCategoriesFromServer, [])
 
     return (
 
@@ -68,14 +79,16 @@ export default function HomePage() {
                     <header className="mini-header">
 
                             <ul className="elements-wrapper">
-                                <li className="list-items">All</li>
-                                <li className="list-items">Computer</li>
-                                <li className="list-items">Soccer</li>
-                                <li className="list-items">Boxing</li>
-                                <li className="list-items">Inter</li>
-                                <li className="list-items">Web Design</li>
-                                <li className="list-items">Web Design</li>
-                                <li className="list-items">Inter</li>
+
+                                {
+                                    categories.map(category => 
+
+                                        <li className="list-items" key={category.id}>{category.name}</li>
+
+                                    )
+
+                                }
+
                             </ul>
 
                     </header>

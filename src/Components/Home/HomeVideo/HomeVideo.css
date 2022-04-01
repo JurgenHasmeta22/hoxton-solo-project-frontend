@@ -10,6 +10,7 @@ main.main-menu .main-post {
     grid-row-gap: 5px;
     grid-column-gap: 3px;
     /* grid-area: main-post; */
+    cursor: pointer;
 }
 
 main.main-menu .main-post:hover

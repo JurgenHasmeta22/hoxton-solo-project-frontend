@@ -1,5 +1,5 @@
 import React from "react"
-import { User, Video } from "./typesStore"
+import { User, Video, Category } from "./typesStore"
 
 export default interface AppStoreState {
 
@@ -8,7 +8,11 @@ export default interface AppStoreState {
     searchTerm: string,
     user: User | null,
     userItem: User | null,
-    setVideos: (arrayFromServer: Video[]) => void
+    categories: Category[],
+    videoItem: null | Video,
+    setVideoItem: (data: any) => void,
+    setCategories: (arrayFromServer: Category[]) => void,
+    setVideos: (arrayFromServer: Video[]) => void,
     setUser: (data: any) => void,
     setUserItem: (data:any) => void,
 
@@ -36,7 +40,7 @@ export default interface AppStoreState {
     handleBirthdayRegister: (e: any) => void,
     handlePhoneNumberRegister: (e: any) => void,
     handleEmailRegister: (e: any) => void,
-    handlePasswordChangeRegister: (e: any) => void
+    handlePasswordChangeRegister: (e: any) => void,
 
     nameContactUs: string,
     emailContactUs: string,
@@ -44,10 +48,11 @@ export default interface AppStoreState {
     subjectContactUs: string,
     textAreaContactUs: string,
     formContactUs: null | Object,
-    handleContactSubmit: (e: any) => void
-    handleTextAreaChange: (e: any) => void
-    handlePhoneChange: (e: any) => void
-    handleEmailChange: (e: any) => void
-    handleSubjectChange: (e: any) => void
-    handleNameChange: (e: any) => void
+    handleContactSubmit: (e: any) => void,
+    handleTextAreaChange: (e: any) => void,
+    handlePhoneChange: (e: any) => void,
+    handleEmailChange: (e: any) => void,
+    handleSubjectChange: (e: any) => void,
+    handleNameChange: (e: any) => void,
+
 }

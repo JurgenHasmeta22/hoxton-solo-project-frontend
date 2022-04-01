@@ -24,3 +24,8 @@ export type Video = {
     userId: number
 
 }
+
+export type Category = {
+    id? :number,
+    name: string
+}
