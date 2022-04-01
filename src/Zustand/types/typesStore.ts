@@ -9,7 +9,9 @@ export type User = {
     phoneNumber: string,
     email: string,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
+    countSubscribers?: number,
+    description?: string
 
 }
 
@@ -21,7 +23,12 @@ export type Video = {
     createdAt?: Date,
     updatedAt?: Date,
     src: string,
-    userId: number
+    userId: number,
+    countLikesInside?: number,
+    countDislikesInside?: number,
+    countCommentsInside?: number,
+    userWhoCreatedIt: User,
+    comments: any
 
 }
 

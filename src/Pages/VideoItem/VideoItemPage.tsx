@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
+import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommon"
 import { useStore } from "../../Zustand/store"
 import "./VideoItemPage.css"
 
@@ -34,53 +35,7 @@ export default function VideoItemPage() {
 
             <section className="container-VideoPage" id="container-VideoPage">
                 
-                <header className="header">
-                            
-                    <div className="header-sub-1">
-                
-                        <div className="header-group-1">
-
-                            <a href="#"></a>
-
-                            <a href="#"></a>
-
-                        </div>
-                
-                    </div>
-                
-                    <div className="header-sub-2">
-                                
-                        <div className="header-group-2">
-
-                            <div className="button-search">
-                                <input type="search" name="search" placeholder="Search" aria-label="Search through site content" />
-                                <button type="submit"><i className="fa fa-search"></i></button>
-                            </div>
-
-                            <a href="#"><i className="fas fa-microphone"></i></a>
-
-                        </div>
-                        
-                    </div>
-                    
-                    <div className="header-sub-3">
-                
-                        <div className="header-group-3">
-
-                            <a href="#"></a>
-
-                            <a href="#"><i className="material-icons">apps</i></a>
-                            
-                            <button>
-                                <i className="material-icons special-icon">account_circle</i>
-                                Sign In
-                            </button>
-                            
-                        </div>
-                
-                    </div>
-                
-                </header>
+                <HeaderNewCommon />
 
                 <main className="main-menu">
 
@@ -88,7 +43,7 @@ export default function VideoItemPage() {
                     <div className="video-player">
 
                         {/* @ts-ignore */}
-                        <video id="videoPlayer" height="550" width="650" controls muted={true} autoplay={true}>
+                        <video id="videoPlayer" height="450" width="750" controls={true} autoplay={true}>
                             <source src={`http://localhost:4000/video/${videoItem.title}`} type="video/mp4" />
                         </video>
 
@@ -97,15 +52,15 @@ export default function VideoItemPage() {
                     <div className="video-bottom">
 
                         <div className="header-video">
-                            <h2>Linux users like</h2>
-                            <span >195,531 views - May 19, 2021</span>
+                            <h2>{videoItem.title}</h2>
+                            <span >1 views - {videoItem.createdAt}</span>
                         </div>
 
                         <div className="group-video-2">
                             <i className="material-icons">thumb_up</i>
-                            <span>10K</span>
+                            <span>{videoItem.countLikesInside}</span>
                             <i className="material-icons">thumb_down</i>
-                            <span>547</span>
+                            <span>{videoItem.countDislikesInside}</span>
                             <i className="material-icons">share</i>
                             <span>Share</span>
                             <i className="material-icons">save</i>
@@ -119,22 +74,22 @@ export default function VideoItemPage() {
 
                         <div className="wrapper">
 
-                            <img className="img-video" src="../images/logos/human.jpg" />
+                            <img className="img-video" src={`http://localhost:4000/avatar/${videoItem.userWhoCreatedIt.userName}`} />
 
                             <div className="title-wrapper">
 
                                 <h3 className="title-video">
-                                    Jeremiah Peoples
+                                    {videoItem.userWhoCreatedIt.userName}
                                 </h3>
 
                                 <span className="span-video">
-                                    50.6K subscribers
+                                    {videoItem.userWhoCreatedIt.countSubscribers} Subscribers
                                 </span>
 
                             </div>
 
                             <p className="p-video">
-                                My name is Jeremiah and I am self taught software engineer Lorem ipsum dolor sit amet, consectetur adipisicing.
+                                {videoItem.description}
                             </p>
 
                             <a href="#" className="a-video">Show More</a>
@@ -155,7 +110,7 @@ export default function VideoItemPage() {
 
                         <div className="ribbon-wrapper-row-1">
 
-                            <span className="span2-ribbon">708 Comments</span>
+                            <span className="span2-ribbon">{videoItem.countCommentsInside} Comments</span>
                             <i className="material-icons">more_horiz</i>
                             <span className="span2-ribbon">SORT BY</span>
 
@@ -172,30 +127,41 @@ export default function VideoItemPage() {
 
                     <div className="video-comments">
 
-                        <div className="comments-wrapper">
+                        {
 
-                            <img className="img-comments"src="../images/logos/human.jpg" alt="" />
+                            //@ts-ignore
+                            videoItem.comments.map(comment => 
+                                
+                                <div className="comments-wrapper">
 
-                            <div className="h4-wrapper">
-                                <h4 className="h4-comments">Jeremiah Peoples</h4>
-                                <span className="span-1-comments"> 1 year ago</span>
-                            </div>
+                                    <img className="img-comments"  src={`http://localhost:4000/avatar/${comment.userWhoCreatedIt.userName}`} alt="" />
 
-                            <p className="p-comments">I’m also a visual learner. Currently learning CSS and Hope to learn enough to get into the field soon. Great video!!</p>
-                            
-                            <div className="like-wrapper">
+                                    <div className="h4-wrapper">
+                                        <h4 className="h4-comments">{comment.userWhoCreatedIt.userName}</h4>
+                                        <span className="span-1-comments">{comment.createdAt}</span>
+                                    </div>
 
-                                <i className="material-icons">thumb_up</i>
-                                <span className="span-2-comments">315</span>
+                                    <p className="p-comments">{comment.content}</p>
+                                    
+                                    <div className="like-wrapper">
 
-                                <i className="material-icons">thumb_down</i>
-                                <span className="span-reply">REPLY</span>
+                                        <i className="material-icons">thumb_up</i>
+                                        <span className="span-2-comments">{comment.countLikesInside}</span>
 
-                            </div>
+                                        <i className="material-icons">thumb_down</i>
+                                        <span className="span-2-comments">{comment.countDislikesInside}</span>
 
-                            <a href="#" className="a-comments">View 35 replies</a>
-                        
-                        </div>
+                                        <span className="span-reply">REPLY</span>
+
+                                    </div>
+
+                                    <a href="#" className="a-comments">View 0 replies</a>
+                                
+                                </div>
+
+                            )
+
+                        }
 
                     </div>
 

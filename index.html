@@ -13,7 +13,19 @@
   </head>
 
   <body>
+    
     <div id="root"></div>
+
+    <script type="text/javascript">
+      vidContent = document.getElementById('videoPlayer');
+      vidContent.addEventListener("loadedmetadata", function(e) {
+        var newHeight = (vidContent.width/this.videoWidth) * this.videoHeight;
+        vidContent.style.height = parseInt(Math.ceil(newHeight)) + "px";
+      }, false);
+    </script>
+
   </body>
+
+  
 
 </html>

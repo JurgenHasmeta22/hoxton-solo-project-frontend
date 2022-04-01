@@ -5,8 +5,8 @@ section.container-VideoPage {
     grid-template: 
     "header header" 0.1fr
     "main-menu right-menu" 0.9fr /
-    0.6fr 0.4fr;
-    grid-gap: 10px;
+    0.7fr 0.3fr;
+    grid-gap: 40px;
     /* overflow: scroll; */
 
 }
@@ -17,7 +17,7 @@ section.container-VideoPage main.main-menu {
     background-color: #f9f9f9;
     display: grid;
     grid-template-rows: 0.9fr 0.1fr;
-    grid-gap: 20px;
+    grid-gap: 30px;
     width: 100%;
     overflow: scroll;
     align-content: start;
@@ -29,147 +29,10 @@ section.container-VideoPage aside.right-menu {
     width: 100%;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 20px;
     /* place-items: center; */
     background-color: #f6f0f0;
     overflow: scroll;
-}
-
-section.container-VideoPage header.header {
-    grid-area: header;
-    
-    width: 100%;
-    display: grid;
-    grid-template: 
-    "header-sub-1 header-sub-2 header-sub-3" 1fr /
-    0.2fr 0.9fr auto; /* this is where the bug was wich cause header problems, i had all three at 1fr 1fr 1fr but when i tried auto in the last part all went perfect when responsive*/
-    background-color: #f9f9f9;
-    grid-gap: 5px;
-    /* position: fixed; */
-    /* z-index: 1; */
-}
-
-section.container-VideoPage header.header .header-sub-1 {
-    grid-area: header-sub-1;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    /* align-content: start; */
-}
-
-section.container-VideoPage header.header .header-sub-2 {
-    grid-area: header-sub-2;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    /* align-content: start; */
-}
-
-section.container-VideoPage header.header .header-sub-3 {
-    grid-area: header-sub-3;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    /* align-content: start; */
-    width: 100%;
-}
-
-header.header .header-sub-1 .header-group-1 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: center;
-    grid-gap: 10px;
-    width: 100%;
-}
-
-header.header .header-sub-2 .header-group-2 {
-    display: grid;
-    grid-template-columns: 550px auto;
-    place-items: center;
-    justify-content: center;
-    grid-gap: 10px;
-    width: 100%;
-}
-
-header.header .header-sub-3 .header-group-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    grid-gap: 5px;
-    place-items: center;
-    /* justify-content: center; */
-    /* padding-right: 10px; */
-    width: 100%;
-}
-
-header.header .header-sub-3 .header-group-3 button {
-    text-transform: uppercase;
-    border: 1px solid #065fd4;
-    background-color: #fff;
-    font-size: 14px;
-    padding: 8px 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    font-family: 'Roboto', sans-serif;
-    color: #065fd4;
-    margin-right: 10px;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: center;
-}
-
-header.header .header-sub-3 .header-group-3 button i {
-    color: #065fd4;
-}
-
-header.header .header-sub-3 .header-group-3 button:hover i {
-    color: #e0e4eb;
-    transition: 1s;
-}
-
-header.header .header-sub-3 .header-group-3 button:hover {
-    background-color: #065fd4;
-    color: #fff;
-    border: 1px solid #111111;
-    transition: 1s;
-}
-
-header.header .header-sub-2 .header-group-2 .button-search {
-    
-    display: grid;
-    grid-template-columns: 1fr 0.1fr;
-    width: 100%;
-}
-
-header.header .header-sub-2 .header-group-2 a i{
-    font-size: 26px;
-}
-
-
-header.header .header-sub-2 .header-group-2 input {
-    font-size: 16px;
-    background-color: #fff;
-    color: #111111;
-    letter-spacing: normal;
-    font-weight: normal;
-    border: 1px solid #b1b7c0;
-    padding: 8px 10px;
-    width: 100%;
-}
-
-header.header .header-sub-2 .header-group-2 button {
-    padding: 8px 10px;
-    font-size: 16px;
-    background-color: #f5eded;
-    border: 1px solid #1e1f20;
-    cursor: pointer;
-}
-
-header.header .header-sub-2 .header-group-2 input:active {
-    border: 1px solid #065fd4;
 }
 
 aside.right-menu .right-menu-post {
@@ -225,11 +88,18 @@ main.main-menu .video-player {
 main.main-menu .video-bottom {
     /* outline: 0.5px solid #000; */
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 30px;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     border-bottom: 1px solid #065fd4;
 }
+
+#videoPlayer {
+    width: 750px;
+    height: 450px;
+    border: 1px solid #F00;
+    object-fit:cover; /* for those who do support it */
+  }
 
 main.main-menu .video-bottom .header-video {
     display: grid;
@@ -300,6 +170,8 @@ main.main-menu .video-username .wrapper .title-wrapper {
 main.main-menu .video-username img.img-video {
     grid-area: img-video;
     border-radius: 50px;
+    height: 50px;
+    width: 50px;
 }
 main.main-menu .video-username h3.title-video {
     grid-area: title-video;
@@ -474,8 +346,6 @@ main.main-menu .video-comments .comments-wrapper .a-comments {
 main.main-menu .video-comments .comments-wrapper .a-comments{
     color: #065fd4;
 }
-
-
 
 /*making the site responsive */
 @media screen and (max-width: 1250px) {
