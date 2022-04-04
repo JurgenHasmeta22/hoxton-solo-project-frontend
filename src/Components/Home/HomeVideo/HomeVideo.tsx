@@ -193,7 +193,7 @@ export default function HomeVideo({video}:any) {
                 <img className="icon-post" src={`http://localhost:4000/avatar/${video.userWhoCreatedIt.userName}`} alt="" />
                 <h2 className="video-title">{video.title}</h2>
                 <span className="video-user">{video.userWhoCreatedIt.userName}</span>
-                <span className="video-views">0 views - 3 weeks ago </span>
+                <span className="video-views">0 views - {video.createdAt} </span>
             
             </div>
         

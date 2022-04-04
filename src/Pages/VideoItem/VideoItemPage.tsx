@@ -1,14 +1,17 @@
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommon"
 import { useStore } from "../../Zustand/store"
 import "./VideoItemPage.css"
+import ReactLoading from 'react-loading';
 
 export default function VideoItemPage({validateUser}:any) {
 
     const params = useParams()
+    const navigate = useNavigate()
 
-    const {videoItem, setVideoItem} = useStore()
+    const {videoItem, setVideoItem, user, videos} = useStore()
+    const videosFiltered = videos.filter(video => video.id !== videoItem?.id)
 
     useEffect(() => {
         validateUser();
@@ -26,7 +29,13 @@ export default function VideoItemPage({validateUser}:any) {
     useEffect(getIndividualBlogFromServer, [])
 
     if (videoItem === null) {
-        return <main>Loading...</main>
+        
+        return (
+            <div className="loading-wrapper">
+                <ReactLoading type={"spin"} color={"#000"} height={200} width={100} className="loading" />
+            </div>
+        )
+
     }
 
     if (videoItem.title === undefined) {
@@ -47,7 +56,7 @@ export default function VideoItemPage({validateUser}:any) {
                     <div className="video-player">
 
                         {/* @ts-ignore */}
-                        <video id="videoPlayer" height="450" width="750" controls={true} autoplay={true}>
+                        <video id="videoPlayer" height="450" width="750" controls={true} autoplay={false} muted={false}>
                             <source src={`http://localhost:4000/video/${videoItem.title}`} type="video/mp4" />
                         </video>
 
@@ -69,12 +78,12 @@ export default function VideoItemPage({validateUser}:any) {
                             <span>Share</span>
                             <i className="material-icons">save</i>
                             <span>Save</span>
-                            <i className="material-icons">more_horiz</i>
+                            {/* <i className="material-icons">more_horiz</i> */}
                         </div>
 
                     </div>
 
-                    `<div className="video-username">
+                    <div className="video-username">
 
                         <div className="wrapper">
 
@@ -96,14 +105,16 @@ export default function VideoItemPage({validateUser}:any) {
                                 {videoItem.description}
                             </p>
 
-                            <a href="#" className="a-video">Show More</a>
+                            {/* <a href="#" className="a-video">Show More</a> */}
 
                             <div className="btn-wrapper">
 
-                                <button className="btn-video">
-                                    SUBSCRIBE
-                                </button>
-
+                                {user?.userName !== videoItem.userWhoCreatedIt.userName ? (
+                                    <button className="btn-video">
+                                        SUBSCRIBE
+                                    </button>
+                                ): null}
+                                
                             </div>
 
                         </div>
@@ -115,16 +126,26 @@ export default function VideoItemPage({validateUser}:any) {
                         <div className="ribbon-wrapper-row-1">
 
                             <span className="span2-ribbon">{videoItem.countCommentsInside} Comments</span>
-                            <i className="material-icons">more_horiz</i>
-                            <span className="span2-ribbon">SORT BY</span>
+                            {/* <i className="material-icons">more_horiz</i> */}
+                            {/* <span className="span2-ribbon">SORT BY</span> */}
 
                         </div>
 
                         <div className="ribbon-wrapper-row-2">
+                            
+                            { user ? (
 
-                            <img className="img-ribbon" src="../images/logos/human-2.jpg" alt="" />
+                                    <img className="img-ribbon" src={`http://localhost:4000/avatar/${user?.userName}`} alt="" />
+                                
+                                ): (
+                                    <img className="img-ribbon" src="/assets/images/logos/human-2.jpg" alt="" />
+                                )
+
+                            }
+
                             {/* @ts-ignore */}
                             <textarea class="text-ribbon" placeholder="Add a public comment: " name="text" id="" cols="80" rows="3"></textarea>
+                        
                         </div>            
 
                     </div>
@@ -173,12 +194,22 @@ export default function VideoItemPage({validateUser}:any) {
                 
                 <aside className="right-menu">
 
-                        <div className="right-menu-post"  >
-                            <img className="image-post" src="../images/main/foto-2.webp" alt="" />
-                            <h2 className="video-title">If Apple made window blind Lorem ipsum dolor sit amet consectetur.</h2>
-                            <span className="video-user">seatbeans22</span>
-                            <span className="video-views">153K views - 3 weeks ago </span>
+                    {/* @ts-ignore */}
+                    {videosFiltered.map(video => 
+                        
+                        <div className="right-menu-post" onClick={function () {
+                            navigate(`/videos/${video?.id}`)
+                            window.location.reload()
+                        }}>
+
+                            <img className="image-post" src={`http://localhost:4000/thumbnail/${video?.title}`} alt="" />
+                            <h2 className="video-title">{video?.title}</h2>
+                            <span className="video-user">{video?.userWhoCreatedIt?.userName}</span>
+                            <span className="video-views">0 views - {video?.createdAt} </span>
+                        
                         </div>
+
+                    )}
 
                 </aside>
 

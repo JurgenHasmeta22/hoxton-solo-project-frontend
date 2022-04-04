@@ -21,6 +21,14 @@
     width: 10px;  
 } */
 
+.loading-wrapper {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    z-index: 1;
+    background-color: #fff;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 12px;

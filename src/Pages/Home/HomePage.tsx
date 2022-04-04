@@ -3,6 +3,7 @@ import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommo
 import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
 import { useStore } from "../../Zustand/store"
 import "./HomePage.css"
+import ReactLoading from 'react-loading';
 
 export default function HomePage({validateUser}:any) {
 
@@ -35,7 +36,13 @@ export default function HomePage({validateUser}:any) {
     useEffect(getCategoriesFromServer, [])
 
     if (!videos) {
-        return <main className="videos-loading">videos are loading...</main>;
+
+        return (
+            <div className="loading-wrapper">
+                <ReactLoading type={"spin"} color={"#000"} height={200} width={100} className="loading" />
+            </div>
+        )    
+    
     }
 
     return (

@@ -4,6 +4,7 @@ import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
 import FileUpload from "../../Components/FileUpload/FileUpload"
 import { useStore } from "../../Zustand/store"
 import "./ProfilePage.css"
+import ReactLoading from 'react-loading';
 
 export default function ProfilePage({validateUser}:any) {
 
@@ -47,15 +48,27 @@ export default function ProfilePage({validateUser}:any) {
     // useEffect(getFollowersFromServer, [])
 
     if (userItem === null) {
-        return <main>Loading...</main>
+
+        return (
+            <div className="loading-wrapper">
+                <ReactLoading type={"spin"} color={"#000"} height={200} width={100} className="loading" />
+            </div>
+        )    
+    
     }
 
     if (userItem.userName === undefined) {
-        return <main>Blog Article not found</main>
+        return <main>User not found not found</main>
     }
 
     if(user === null) {
-        return <main>Loading...</main>
+
+        return (
+            <div className="loading-wrapper">
+                <ReactLoading type={"spin"} color={"#000"} height={200} width={100} className="loading" />
+            </div>
+        )
+        
     }
 
     const userCheck = user.userName === userItem.userName
@@ -109,11 +122,23 @@ export default function ProfilePage({validateUser}:any) {
 
                             <div className="upload-video">
 
-                                <h2>Upload a video to get started</h2>
-                                <p>Start sharing your story and connecting with viewers. Videos you upload will show up here.</p>
-                                {/* <button>Upload Video</button> */}
+                                {user.userName === userItem.userName ? (
 
-                                <FileUpload validateUser = {validateUser} />
+                                    <>
+
+                                        <h2>Upload a video to get started</h2>
+                                        <p>Start sharing your story and connecting with viewers. Videos you upload will show up here.</p>
+                                        {/* <button>Upload Video</button> */}
+
+                                        <FileUpload validateUser = {validateUser} />
+                                    
+                                    </>
+
+                                ): (
+                                    <span>You cant upload if you are not this user</span>
+                                )
+                                
+                            }
 
                             </div>
 
