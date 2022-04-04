@@ -54,7 +54,7 @@ section.container-profile-menus .profile-info {
 
 .container-tabs .list-tabs {
     display: grid;
-    grid-template-columns: repeat(4, 0.25fr);
+    grid-template-columns: repeat(5, 0.2fr);
     grid-gap: 30px;
     place-items: center;
     height: 70px;
@@ -94,6 +94,7 @@ section.container-profile-menus .profile-info {
     display: grid;
     grid-template-columns: repeat(4, 0.25fr);
     grid-gap: 20px;
+    place-items: center;
 }
 
 .special-video-you {

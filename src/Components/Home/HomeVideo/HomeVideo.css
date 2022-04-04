@@ -1,4 +1,4 @@
-main.main-menu .main-post {
+.main-post {
     /* outline: 0.5px solid #1e1f20; */
     display: grid;
     grid-template: 
@@ -13,7 +13,7 @@ main.main-menu .main-post {
     cursor: pointer;
 }
 
-main.main-menu .main-post:hover
+.main-post:hover
 {
     transform: scale(1.2);
     margin-right: 3%;
@@ -25,29 +25,29 @@ main.main-menu .main-post:hover
     -o-transform: scale(1.2);
 }
 
-main.main-menu .main-post .video-title {
+.main-post .video-title {
     grid-area: video-title;
     font-size: 14px;
     padding-bottom: 5px;
 }
 
-main.main-menu .main-post .video-user {
+.main-post .video-user {
     grid-area: video-user;
     font-size: 12px;
 }
 
-main.main-menu .main-post .video-views {
+.main-post .video-views {
     grid-area: video-views;
     font-size: 12px;
 }
 
-main.main-menu .main-post img.image-post {
+ .main-post img.image-post {
     height: 150px;
     width: 260px;
     grid-area: image-post;
 }
 
-main.main-menu .main-post img.icon-post {
+.main-post img.icon-post {
     border-radius: 20px;
     height: 36px;
     width: 36px;
