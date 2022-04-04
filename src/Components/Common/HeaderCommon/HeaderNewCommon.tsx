@@ -53,8 +53,6 @@ export default function HeaderNewCommon() {
                             <button type="submit"><i className="fa fa-search"></i></button>
                         </div>
 
-                        <a href="#"><i className="fas fa-microphone"></i></a>
-
                     </div>
 
                 </div>

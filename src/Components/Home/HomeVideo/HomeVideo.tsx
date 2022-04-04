@@ -11,7 +11,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
     const navigate = useNavigate()
 
-    console.log("Video", video, "VideoLiked", videoLiked, "videoSaved", videoSaved, "videoMine", videoMine)
+    // console.log("Video", video, "VideoLiked", videoLiked, "videoSaved", videoSaved, "videoMine", videoMine)
    
     function handleRedirectToUser(userId:any) {
         navigate(`/users/${userId}`)
@@ -56,6 +56,41 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
     
         });
                 
+    }
+
+    async function removeVideo(videoId:any) {
+    
+        try {
+    
+          await fetch(`http://localhost:4000/videos/${videoId}`, {
+        
+                method: "DELETE",
+        
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token
+                }
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+    
+            if (data.error) {
+                alert(data.error);
+            } 
+            
+            else {
+                setVideos(data);
+            }
+    
+          });
+    
+        }
+    
+        catch (err:any) {
+          console.log({"its error": err})
+        }
+        
     }
 
     return (
@@ -145,7 +180,12 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                             handleRedirectToUser(user?.id)
                         }}>{user?.userName} </span>
                         
-                        <span className="video-views">{videoMine?.views} views - {videoMine?.createdAt} </span>
+                        <span className="video-views">{videoMine?.views} views - {videoMine?.createdAt}</span>
+                        
+                        <button className="remove-my-video" onClick={function (e) {
+                            e.stopPropagation()
+                            removeVideo(videoMine?.id)
+                        }}>X</button>
                     
                     </div>
                 

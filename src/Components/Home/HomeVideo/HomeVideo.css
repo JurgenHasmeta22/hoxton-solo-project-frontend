@@ -31,6 +31,13 @@
     padding-bottom: 5px;
 }
 
+.remove-my-video {
+    background-color: rgba(227, 54, 54, 0.898);
+    font-weight: 900;
+    border: none;
+    cursor: pointer;
+}
+
 .main-post .video-user {
     grid-area: video-user;
     font-size: 12px;

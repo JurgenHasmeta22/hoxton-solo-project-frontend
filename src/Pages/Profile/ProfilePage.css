@@ -95,6 +95,7 @@ section.container-profile-menus .profile-info {
     grid-template-columns: repeat(4, 0.25fr);
     grid-gap: 20px;
     place-items: center;
+    padding-bottom: 80px;
 }
 
 .special-video-you {
