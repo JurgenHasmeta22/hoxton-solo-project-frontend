@@ -64,7 +64,7 @@ export default function LoginPage({validateUser}:any) {
                         <label htmlFor="">
 
                             <input
-                                type="text"
+                                type="password"
                                 name="password"
                                 placeholder="Enter your password"
                                 required

@@ -5,8 +5,13 @@ import ContactContainer2 from "../../Components/Contact/ContactContainer2/Contac
 import ContactContainer3 from "../../Components/Contact/ContactContainer3/ContactContainer3"
 import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
 import FooterCommon from "../../Components/Common/FooterCommon/FooterCommon"
+import { useEffect } from "react"
 
 function ContactPage({validateUser}:any) {
+
+    useEffect(() => {
+        validateUser();
+    }, []);
 
     return (
 

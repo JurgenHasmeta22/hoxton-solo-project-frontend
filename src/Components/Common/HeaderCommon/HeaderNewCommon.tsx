@@ -1,6 +1,30 @@
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../../../Zustand/store";
 import "./HeaderNewCommon.css"
 
 export default function HeaderNewCommon() {
+    
+    const navigate = useNavigate()
+    const { setUser, setSearchTerm, user } = useStore()
+
+    function handleLogOut(e: any) {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        setUser(null);
+        navigate("/login");
+    }
+
+    function submitSearch(inputValue: any) {
+        setSearchTerm(inputValue);
+    }
+    
+    function redirectToHome() {
+        navigate("../home");
+    }
+
+    function redirectToProfile(user: any) {
+        navigate(`../users/${user.id}`);
+    }
     
     return (
 
@@ -12,7 +36,9 @@ export default function HeaderNewCommon() {
 
                     <div className="header-group-1">
                         <a href="#"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px" height="20px" viewBox="0 0 122.879 103.609" enable-background="new 0 0 122.879 103.609" xmlSpace="preserve"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M10.368,0h102.144c5.703,0,10.367,4.665,10.367,10.367v0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,20.735,0,16.07,0,10.368v0C0,4.665,4.666,0,10.368,0L10.368,0z M10.368,82.875 h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0c0,5.702-4.664,10.367-10.367,10.367H10.368C4.666,103.609,0,98.944,0,93.242l0,0 C0,87.54,4.666,82.875,10.368,82.875L10.368,82.875z M10.368,41.438h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,62.173,0,57.507,0,51.805l0,0C0,46.103,4.666,41.438,10.368,41.438 L10.368,41.438z"/></g></svg></a>
-                        <span className="videoManiaLogo">VideoMania</span>
+                        <span className="videoManiaLogo" onClick={() => {
+                          redirectToHome()
+                        }}>VideoMania</span>
                     </div>
 
                 </div>
@@ -36,10 +62,45 @@ export default function HeaderNewCommon() {
 
                     <div className="header-group-3">
                         
-                        <button>
-                            <i className="material-icons special-icon">account_circle</i>
-                            Sign In
-                        </button>
+                        { user === null ? (
+
+                            <button>
+                                <i className="material-icons special-icon">account_circle</i>
+                                Sign In
+                            </button>
+
+                        ): (
+
+                            <div className="dropdown">
+
+                              <li
+                                className="dropbtn"
+                                onClick={function () {
+                                  redirectToProfile(user);
+                                }}
+                              >
+
+                                <img src={`http://localhost:4000/avatar/${user?.userName}`} />
+                                {user.userName}
+                              </li>
+                    
+                              <div className="dropdown-content">
+
+                                <button
+                                  className="log-out"
+                                  onClick={function (e) {
+                                    handleLogOut(e);
+                                  }}
+                                >
+                                  <span>Log Out</span>
+
+                                </button>
+
+                              </div>
+
+                            </div>
+
+                          )}
 
                     </div>
 

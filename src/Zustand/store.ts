@@ -12,6 +12,10 @@ export const useStore = create<AppStoreState>((set, get):AppStoreState => ({
     userItem: null,
     categories: [],
     videoItem: null,
+    
+    setSearchTerm: (string) => {
+        set({searchTerm: string})
+    },
 
     setVideoItem: (data) => {
         set({videoItem: data})

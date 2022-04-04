@@ -72,20 +72,20 @@ function App() {
         <Route index element={<Navigate replace to="/welcome" />} />
         
         <Route path="/home" element={
-          <HomePage />} 
+          <HomePage validateUser = {validateUser} />} 
         />
 
         <Route path="/videos/:id" element={
-          <VideoItemPage />} 
+          <VideoItemPage validateUser = {validateUser} />} 
         />
 
         <Route path="/users/:id" element={
-          <ProfilePage />} 
+          <ProfilePage validateUser = {validateUser} />} 
         />
 
-        <Route path="/profile" element={
-          <ProfilePage />} 
-        />
+        {/* <Route path="/profile" element={
+          <ProfilePage validateUser = {validateUser} />} 
+        /> */}
 
         <Route path="/login" element={
           <LoginPage 
@@ -106,15 +106,15 @@ function App() {
         />
         
         <Route path="/welcome" element={
-          <WelcomePage />} 
+          <WelcomePage validateUser = {validateUser} />} 
         />
         
         <Route path="*" element={
-          <ErrorPage/>} 
+          <ErrorPage validateUser = {validateUser} />} 
         />
 
         <Route path="/fileUpload" element={
-          <FileUpload />} 
+          <FileUpload validateUser = {validateUser} />} 
         />
       
       </Routes>

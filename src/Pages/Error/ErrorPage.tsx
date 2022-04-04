@@ -1,4 +1,10 @@
-export default function ErrorPage() {
+import { useEffect } from "react";
+
+export default function ErrorPage({validateUser}:any) {
+
+    useEffect(() => {
+        validateUser();
+    }, []);
 
     return (
 

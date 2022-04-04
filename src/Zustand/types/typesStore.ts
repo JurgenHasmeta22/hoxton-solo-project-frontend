@@ -11,7 +11,8 @@ export type User = {
     createdAt?: Date,
     updatedAt?: Date,
     countSubscribers?: number,
-    description?: string
+    description?: string,
+    avatar?: any,
 
 }
 

@@ -4,12 +4,16 @@ import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommo
 import { useStore } from "../../Zustand/store"
 import "./VideoItemPage.css"
 
-export default function VideoItemPage() {
+export default function VideoItemPage({validateUser}:any) {
 
     const params = useParams()
 
     const {videoItem, setVideoItem} = useStore()
 
+    useEffect(() => {
+        validateUser();
+    }, []);
+    
     async function getIndividualBlogFromServer ():Promise<void> {
 
         await fetch(`http://localhost:4000/videos/${params.id}`)

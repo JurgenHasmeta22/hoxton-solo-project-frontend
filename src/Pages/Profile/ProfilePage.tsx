@@ -1,11 +1,64 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
 import FileUpload from "../../Components/FileUpload/FileUpload"
+import { useStore } from "../../Zustand/store"
 import "./ProfilePage.css"
 
-export default function ProfilePage() {
+export default function ProfilePage({validateUser}:any) {
 
     const [tab, setTab] = useState<any>("home")
+    const { user, userItem, setUserItem, users } = useStore()
+
+    useEffect(() => {
+        validateUser();
+    }, []);
+
+    const params = useParams()
+
+    // function getUsersFromServer () {
+
+    //     fetch(`http://localhost:4000/users`)
+    //     .then(resp => resp.json())
+    //     .then(usersFromServer => setUsers(usersFromServer))
+        
+    // }
+
+    // useEffect(getUsersFromServer, [])
+
+    function getIndividualUserFromServer () {
+
+        fetch(`http://localhost:4000/users/${params.id}`)
+            .then(resp => resp.json())
+            .then(userFromServer => setUserItem(userFromServer))
+        
+    }
+    
+    useEffect(getIndividualUserFromServer, [])
+
+    // function getFollowersFromServer () {
+
+    //     fetch(`http://localhost:4000/subscribers`)
+    //     .then(resp => resp.json())
+    //     .then(followersFromServer => setFollowers(followersFromServer))
+        
+    // }
+
+    // useEffect(getFollowersFromServer, [])
+
+    if (userItem === null) {
+        return <main>Loading...</main>
+    }
+
+    if (userItem.userName === undefined) {
+        return <main>Blog Article not found</main>
+    }
+
+    if(user === null) {
+        return <main>Loading...</main>
+    }
+
+    const userCheck = user.userName === userItem.userName
 
     return (
 
@@ -19,9 +72,9 @@ export default function ProfilePage() {
 
                     <div className="profile-info">
 
-                        <img src="/assets/images/logos/human.jpg" />
-                        <span className="subscribe-span">0 Subscribers</span>
-                        <span className="userName-span">Avenger22</span>
+                        <img src={`http://localhost:4000/avatar/${userItem.userName}`} />
+                        <span className="subscribe-span">{userItem.countSubscribers} Subscribers</span>
+                        <span className="userName-span">{userItem.userName}</span>
 
                     </div>
 
@@ -60,7 +113,8 @@ export default function ProfilePage() {
                                 <p>Start sharing your story and connecting with viewers. Videos you upload will show up here.</p>
                                 {/* <button>Upload Video</button> */}
 
-                                <FileUpload />
+                                <FileUpload validateUser = {validateUser} />
+
                             </div>
 
                         ): tab === "videos" ? (

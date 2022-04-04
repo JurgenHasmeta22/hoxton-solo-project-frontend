@@ -4,9 +4,13 @@ import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
 import { useStore } from "../../Zustand/store"
 import "./HomePage.css"
 
-export default function HomePage() {
+export default function HomePage({validateUser}:any) {
 
     const { videos, setVideos, setCategories, categories } = useStore()
+
+    useEffect(() => {
+        validateUser();
+    }, []);
 
     async function getVideosFromServer():Promise<void> {
 

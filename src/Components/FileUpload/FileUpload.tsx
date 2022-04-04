@@ -1,10 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
 import "./FileUpload.css"
 
-export default function FileUpload() {
+export default function FileUpload({validateUser}:any) {
+
+  useEffect(() => {
+    validateUser();
+  }, []);
 
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');

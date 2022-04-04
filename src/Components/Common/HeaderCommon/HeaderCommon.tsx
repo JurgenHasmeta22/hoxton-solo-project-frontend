@@ -1,9 +1,22 @@
 import "./HeaderCommon.css"
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useStore } from "../../../Zustand/store";
 
 export default function HeaderCommon() {
 
     const navigate = useNavigate()
+    const { user, setUser } = useStore()
+
+    function handleLogOut(e: any) {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        setUser(null);
+        navigate("/login");
+    }
+
+    function redirectToProfile(user: any) {
+        navigate(`../users/${user.id}`);
+    }
 
     return (
 
@@ -18,8 +31,47 @@ export default function HeaderCommon() {
                 </div>
 
                 <div className="header-group-2">
-                    <button>Login</button>
-                    <button>Register</button>
+
+                    { user === null ? (
+
+                        <>
+                            <button>Login</button>
+                            <button>Register</button>
+                        </>
+
+                    ): (
+
+                        <div className="dropdown">
+
+                            <li
+                                className="dropbtn"
+                                onClick={function () {
+                                    redirectToProfile(user);
+                            }}
+                            >
+
+                            <img src={`http://localhost:4000/avatar/${user?.userName}`} />
+                                {user.userName}
+                            </li>
+                
+                            <div className="dropdown-content">
+
+                            <button
+                                className="log-out"
+                                onClick={function (e) {
+                                handleLogOut(e);
+                                }}
+                            >
+                                <span>Log Out</span>
+
+                            </button>
+
+                            </div>
+
+                        </div>
+
+                    )}
+
                 </div>
 
             </header>

@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import FooterCommon from "../../Components/Common/FooterCommon/FooterCommon"
 import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
 import "./WelcomePage.css"
 
-export default function WelcomePage() {
+export default function WelcomePage({validateUser}:any) {
+
+    useEffect(() => {
+        validateUser();
+    }, []);
 
     return (
 
