@@ -100,20 +100,23 @@ export default function ProfilePage({validateUser}:any) {
 
                         <li className= {tab === "home" ? "clicked": "home-tab"} onClick={() => {
                             setTab("home")
-
-                        }}>Home</li>
+                        }}>Upload</li>
 
                         <li className= {tab === "videos" ? "clicked": "videos-tab"} onClick={() => {
                             setTab("videos")
                         }}>Videos</li>
 
-                        <li className= {tab === "playlists" ? "clicked": "playlists-tab"} onClick={() => {
-                            setTab("playlists")
-                        }}>Playlists</li>
+                        <li className= {tab === "saved" ? "clicked": "playlists-tab"} onClick={() => {
+                            setTab("saved")
+                        }}>Saved Videos</li>
 
+                        <li className= {tab === "liked" ? "clicked": "liked-tab"} onClick={() => {
+                            setTab("liked")
+                        }}>Liked Videos</li>
+                        
                         <li className= {tab === "about" ? "clicked": "about-tab"} onClick={() => {
                             setTab("about")
-                        }}>About</li>
+                        }}>About Channel</li>
 
                     </ul>
 
@@ -159,7 +162,12 @@ export default function ProfilePage({validateUser}:any) {
 
                                             <HomeVideo 
                                                 key = {video.id}
-                                                video = {video}
+                                                video = {null}
+                                                liked = {"not"}
+                                                videoLiked = {null}
+                                                videoSaved = {null}
+                                                user = {user}
+                                                videoMine = {video}
                                             />
 
                                         )
@@ -173,16 +181,66 @@ export default function ProfilePage({validateUser}:any) {
                         ): tab === "about" ? (
 
                             <div className="container-about">
-                                <span>{user.description}</span>
+                                <span>{user?.description}</span>
                             </div>
 
-                        ): tab === "playlists" ? (
+                        ): tab === "saved" ? (
 
                             <>
+                            
+                                <h3 className="special-video-you">Videos saved by you</h3>
 
-                                <h3 className="special-video-you">Playlists created by you</h3>
+                                <div className="container-videos">
 
-                                <div className="container-playlists">
+                                    {
+
+                                        // @ts-ignore
+                                        user?.videos?.map(video => 
+
+                                            <HomeVideo 
+                                                key = {video.id}
+                                                video = {null}
+                                                liked = {"not"}
+                                                videoLiked = {null}
+                                                videoSaved = {video}
+                                                user = {user}
+                                                videoMine = {null}
+                                            />
+
+                                        )
+
+                                    }
+
+                                </div>
+
+                            </>
+
+                        ): tab === "liked" ? (
+
+                            <>
+                            
+                                <h3 className="special-video-you">Videos liked by you</h3>
+
+                                <div className="container-videos">
+
+                                    {
+
+                                        // @ts-ignore
+                                        user?.videosLiked?.map(video => 
+
+                                            <HomeVideo 
+                                                key = {video.id}
+                                                video = {null}
+                                                liked = {"liked"}
+                                                videoLiked = {video}
+                                                videoSaved = {null}
+                                                user = {null}
+                                                videoMine = {null}
+                                            />
+
+                                        )
+
+                                    }
 
                                 </div>
 

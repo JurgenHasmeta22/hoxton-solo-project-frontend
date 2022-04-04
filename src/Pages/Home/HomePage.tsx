@@ -79,6 +79,11 @@ export default function HomePage({validateUser}:any) {
                                 <HomeVideo 
                                     key = {video.id}
                                     video = {video}
+                                    liked = {"not"}
+                                    videoLiked = {null}
+                                    videoSaved = {null}
+                                    user = {null}
+                                    videoMine = {null}
                                 />  
                                 
                             )
