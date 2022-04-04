@@ -5,6 +5,7 @@ import FileUpload from "../../Components/FileUpload/FileUpload"
 import { useStore } from "../../Zustand/store"
 import "./ProfilePage.css"
 import ReactLoading from 'react-loading';
+import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
 
 export default function ProfilePage({validateUser}:any) {
 
@@ -75,7 +76,7 @@ export default function ProfilePage({validateUser}:any) {
 
     return (
 
-        <>
+        <main>
 
             <HeaderCommon />
 
@@ -144,43 +145,47 @@ export default function ProfilePage({validateUser}:any) {
 
                         ): tab === "videos" ? (
 
-                            <div className="container-videos">
+                            <>
+                            
+                                <h3 className="special-video-you">Videos created by you</h3>
 
-                                <div className="main-post">
+                                <div className="container-videos">
 
-                                    <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
-                                    <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                    <h2 className="video-title">If Apple made window blind</h2>
-                                    <span className="video-user">seatbeans22</span>
-                                    <span className="video-views">153K views - 3 weeks ago </span>
-                                
+                                    {
+
+                                        // @ts-ignore
+                                        user?.videos?.map(video => 
+
+                                            <HomeVideo 
+                                                key = {video.id}
+                                                video = {video}
+                                            />
+
+                                        )
+
+                                    }
+
                                 </div>
 
-                            </div>
+                            </>
 
                         ): tab === "about" ? (
 
                             <div className="container-about">
-
-                                <span>I am jurgen</span>
-
+                                <span>{user.description}</span>
                             </div>
 
                         ): tab === "playlists" ? (
 
-                            <div className="container-playlists">
+                            <>
 
-                                <div className="main-post">
+                                <h3 className="special-video-you">Playlists created by you</h3>
 
-                                    <img className="image-post" src="assets/images/main/foto-1webp.webp" alt="" />
-                                    <img className="icon-post" src="assets/images/main/icon.jpg" alt="" />
-                                    <h2 className="video-title">If Apple made window blind</h2>
-                                    <span className="video-user">seatbeans22</span>
-                                    <span className="video-views">153K views - 3 weeks ago </span>
-                                
+                                <div className="container-playlists">
+
                                 </div>
 
-                            </div>
+                            </>
 
                         ):null
 
@@ -188,11 +193,9 @@ export default function ProfilePage({validateUser}:any) {
 
                 </div>
 
-                
-
             </section>
         
-        </>
+        </main>
 
     )
     

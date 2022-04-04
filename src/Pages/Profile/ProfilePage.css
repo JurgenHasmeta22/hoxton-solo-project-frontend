@@ -85,6 +85,27 @@ section.container-profile-menus .profile-info {
     letter-spacing: 3px;
 }
 
+.container-videos {
+    display: grid;
+    grid-template-columns: repeat(4, 0.25fr);
+    grid-gap: 20px;
+}
+
+.special-video-you {
+    font-size: 16px;
+    font-weight: 700;
+    /* text-align: center; */
+    display: grid;
+    place-self: center;
+    padding-top: 30px;
+}
+
+.container-videos .image-post {
+    height: 150px;
+    width: 260px;
+    grid-area: image-post;
+}
+
 .upload-video p {
     font-size: 16px;
     width: 75ch;
@@ -99,4 +120,14 @@ section.container-profile-menus .profile-info {
     background-color: rgb(243, 63, 63);
     border: none;
     outline: none;
+}
+
+.container-about {
+    display: grid;
+    place-items: center;
+}
+
+.container-about span {
+    font-size: 16px;
+    font-weight: 700;
 }

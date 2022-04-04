@@ -64,7 +64,9 @@ export default function HeaderNewCommon() {
                         
                         { user === null ? (
 
-                            <button>
+                            <button onClick={function () {
+                              navigate("../login")
+                            }}>
                                 <i className="material-icons special-icon">account_circle</i>
                                 Sign In
                             </button>
