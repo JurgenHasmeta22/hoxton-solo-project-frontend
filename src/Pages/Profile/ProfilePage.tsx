@@ -127,12 +127,13 @@ export default function ProfilePage({validateUser}:any) {
 
                                     <>
 
-                                        <h2>Upload a video to get started</h2>
-                                        <p>Start sharing your story and connecting with viewers. Videos you upload will show up here.</p>
+                                        <h2>Upload a video with thumbnail to get started</h2>
+                                        <p>Start sharing your story and connecting with viewers. Videos you upload will show up in videos tab.</p>
                                         {/* <button>Upload Video</button> */}
 
-                                        <FileUpload validateUser = {validateUser} />
-                                    
+                                        <FileUpload validateUser = {validateUser} typeOfUpload = {"video"} />
+                                        <FileUpload validateUser = {validateUser} typeOfUpload = {"thumbnail"} />
+
                                     </>
 
                                 ): (

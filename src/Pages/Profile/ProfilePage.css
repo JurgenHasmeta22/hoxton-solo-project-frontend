@@ -57,6 +57,7 @@ section.container-profile-menus .profile-info {
     grid-template-columns: repeat(4, 0.25fr);
     grid-gap: 30px;
     place-items: center;
+    height: 70px;
     background-color: rgb(236, 235, 235);
 }
 
@@ -74,9 +75,13 @@ section.container-profile-menus .profile-info {
 
 .container-tabs .upload-video {
     display: grid;
-    grid-template-rows: 80px 80px 150px;
+    grid-template-rows: 150px 150px 150px 150px;
     place-content: center;
     place-items: center;
+}
+
+.container-tabs .upload-video p {
+    width: 45ch;
 }
 
 .upload-video h2 {

@@ -3,12 +3,15 @@ import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
 import "./FileUpload.css"
+import { useStore } from '../../Zustand/store';
 
-export default function FileUpload({validateUser}:any) {
+export default function FileUpload({validateUser, typeOfUpload}:any) {
 
   useEffect(() => {
     validateUser();
   }, []);
+
+  const { setVideos, user } = useStore()
 
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
@@ -21,6 +24,52 @@ export default function FileUpload({validateUser}:any) {
     setFilename(e.target.files[0].name);
   };
 
+  const filenameRemoved = filename.substr(0, filename.length - 4);
+
+  async function addVideo() {
+
+    const videoData = {
+      title: filenameRemoved,
+      categoryId: 1,
+      userId: user?.id,
+      thumbnail: `/public/uploads/thumbnails/${filenameRemoved}.jpg`,
+      src: `/public/uploads/videos/${filenameRemoved}.mp4`,
+    }
+
+    try {
+
+      await fetch('http://localhost:4000/videos', {
+    
+            method: "POST",
+    
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.token
+            },
+    
+            body: JSON.stringify(videoData),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+
+        if (data.error) {
+            alert(data.error);
+        } 
+        
+        else {
+            setVideos(data);
+        }
+
+      });
+
+    }
+
+    catch (err:any) {
+      console.log({"its error": err})
+    }
+    
+  }
+
   async function onSubmit(e:any) {
 
     e.preventDefault();
@@ -28,49 +77,107 @@ export default function FileUpload({validateUser}:any) {
     const formData = new FormData();
     formData.append('file', file);
 
-    try {
+    if (typeOfUpload === "video") {
 
-      const res = await axios.post('http://localhost:4000/upload', formData, {
+      try {
 
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
+        const res = await axios.post('http://localhost:4000/uploadVideo', formData, {
 
-        onUploadProgress: progressEvent => {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
 
-          setUploadPercentage(
-            parseInt(
-              //@ts-ignore
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            )
+          onUploadProgress: progressEvent => {
 
-          );
+            setUploadPercentage(
+              parseInt(
+                //@ts-ignore
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              )
 
+            );
+
+          }
+
+        });
+        
+        // Clear percentage
+        setTimeout(() => setUploadPercentage(0), 10000);
+
+        const { fileName, filePath } = res.data;
+
+        setUploadedFile({ fileName, filePath });
+
+        setMessage('File Uploaded');
+
+        addVideo()
+
+      } 
+    
+      catch (err:any) {
+
+        if (err.response.status === 500) {
+          setMessage('There was a problem with the server');
+        } 
+        
+        else {
+          setMessage(err.response.data.msg);
         }
 
-      });
-      
-      // Clear percentage
-      setTimeout(() => setUploadPercentage(0), 10000);
+        setUploadPercentage(0)
 
-      const { fileName, filePath } = res.data;
-
-      setUploadedFile({ fileName, filePath });
-
-      setMessage('File Uploaded');
-    } 
-    
-    catch (err:any) {
-
-      if (err.response.status === 500) {
-        setMessage('There was a problem with the server');
-      } 
-      
-      else {
-        setMessage(err.response.data.msg);
       }
 
-      setUploadPercentage(0)
+    }
+
+    else {
+
+      try {
+
+        const res = await axios.post('http://localhost:4000/uploadThumbnail', formData, {
+
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+
+          onUploadProgress: progressEvent => {
+
+            setUploadPercentage(
+              parseInt(
+                //@ts-ignore
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              )
+
+            );
+
+          }
+
+        });
+        
+        // Clear percentage
+        setTimeout(() => setUploadPercentage(0), 10000);
+
+        const { fileName, filePath } = res.data;
+
+        setUploadedFile({ fileName, filePath });
+
+        setMessage('File Uploaded');
+
+      } 
+    
+      catch (err:any) {
+
+        if (err.response.status === 500) {
+          setMessage('There was a problem with the server');
+        } 
+        
+        else {
+          setMessage(err.response.data.msg);
+        }
+
+        setUploadPercentage(0)
+
+      }
 
     }
 
@@ -83,7 +190,13 @@ export default function FileUpload({validateUser}:any) {
       {/* @ts-ignore */}
       {message ? <Message msg={message} setMessage = {setMessage} /> : null}
 
-      <form onSubmit={onSubmit} className="file-upload-form">
+      <form 
+        className="file-upload-form" 
+        onSubmit={function (e) {
+          onSubmit(e)
+          // addVideo()
+        }} 
+      >
 
         <div className='custom-file mb-4'>
 
@@ -94,17 +207,13 @@ export default function FileUpload({validateUser}:any) {
             onChange={onChange}
           />
 
-          {/* <label className='custom-file-label' htmlFor='customFile'>
-            {filename}
-          </label> */}
-
         </div>
 
         <Progress percentage={uploadPercentage} />
 
         <input
           type='submit'
-          value='Upload Video'
+          value={typeOfUpload === "video" ? 'Upload Video': 'Upload Thumbnail'}
           className='upload-button'
         />
 
