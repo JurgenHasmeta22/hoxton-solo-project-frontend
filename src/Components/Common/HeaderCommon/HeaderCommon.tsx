@@ -25,7 +25,7 @@ export default function HeaderCommon() {
             <header className="header-welcome">
 
                 <div className="header-group-1">
-                    <span className="special-logo"><NavLink to = "/profile">VideoMania</NavLink></span>
+                    <span className="special-logo"><NavLink to = "../home">VideoMania</NavLink></span>
                     <span><NavLink to = "../home">Home</NavLink></span>
                     <span><NavLink to = "../welcome">About Us</NavLink></span>
                 </div>
@@ -35,8 +35,8 @@ export default function HeaderCommon() {
                     { user === null ? (
 
                         <>
-                            <button>Login</button>
-                            <button>Register</button>
+                            <button><NavLink to = "../login">Login</NavLink></button>
+                            <button><NavLink to = "../register">Register</NavLink></button>
                         </>
 
                     ): (

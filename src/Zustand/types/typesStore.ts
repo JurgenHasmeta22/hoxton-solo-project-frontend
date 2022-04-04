@@ -30,7 +30,8 @@ export type Video = {
     countDislikesInside?: number,
     countCommentsInside?: number,
     userWhoCreatedIt: User,
-    comments: any
+    comments: any,
+    views: number
 
 }
 

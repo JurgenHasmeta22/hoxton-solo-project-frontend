@@ -211,7 +211,7 @@ export default function VideoItemPage({validateUser}:any) {
                     <div className="video-player">
 
                         {/* @ts-ignore */}
-                        <video id="videoPlayer" height="450" width="750" controls={true} autoplay={false} muted={false}>
+                        <video id="videoPlayer" height="450" width="750" controls={true} autoPlay={false} muted={false}>
                             <source src={`http://localhost:4000/video/${videoItem.title}`} type="video/mp4" />
                         </video>
 
@@ -221,7 +221,7 @@ export default function VideoItemPage({validateUser}:any) {
 
                         <div className="header-video">
                             <h2>{videoItem.title}</h2>
-                            <span >1 views - {videoItem.createdAt}</span>
+                            <span >{videoItem.views} views - {videoItem.createdAt}</span>
                         </div>
 
                         <div className="group-video-2">
@@ -307,7 +307,7 @@ export default function VideoItemPage({validateUser}:any) {
                             }
 
                             {/* @ts-ignore */}
-                            <textarea class="text-ribbon" placeholder="Add a public comment: " name="text" id="" cols="80" rows="3"></textarea>
+                            <textarea className="text-ribbon" placeholder="Add a public comment: " name="text" id="" cols="80" rows="3"></textarea>
                         
                         </div>            
 
@@ -320,7 +320,7 @@ export default function VideoItemPage({validateUser}:any) {
                             //@ts-ignore
                             videoItem.comments.map(comment => 
                                 
-                                <div className="comments-wrapper">
+                                <div className="comments-wrapper" key={comment.id}>
 
                                     <img className="img-comments"  src={`http://localhost:4000/avatar/${comment.userWhoCreatedIt.userName}`} alt="" />
 
@@ -363,7 +363,7 @@ export default function VideoItemPage({validateUser}:any) {
                     {/* @ts-ignore */}
                     {videosFiltered.map(video => 
                         
-                        <div className="right-menu-post" onClick={function () {
+                        <div key={video.id} className="right-menu-post" onClick={function () {
                             navigate(`/videos/${video?.id}`)
                             window.location.reload()
                         }}>
@@ -371,7 +371,7 @@ export default function VideoItemPage({validateUser}:any) {
                             <img className="image-post" src={`http://localhost:4000/thumbnail/${video?.title}`} alt="" />
                             <h2 className="video-title">{video?.title}</h2>
                             <span className="video-user">{video?.userWhoCreatedIt?.userName}</span>
-                            <span className="video-views">0 views - {video?.createdAt} </span>
+                            <span className="video-views">{video?.views} views - {video?.createdAt} </span>
                         
                         </div>
 

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import { useStore } from "../../../Zustand/store"
 import "./HomeVideo.css"
 
 export default function HomeVideo({video}:any) {
@@ -8,12 +9,42 @@ export default function HomeVideo({video}:any) {
     function handleRedirectToUser(userId:any) {
         navigate(`/users/${userId}`)
     }
+
+    const { setVideos } = useStore()
     
+    function increaseView() {
+    
+        fetch(`http://localhost:4000/videosViews/${video.id}`, {
+    
+            method: "PATCH",
+    
+            headers: {
+                "Content-Type": "application/json"
+            },
+    
+            body: JSON.stringify({ views: video.views + 1 }),
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+    
+            if (data.error) {
+                alert(data.error);
+            } 
+            
+            else {
+                setVideos(data);
+            }
+    
+        });
+                
+    }
+
     return (
 
         <>  
 
             <div className="main-post" onClick={function () {
+                increaseView()
                 navigate(`/videos/${video.id}`)               
             }}>
 
@@ -26,7 +57,7 @@ export default function HomeVideo({video}:any) {
                     handleRedirectToUser(video?.userWhoCreatedIt?.countLikesInside)
                 }}>{video?.userWhoCreatedIt?.userName}</span>
                 
-                <span className="video-views">0 views - {video?.createdAt} </span>
+                <span className="video-views">{video?.views} views - {video?.createdAt} </span>
             
             </div>
         

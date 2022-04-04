@@ -47,6 +47,7 @@ aside.right-menu .right-menu-post {
     grid-column-gap: 10px;
     justify-content: left;
     align-content: start;
+    cursor: pointer;
     align-items: center; /*combo to make something to start in left but centered great combo */
 }
 

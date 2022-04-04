@@ -231,3 +231,8 @@ header.header .header-sub-2 .header-group-2 input:active {
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+  .videoManiaLogo {
+      padding-left: 30px;
+      cursor: pointer;
+  }
