@@ -34,6 +34,10 @@ export default function HomePage({validateUser}:any) {
     //@ts-ignore
     useEffect(getCategoriesFromServer, [])
 
+    if (!videos) {
+        return <main className="videos-loading">videos are loading...</main>;
+    }
+
     return (
 
         <>

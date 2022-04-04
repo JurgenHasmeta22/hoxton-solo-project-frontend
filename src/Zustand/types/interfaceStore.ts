@@ -10,6 +10,9 @@ export default interface AppStoreState {
     userItem: User | null,
     categories: Category[],
     videoItem: null | Video,
+    comments: any,
+
+    setComments: (array:any) => void,
     setSearchTerm: (string: string) => void,
     setVideoItem: (data: any) => void,
     setCategories: (arrayFromServer: Category[]) => void,
