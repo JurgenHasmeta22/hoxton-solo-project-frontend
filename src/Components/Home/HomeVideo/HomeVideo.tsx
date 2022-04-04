@@ -11,15 +11,29 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
     const navigate = useNavigate()
 
+    console.log("Video", video, "VideoLiked", videoLiked, "videoSaved", videoSaved, "videoMine", videoMine)
+   
     function handleRedirectToUser(userId:any) {
         navigate(`/users/${userId}`)
+    }
+
+    function redirectVideoMine(videoId: any) {
+        navigate(`/videos/${videoId}`)
+    }
+
+    function redirectVideoSaved(videoId: any) {
+        navigate(`/videos/${videoId}`)
+    }
+
+    function redirectVideoLiked(videoId: any) {
+        navigate(`/videos/${videoId}`)
     }
 
     const { setVideos } = useStore()
     
     function increaseView() {
     
-        fetch(`http://localhost:4000/videosViews/${video.id}`, {
+        fetch(`http://localhost:4000/videosViews/${video ? video.id : videoLiked ? videoLiked.id : videoMine ? videoMine.id : videoSaved ? videoSaved.id : null}`, {
     
             method: "PATCH",
     
@@ -27,7 +41,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                 "Content-Type": "application/json"
             },
     
-            body: JSON.stringify({ views: video.views + 1 }),
+            body: JSON.stringify({ views: video ? video.views + 1 : videoLiked ? videoLiked?.video?.views + 1 : videoSaved ? videoSaved?.video?.views + 1 : videoMine ? videoMine?.video?.views + 1: null }),
         })
             .then((resp) => resp.json())
             .then((data) => {
@@ -77,9 +91,8 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                 <>  
 
                     <div className="main-post" onClick={function () {
-                        increaseView()
-                        // console.log(videoLiked)
-                        navigate(`/videos/${videoLiked?.videoId}`)               
+                        // increaseView()
+                        redirectVideoLiked(videoLiked?.videoId)
                     }}>
 
                         <img className="image-post" src={`http://localhost:4000/thumbnail/${videoLiked?.video?.title}`} alt="" />                        
@@ -95,8 +108,8 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                 <>  
 
                     <div className="main-post" onClick={function () {
-                        increaseView()
-                        navigate(`/videos/${videoSaved?.videoId}`)               
+                        // increaseView()
+                        redirectVideoSaved(videoSaved?.id)
                     }}>
 
                         <img className="image-post" src={`http://localhost:4000/thumbnail/${videoSaved?.title}`} alt="" />
@@ -119,8 +132,8 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                 <>  
 
                     <div className="main-post" onClick={function () {
-                        increaseView()
-                        navigate(`/videos/${videoMine?.videoId}`)               
+                        // increaseView()
+                        redirectVideoMine(videoMine?.id)               
                     }}>
 
                         <img className="image-post" src={`http://localhost:4000/thumbnail/${videoMine?.title}`} alt="" />
