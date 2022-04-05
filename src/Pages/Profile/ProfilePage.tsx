@@ -195,7 +195,7 @@ export default function ProfilePage({validateUser}:any) {
                                     {
 
                                         // @ts-ignore
-                                        user?.videos?.map(video => 
+                                        user?.savedVideos?.map(video => 
 
                                             <HomeVideo 
                                                 key = {video.id}

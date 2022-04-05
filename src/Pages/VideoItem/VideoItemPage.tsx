@@ -215,6 +215,23 @@ export default function VideoItemPage({validateUser}:any) {
                             <source src={`http://localhost:4000/video/${videoItem.title}`} type="video/mp4" />
                         </video>
 
+                        <ul className="hashtag-list">
+
+                            {
+
+                                // @ts-ignore
+                                videoItem.hashtags.map(hashtag => 
+                                    
+                                    <li key={hashtag.id}>
+                                        #{hashtag.hashtag.name}
+                                    </li>
+                                    
+                                )
+
+                            }
+
+                        </ul>
+
                     </div>
 
                     <div className="video-bottom">
@@ -232,8 +249,8 @@ export default function VideoItemPage({validateUser}:any) {
                             <i className="material-icons">thumb_down</i>
                             <span>{videoItem.countDislikesInside}</span>
 
-                            <i className="material-icons">share</i>
-                            <span>Share</span>
+                            {/* <i className="material-icons">share</i>
+                            <span>Share</span> */}
 
                             <i className="material-icons">save</i>
                             <span>Save</span>

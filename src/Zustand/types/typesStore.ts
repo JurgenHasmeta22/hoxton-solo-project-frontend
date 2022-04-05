@@ -31,7 +31,8 @@ export type Video = {
     countCommentsInside?: number,
     userWhoCreatedIt: User,
     comments: any,
-    views: number
+    views: number,
+    hashtags: any
 
 }
 

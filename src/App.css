@@ -21,6 +21,14 @@
     width: 10px;  
 } */
 
+button {
+    cursor: pointer;
+}
+
+i {
+    cursor: pointer;
+}
+
 .loading-wrapper {
     display: grid;
     place-items: center;

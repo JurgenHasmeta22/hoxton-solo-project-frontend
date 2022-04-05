@@ -163,19 +163,19 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
                     <div className="main-post" onClick={function () {
                         // increaseView()
-                        redirectVideoSaved(videoSaved?.id)
+                        redirectVideoSaved(videoSaved?.video?.id)
                     }}>
 
-                        <img className="image-post" src={`http://localhost:4000/thumbnail/${videoSaved?.title}`} alt="" />
+                        <img className="image-post" src={`http://localhost:4000/thumbnail/${videoSaved?.video?.title}`} alt="" />
                         <img className="icon-post" src={`http://localhost:4000/avatar/${user?.userName}`} alt="" />
                         
-                        <h2 className="video-title">{videoSaved?.title}</h2>
+                        <h2 className="video-title">{videoSaved?.video?.title}</h2>
                         
                         <span className="video-user" onClick={function () {
                             handleRedirectToUser(user?.id)
                         }}>{user?.userName}</span>
                         
-                        <span className="video-views">{videoSaved?.views} views - {videoSaved?.createdAt} </span>
+                        <span className="video-views">{videoSaved?.video?.views} views - {videoSaved?.video?.createdAt} </span>
                     
                     </div>
                 
