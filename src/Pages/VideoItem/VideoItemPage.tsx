@@ -12,7 +12,7 @@ export default function VideoItemPage({validateUser}:any) {
 
     const [comment, setComment] = useState<any>()
     
-    const { videoItem, setVideoItem, user, videos, comments, setComments, setVideos } = useStore()
+    const { videoItem, setVideoItem, user, videos, comments, setComments, setVideos, setUser } = useStore()
     
     const videosFiltered = videos.filter(video => video.id !== videoItem?.id)
 
@@ -20,7 +20,7 @@ export default function VideoItemPage({validateUser}:any) {
         validateUser();
     }, []);
     
-    async function getIndividualBlogFromServer ():Promise<void> {
+    async function getIndividualVideoFromServer ():Promise<void> {
 
         await fetch(`http://localhost:4000/videos/${params.id}`)
           .then(resp => resp.json())
@@ -29,7 +29,7 @@ export default function VideoItemPage({validateUser}:any) {
     }
     
     //@ts-ignore
-    useEffect(getIndividualBlogFromServer, [])
+    useEffect(getIndividualVideoFromServer, [])
 
     if (videoItem === null) {
         
@@ -45,69 +45,78 @@ export default function VideoItemPage({validateUser}:any) {
         return <main>Video item not found</main>
     }
 
-     function handleCommentChange(e: any) {
-    setComment(e.target.value);
+    async function saveVideo() {
+
+        const videoSavedData = {
+            videoId: videoItem?.id,
+            userId: user?.id
+        }
+
+        console.log(videoSavedData)
+
+        try {
+
+            await fetch('http://localhost:4000/videosSaved', {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token
+                },
+
+                body: JSON.stringify(videoSavedData)
+
+            })
+                .then(resp => resp.json())
+                .then(data => {
+            
+                if (data.error) {
+                    alert(data.error)
+                } 
+                
+                else {
+                    setUser(data)
+                    navigate(`../users/${user?.id}`)
+                }
+
+            })
+
+        }
+
+        catch(error) {
+            console.log(error)
+        }
+
+    }
+
+    function handleCommentChange(e: any) {
+        setComment(e.target.value);
     }
 
     function handleCreateComment(e: any) {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const commentData = {
-        content: comment,
-        userId: user?.id,
-        videoId: videoItem?.id,
-    };
+        const commentData = {
+            content: comment,
+            userId: user?.id,
+            videoId: videoItem?.id,
+        };
 
-    fetch("http://localhost:4000/comments", {
+        fetch("http://localhost:4000/comments", {
 
-        method: "POST",
+            method: "POST",
 
-        headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.token,
-        },
-
-        body: JSON.stringify(commentData),
-    })
-        .then((resp) => resp.json())
-        .then((data) => {
-
-        if (data.error) {
-            alert(data.error);
-        } 
-        
-        else {
-            setVideos(data);
-        }
-
-    });
-
-    }
-
-    async function deleteComment(e: any) {
-
-    const commentsArray = [...comments];
-
-    //@ts-ignore
-    const getComment: any = commentsArray.find(
-        (comment) =>
-        //@ts-ignore
-        comment?.userId === user?.id && comment?.photoId === photo?.id
-    );
-
-    if (getComment) {
-
-        await fetch(`http://localhost:4000/comments/${getComment.id}`, {
-        method: "DELETE",
-        headers: {
+            headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.token,
-        },
+            },
 
+            body: JSON.stringify(commentData),
         })
-        .then((resp) => resp.json())
-        .then((data) => {
+            .then((resp) => resp.json())
+            .then((data) => {
 
             if (data.error) {
                 alert(data.error);
@@ -121,37 +130,73 @@ export default function VideoItemPage({validateUser}:any) {
 
     }
 
+    async function deleteComment(e: any) {
+
+        const commentsArray = [...comments];
+
+        //@ts-ignore
+        const getComment: any = commentsArray.find(
+            (comment) =>
+            //@ts-ignore
+            comment?.userId === user?.id && comment?.photoId === photo?.id
+        );
+
+        if (getComment) {
+
+            await fetch(`http://localhost:4000/comments/${getComment.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.token,
+            },
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideos(data);
+                }
+
+            });
+
+        }
+
     }
 
     async function createVideoLike(e:any) {
 
-    e.preventDefault()
-    
-    const videoLikeData = {
-        userId: user?.id,
-        videoId: videoItem?.id
-    }
-
-    await fetch('http://localhost:4000/videoLikes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.token
-        },
-        body: JSON.stringify(videoLikeData)
-    })
-        .then(resp => resp.json())
-        .then(data => {
-    
-        if (data.error) {
-            alert(data.error)
-        } 
+        e.preventDefault()
         
-        else {
-            setVideos(data)
+        const videoLikeData = {
+            userId: user?.id,
+            videoId: videoItem?.id
         }
 
+        await fetch('http://localhost:4000/videoLikes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+            body: JSON.stringify(videoLikeData)
         })
+            .then(resp => resp.json())
+            .then(data => {
+        
+            if (data.error) {
+                alert(data.error)
+            } 
+            
+            else {
+                setVideos(data)
+            }
+
+            })
 
     }
 
@@ -252,7 +297,10 @@ export default function VideoItemPage({validateUser}:any) {
                             {/* <i className="material-icons">share</i>
                             <span>Share</span> */}
 
-                            <i className="material-icons">save</i>
+                            <i className="material-icons" onClick={function () {
+                                saveVideo()
+                            }}>save</i>
+
                             <span>Save</span>
 
                         </div>
