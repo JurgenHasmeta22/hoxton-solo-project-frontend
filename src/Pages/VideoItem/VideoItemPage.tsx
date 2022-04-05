@@ -238,8 +238,6 @@ export default function VideoItemPage({validateUser}:any) {
                             <i className="material-icons">save</i>
                             <span>Save</span>
 
-                            {/* <i className="material-icons">more_horiz</i> */}
-
                         </div>
 
                     </div>
@@ -287,11 +285,7 @@ export default function VideoItemPage({validateUser}:any) {
                     <div className="video-ribbon">
 
                         <div className="ribbon-wrapper-row-1">
-
                             <span className="span2-ribbon">{videoItem.countCommentsInside} Comments</span>
-                            {/* <i className="material-icons">more_horiz</i> */}
-                            {/* <span className="span2-ribbon">SORT BY</span> */}
-
                         </div>
 
                         <div className="ribbon-wrapper-row-2">
@@ -306,9 +300,15 @@ export default function VideoItemPage({validateUser}:any) {
 
                             }
 
-                            {/* @ts-ignore */}
-                            <textarea className="text-ribbon" placeholder="Add a public comment: " name="text" id="" cols="80" rows="3"></textarea>
+                           
+                            <form className="form-comment-add">
+
+                                 {/* @ts-ignore */}
+                                <textarea className="text-ribbon" placeholder="Add a public comment: " name="text-add" id="text-area-special" cols="80" rows="4"></textarea>
+                                <button className="add-comment-video">Add Comment</button>
                         
+                            </form>
+
                         </div>            
 
                     </div>
@@ -345,8 +345,8 @@ export default function VideoItemPage({validateUser}:any) {
 
                                     <a href="#" className="a-comments">View 0 replies</a>
 
-                                    <span>Edit Comment</span>
-                                    <button>X</button>
+                                    <span className="edit-comment-video">Edit</span>
+                                    <button className="remove-comment-video">X</button>
                                 
                                 </div>
 

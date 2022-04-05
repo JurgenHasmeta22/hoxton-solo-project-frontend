@@ -58,11 +58,29 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                 
     }
 
-    async function removeVideo(videoId:any) {
+    async function removeVideo(videoId:any, videoTitle: any) {
     
         try {
     
-          await fetch(`http://localhost:4000/videos/${videoId}`, {
+            await fetch(`http://localhost:4000/removeMedia/${videoTitle}`, {
+        
+                method: "POST",
+        
+                headers: {
+                    "Content-Type": "application/json",
+                }
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+    
+                if (data.error) {
+                    alert(data.error);
+                } 
+
+            })
+
+            await fetch(`http://localhost:4000/videos/${videoId}`, {
         
                 method: "DELETE",
         
@@ -75,15 +93,16 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
             .then((resp) => resp.json())
             .then((data) => {
     
-            if (data.error) {
-                alert(data.error);
-            } 
-            
-            else {
-                setVideos(data);
-            }
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideos(data);
+                    navigate("../home")
+                }
     
-          });
+            });
     
         }
     
@@ -184,7 +203,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                         
                         <button className="remove-my-video" onClick={function (e) {
                             e.stopPropagation()
-                            removeVideo(videoMine?.id)
+                            removeVideo(videoMine?.id, videoMine?.title)
                         }}>X</button>
                     
                     </div>
