@@ -13,7 +13,8 @@ export type User = {
     countSubscribers?: number,
     description?: string,
     avatar?: any,
-    videos?: any
+    videos?: any,
+    savedVideos?: any
 
 }
 

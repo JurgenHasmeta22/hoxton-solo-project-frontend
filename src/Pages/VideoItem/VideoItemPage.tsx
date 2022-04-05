@@ -11,7 +11,7 @@ export default function VideoItemPage({validateUser}:any) {
     const navigate = useNavigate()
 
     const [comment, setComment] = useState<any>()
-    
+
     const { videoItem, setVideoItem, user, videos, comments, setComments, setVideos, setUser } = useStore()
     
     const videosFiltered = videos.filter(video => video.id !== videoItem?.id)
@@ -27,7 +27,7 @@ export default function VideoItemPage({validateUser}:any) {
           .then(videoFromServer => setVideoItem(videoFromServer))
         
     }
-    
+
     //@ts-ignore
     useEffect(getIndividualVideoFromServer, [])
 
@@ -51,8 +51,6 @@ export default function VideoItemPage({validateUser}:any) {
             videoId: videoItem?.id,
             userId: user?.id
         }
-
-        console.log(videoSavedData)
 
         try {
 
@@ -242,6 +240,9 @@ export default function VideoItemPage({validateUser}:any) {
 
     }
 
+    //@ts-ignore
+    const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved?.videoId === videoItem?.id)
+
     return (
 
         <>
@@ -297,11 +298,23 @@ export default function VideoItemPage({validateUser}:any) {
                             {/* <i className="material-icons">share</i>
                             <span>Share</span> */}
 
-                            <i className="material-icons" onClick={function () {
-                                saveVideo()
-                            }}>save</i>
+                            {
 
-                            <span>Save</span>
+                                !isVideoSaved ? (
+
+                                    <>
+
+                                        <i className="material-icons" onClick={function () {
+                                            saveVideo()
+                                        }}>save</i>
+
+                                        <span>Save</span>
+
+                                    </>
+
+                                ): null
+
+                            }
 
                         </div>
 

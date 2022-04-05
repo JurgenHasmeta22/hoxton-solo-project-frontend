@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useStore } from "../../../Zustand/store"
 import "./HomeVideo.css"
@@ -11,7 +12,20 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
     const navigate = useNavigate()
 
-    // console.log("Video", video, "VideoLiked", videoLiked, "videoSaved", videoSaved, "videoMine", videoMine)
+    const [videosSaved, setVideosSaved] = useState<any>([])
+
+    const {setUser} = useStore()
+
+    async function getVideosSavedFromServer ():Promise<void> {
+
+        await fetch(`http://localhost:4000/videosSaved`)
+          .then(resp => resp.json())
+          .then(videosSavedFromServer => setVideosSaved(videosSavedFromServer))
+        
+    }
+    
+    //@ts-ignore
+    useEffect(getVideosSavedFromServer, [])
    
     function handleRedirectToUser(userId:any) {
         navigate(`/users/${userId}`)
@@ -56,6 +70,50 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
     
         });
                 
+    }
+
+    async function removeVideoSaved(videoId:any, userId:any) {
+
+        //@ts-ignore
+        const videosSavedArray = videosSaved?.find(videoSaved => videoSaved?.userId === userId && videoSaved?.videoId === videoId)
+        console.log(videosSavedArray)
+
+        if (videosSavedArray) {
+
+            try {
+
+                await fetch(`http://localhost:4000/videosSaved/${videosSavedArray.id}`, {
+
+                    method: 'DELETE',
+
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.token
+                    }
+
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                
+                    if (data.error) {
+                        alert(data.error)
+                    } 
+                    
+                    else {
+                        setUser(data)
+                        // window.location.reload()
+                    }
+
+                })
+
+            }
+
+            catch(error) {
+                console.log(error)
+            }
+
+        }
+
     }
 
     async function removeVideo(videoId:any, videoTitle: any) {
@@ -152,7 +210,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                         <img className="image-post" src={`http://localhost:4000/thumbnail/${videoLiked?.video?.title}`} alt="" />                        
                         <h2 className="video-title">{videoLiked?.video?.title}</h2>
                         <span className="video-views">{videoLiked?.video?.views} views - {videoLiked?.video?.createdAt} </span>
-                    
+
                     </div>
                 
                 </>
@@ -178,7 +236,12 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                         }}>{videoSaved?.video?.userWhoCreatedIt?.userName}</span>
                         
                         <span className="video-views">{videoSaved?.video?.views} views - {videoSaved?.video?.createdAt} </span>
-                    
+                        
+                        <button className="remove-video-saved" onClick={function (e) {
+                            e.stopPropagation()
+                            removeVideoSaved(videoSaved?.videoId, videoSaved?.userId)
+                        }}>X</button>
+
                     </div>
                 
                 </>

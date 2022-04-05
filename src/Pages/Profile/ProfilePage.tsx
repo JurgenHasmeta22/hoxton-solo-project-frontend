@@ -104,7 +104,7 @@ export default function ProfilePage({validateUser}:any) {
 
                         <li className= {tab === "videos" ? "clicked": "videos-tab"} onClick={() => {
                             setTab("videos")
-                        }}>Videos</li>
+                        }}>Videos Created</li>
 
                         <li className= {tab === "saved" ? "clicked": "playlists-tab"} onClick={() => {
                             setTab("saved")
