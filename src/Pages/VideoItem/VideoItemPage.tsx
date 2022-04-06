@@ -30,41 +30,31 @@ export default function VideoItemPage({validateUser}:any) {
     
     function getIndividualVideoFromServer (): any {
 
-        try {
+        // console.log(params.id)
 
-            fetch(`http://localhost:4000/videos/${params.id}`)
-            .then(resp => resp.json())
-            .then(videoFromServer => setVideoItem(videoFromServer))
+        fetch(`http://localhost:4000/videos/${params.id}`)
+        .then(resp => resp.json())
+        .then(videoFromServer => setVideoItem(videoFromServer))
 
+        return () => {
+            setVideoItem(null)
         }
 
-        catch(error) {
-            console.log(error)
-        }
-        
     }
 
     //@ts-ignore
     useEffect(getIndividualVideoFromServer, [])
 
-    function getCommentsFromServer (): any {
+    // function getCommentsFromServer (): any {
 
-        try {
+    //     fetch(`http://localhost:4000/comments`)
+    //     .then(resp => resp.json())
+    //     .then(commentsFromServer => setComments(commentsFromServer))
 
-            fetch(`http://localhost:4000/comments`)
-            .then(resp => resp.json())
-            .then(commentsFromServer => setComments(commentsFromServer))
+    // }
 
-        }
-
-        catch(error) {
-            console.log(error)
-        }
-        
-    }
-
-    //@ts-ignore
-    useEffect(getCommentsFromServer, [])
+    // //@ts-ignore
+    // useEffect(getCommentsFromServer, [])
 
     if (videoItem === null) {
         
@@ -612,6 +602,7 @@ export default function VideoItemPage({validateUser}:any) {
     }
     // #endregion
 
+    // #region 'Checking some is is liked etc"
     //@ts-ignore
     const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved?.videoId === videoItem?.id)
 
@@ -620,7 +611,8 @@ export default function VideoItemPage({validateUser}:any) {
 
     // @ts-ignore
     const isVideoDisliked = videoItem?.usersWhoDislikedIt?.includes(videoDisliked => videoDisliked?.userId === user?.id && videoDisliked?.videoId === videoItem?.id)
-
+    // #endregion
+    
     return (
 
         <>
