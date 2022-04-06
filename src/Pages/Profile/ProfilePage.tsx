@@ -1,3 +1,4 @@
+// #region "importing"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
@@ -6,12 +7,16 @@ import { useStore } from "../../Zustand/store"
 import "./ProfilePage.css"
 import ReactLoading from 'react-loading';
 import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
+// #endregion
 
 export default function ProfilePage({validateUser}:any) {
 
+    // #region "state"
     const [tab, setTab] = useState<any>("home")
     const { user, userItem, setUserItem, users } = useStore()
+    // #endregion
 
+    // #region "fetch things"
     useEffect(() => {
         validateUser();
     }, []);
@@ -47,7 +52,9 @@ export default function ProfilePage({validateUser}:any) {
     // }
 
     // useEffect(getFollowersFromServer, [])
+    // #endregion
 
+    // #region "Checking stuff from server wich came and loading"
     if (userItem === null) {
 
         return (
@@ -71,6 +78,7 @@ export default function ProfilePage({validateUser}:any) {
         )
         
     }
+    // #endregion
 
     const userCheck = user.userName === userItem.userName
 

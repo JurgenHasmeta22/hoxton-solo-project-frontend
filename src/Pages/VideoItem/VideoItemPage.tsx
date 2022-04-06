@@ -1,12 +1,15 @@
+// #region "importing"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommon"
 import { useStore } from "../../Zustand/store"
 import "./VideoItemPage.css"
 import ReactLoading from 'react-loading';
+// #endregion
 
 export default function VideoItemPage({validateUser}:any) {
 
+    // #region "state"
     const params = useParams()
     const navigate = useNavigate()
 
@@ -15,7 +18,9 @@ export default function VideoItemPage({validateUser}:any) {
     const { videoItem, setVideoItem, user, videos, comments, setComments, setVideos, setUser } = useStore()
     
     const videosFiltered = videos.filter(video => video.id !== videoItem?.id)
+    // #endregion
 
+    // #region "getting stuff from server and checking loading etc"
     useEffect(() => {
         validateUser();
     }, []);
@@ -45,6 +50,9 @@ export default function VideoItemPage({validateUser}:any) {
         return <main>Video item not found</main>
     }
 
+    // #endregion
+
+    // #region "save video functionality"
     async function saveVideo() {
 
         const videoSavedData = {
@@ -91,8 +99,10 @@ export default function VideoItemPage({validateUser}:any) {
     function handleCommentChange(e: any) {
         setComment(e.target.value);
     }
+    // #endregion
 
-    function handleCreateComment(e: any) {
+    // #region "CRUD on comments, video etc"
+    function addComment(e: any) {
 
         e.preventDefault();
 
@@ -107,11 +117,12 @@ export default function VideoItemPage({validateUser}:any) {
             method: "POST",
 
             headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.token,
+                "Content-Type": "application/json",
+                Authorization: localStorage.token,
             },
 
-            body: JSON.stringify(commentData),
+            body: JSON.stringify(commentData)
+
         })
             .then((resp) => resp.json())
             .then((data) => {
@@ -121,7 +132,7 @@ export default function VideoItemPage({validateUser}:any) {
             } 
             
             else {
-                setVideos(data);
+                setVideoItem(data);
             }
 
         });
@@ -136,17 +147,19 @@ export default function VideoItemPage({validateUser}:any) {
         const getComment: any = commentsArray.find(
             (comment) =>
             //@ts-ignore
-            comment?.userId === user?.id && comment?.photoId === photo?.id
+            comment?.userId === user?.id && comment?.videoId === videoItem?.id
         );
 
         if (getComment) {
 
             await fetch(`http://localhost:4000/comments/${getComment.id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.token,
-            },
+
+                method: "DELETE",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                }
 
             })
             .then((resp) => resp.json())
@@ -157,7 +170,7 @@ export default function VideoItemPage({validateUser}:any) {
                 } 
                 
                 else {
-                    setVideos(data);
+                    setVideoItem(data);
                 }
 
             });
@@ -166,7 +179,7 @@ export default function VideoItemPage({validateUser}:any) {
 
     }
 
-    async function createVideoLike(e:any) {
+    async function addVideoLike(e:any) {
 
         e.preventDefault()
         
@@ -176,23 +189,27 @@ export default function VideoItemPage({validateUser}:any) {
         }
 
         await fetch('http://localhost:4000/videoLikes', {
+
             method: 'POST',
+
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: localStorage.token
             },
+
             body: JSON.stringify(videoLikeData)
+
         })
             .then(resp => resp.json())
             .then(data => {
         
-            if (data.error) {
-                alert(data.error)
-            } 
-            
-            else {
-                setVideos(data)
-            }
+                if (data.error) {
+                    alert(data.error)
+                } 
+                
+                else {
+                    setVideoItem(data)
+                }
 
             })
 
@@ -231,7 +248,7 @@ export default function VideoItemPage({validateUser}:any) {
                 } 
                     
                 else {
-                    setVideos(data)
+                    setVideoItem(data)
                 }
 
             })
@@ -239,6 +256,241 @@ export default function VideoItemPage({validateUser}:any) {
         }
 
     }
+
+    async function addVideoDislike(e:any) {
+
+        e.preventDefault()
+        
+        const videoDislikeData = {
+            userId: user?.id,
+            videoId: videoItem?.id
+        }
+
+        await fetch('http://localhost:4000/videoDislikes', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+
+            body: JSON.stringify(videoDislikeData)
+
+        })
+            .then(resp => resp.json())
+            .then(data => {
+        
+                if (data.error) {
+                    alert(data.error)
+                } 
+                
+                else {
+                    setVideoItem(data)
+                }
+
+            })
+
+    }
+
+    async function deleteVideoDislike(e:any) {
+        
+        const getVideo = {
+            userId: user?.id,
+            videoId: videoItem?.id
+        }    
+
+        //@ts-ignore
+        const result = user.videosDisliked.filter(videoNew => video.id === videoNew.videoId)
+
+        //@ts-ignore
+        const findId = videoDisliked.findIndex(videoNew => videoNew.userId === user.id && videoNew.videoId === video.id )
+
+        if (result) {
+
+            await fetch(`http://localhost:4000/videoDisliked/${result}`, {
+
+                method: 'DELETE',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token
+                }
+
+            })
+            .then(resp => resp.json())
+            .then(data => {
+            
+                if (data.error) {
+                    alert(data.error)
+                } 
+                    
+                else {
+                    setVideoItem(data)
+                }
+
+            })
+
+        }
+
+    }
+
+    async function addCommentLike(e:any, commentId:any) {
+
+        e.preventDefault()
+        
+        const commentLikeData = {
+            userId: user?.id,
+            commentId: commentId
+        }
+
+        await fetch('http://localhost:4000/comentLikes', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+
+            body: JSON.stringify(commentLikeData)
+
+        })
+            .then(resp => resp.json())
+            .then(data => {
+        
+                if (data.error) {
+                    alert(data.error)
+                } 
+                
+                else {
+                    setVideoItem(data)
+                }
+
+            })
+
+    }
+
+    async function deleteCommentLike(e:any) {
+        
+        const getVideo = {
+            userId: user?.id,
+            videoId: videoItem?.id
+        }    
+
+        //@ts-ignore
+        const result = user.commentsLiked.filter(commentNew => commentId === commentNew.commentId)
+
+        //@ts-ignore
+        const findId = commentLikes.findIndex(commentNew => commentNew.userId === user.id && commentNew.commentd === comment.id )
+
+        if (result) {
+
+            await fetch(`http://localhost:4000/commentLikes/${result}`, {
+
+                method: 'DELETE',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token
+                }
+
+            })
+            .then(resp => resp.json())
+            .then(data => {
+            
+                if (data.error) {
+                    alert(data.error)
+                } 
+                    
+                else {
+                    setVideoItem(data)
+                }
+
+            })
+
+        }
+
+    }
+
+    async function addCommentDislike(e:any, commentId:any) {
+
+        e.preventDefault()
+        
+        const commentDislikeData = {
+            userId: user?.id,
+            commentId: commentId
+        }
+
+        await fetch('http://localhost:4000/commentDislikes', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+
+            body: JSON.stringify(commentDislikeData)
+
+        })
+            .then(resp => resp.json())
+            .then(data => {
+        
+                if (data.error) {
+                    alert(data.error)
+                } 
+                
+                else {
+                    setVideoItem(data)
+                }
+
+            })
+
+    }
+
+    async function deleteCommentDislike(e:any, commentId:any) {
+        
+        const getComment = {
+            userId: user?.id,
+            commentId: commentId
+        }    
+
+        //@ts-ignore
+        const result = user.commentsDisliked.filter(commentNew => comment.id === commentNew.commntId)
+
+        //@ts-ignore
+        const findId = commentsDisliked.findIndex(commentNew => commentNew.userId === user.id && commentNew.commentId === commnt.id )
+
+        if (result) {
+
+            await fetch(`http://localhost:4000/commentsDisliked/${result}`, {
+
+                method: 'DELETE',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token
+                }
+
+            })
+            .then(resp => resp.json())
+            .then(data => {
+            
+                if (data.error) {
+                    alert(data.error)
+                } 
+                    
+                else {
+                    setVideoItem(data)
+                }
+
+            })
+
+        }
+
+    }
+    // #endregion
 
     //@ts-ignore
     const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved?.videoId === videoItem?.id)
@@ -294,9 +546,6 @@ export default function VideoItemPage({validateUser}:any) {
 
                             <i className="material-icons">thumb_down</i>
                             <span>{videoItem.countDislikesInside}</span>
-
-                            {/* <i className="material-icons">share</i>
-                            <span>Share</span> */}
 
                             {
 
@@ -379,11 +628,16 @@ export default function VideoItemPage({validateUser}:any) {
                             }
 
                            
-                            <form className="form-comment-add">
+                            <form className="form-comment-add" onSubmit={function(e) {
+                                addComment(e)
+                            }}>
 
                                  {/* @ts-ignore */}
                                 <textarea className="text-ribbon" placeholder="Add a public comment: " name="text-add" id="text-area-special" cols="80" rows="4"></textarea>
-                                <button className="add-comment-video">Add Comment</button>
+                                
+                                <button className="add-comment-video" onChange={function (e) {
+                                    handleCommentChange(e)
+                                }}>Add Comment</button>
                         
                             </form>
 
@@ -411,10 +665,16 @@ export default function VideoItemPage({validateUser}:any) {
                                     
                                     <div className="like-wrapper">
 
-                                        <i className="material-icons">thumb_up</i>
+                                        <i className="material-icons" onClick={function (e) {
+                                            addVideoLike(e)
+                                        }}>thumb_up</i>
+
                                         <span className="span-2-comments">{comment.countLikesInside}</span>
 
-                                        <i className="material-icons">thumb_down</i>
+                                        <i className="material-icons" onClick={function (e) {
+                                            addVideoDislike(e)
+                                        }}>thumb_down</i>
+
                                         <span className="span-2-comments">{comment.countDislikesInside}</span>
 
                                         <span className="span-reply">REPLY</span>
@@ -424,7 +684,10 @@ export default function VideoItemPage({validateUser}:any) {
                                     <a href="#" className="a-comments">View 0 replies</a>
 
                                     <span className="edit-comment-video">Edit</span>
-                                    <button className="remove-comment-video">X</button>
+                                    
+                                    <button className="remove-comment-video" onClick={function (e) {
+                                        deleteComment(e)
+                                    }}>X</button>
                                 
                                 </div>
 

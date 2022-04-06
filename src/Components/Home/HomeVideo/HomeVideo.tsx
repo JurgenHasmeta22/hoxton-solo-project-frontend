@@ -1,3 +1,4 @@
+// #region "Importing and props type"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useStore } from "../../../Zustand/store"
@@ -7,15 +8,19 @@ import "./HomeVideo.css"
 //     video: any,
 //     liked: string
 // }
+// #endregion
 
 export default function HomeVideo({video, liked, videoLiked, videoSaved, user, videoMine }:any) {
 
+    // #region "State"
     const navigate = useNavigate()
 
     const [videosSaved, setVideosSaved] = useState<any>([])
 
-    const {setUser} = useStore()
+    const { setUser, setVideos } = useStore()
+    // #endregion
 
+    // #region "fetching stuff from server"
     async function getVideosSavedFromServer ():Promise<void> {
 
         await fetch(`http://localhost:4000/videosSaved`)
@@ -26,7 +31,9 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
     
     //@ts-ignore
     useEffect(getVideosSavedFromServer, [])
-   
+   // #endregion
+
+   // #region "navigate functions"
     function handleRedirectToUser(userId:any) {
         navigate(`/users/${userId}`)
     }
@@ -42,9 +49,9 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
     function redirectVideoLiked(videoId: any) {
         navigate(`/videos/${videoId}`)
     }
+    // #endregion
 
-    const { setVideos } = useStore()
-    
+    // #region "Features functions"
     function increaseView() {
     
         fetch(`http://localhost:4000/videosViews/${video ? video.id : videoLiked ? videoLiked.id : videoMine ? videoMine.id : videoSaved ? videoSaved.id : null}`, {
@@ -169,6 +176,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
         }
         
     }
+    // #endregion
 
     return (
 

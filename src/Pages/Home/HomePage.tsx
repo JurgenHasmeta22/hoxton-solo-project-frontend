@@ -1,12 +1,15 @@
+// #region "importing"
 import { useEffect } from "react"
 import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommon"
 import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
 import { useStore } from "../../Zustand/store"
 import "./HomePage.css"
 import ReactLoading from 'react-loading';
+// #endregion
 
 export default function HomePage({validateUser}:any) {
 
+    // #region "State and fetching stuff"
     const { videos, setVideos, setCategories, categories } = useStore()
 
     useEffect(() => {
@@ -34,7 +37,9 @@ export default function HomePage({validateUser}:any) {
 
     //@ts-ignore
     useEffect(getCategoriesFromServer, [])
+    // #endregion
 
+    // #region "Checking stuff wich came from server"
     if (!videos) {
 
         return (
@@ -44,7 +49,8 @@ export default function HomePage({validateUser}:any) {
         )    
     
     }
-
+    // #endregion
+    
     return (
 
         <>
