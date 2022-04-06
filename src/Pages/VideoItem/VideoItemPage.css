@@ -306,6 +306,10 @@ main.main-menu .video-ribbon .ribbon-wrapper-row-1 {
     /* padding-left: 50px; */
 }
 
+.filled {
+    background-color: #F00;
+}
+
 main.main-menu .video-ribbon .ribbon-wrapper-row-2 {
     display: grid;
     grid-template-columns: 0.1fr 0.9fr;

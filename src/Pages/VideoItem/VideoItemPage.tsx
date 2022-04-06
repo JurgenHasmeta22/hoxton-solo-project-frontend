@@ -14,6 +14,8 @@ export default function VideoItemPage({validateUser}:any) {
     const navigate = useNavigate()
 
     const [comment, setComment] = useState<any>("")
+    // const [likeClicked, setLikeClicked] = useState<any>(false)
+    // const [dislikeClicked, setDislikeClicked] = useState<any>(false)
 
     const { videoItem, setVideoItem, user, videos, comments, setComments, setUser } = useStore()
     
@@ -428,7 +430,7 @@ export default function VideoItemPage({validateUser}:any) {
 
         try {
 
-            fetch('http://localhost:4000/comentLikes', {
+            fetch('http://localhost:4000/commentLikes', {
 
                 method: 'POST',
 
@@ -613,6 +615,12 @@ export default function VideoItemPage({validateUser}:any) {
     //@ts-ignore
     const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved?.videoId === videoItem?.id)
 
+    // @ts-ignore
+    const isVideoLiked = videoItem?.usersWhoLikedIt?.includes(videoLiked => videoLiked?.userId === user?.id && videoLiked?.videoId === videoItem?.id)
+
+    // @ts-ignore
+    const isVideoDisliked = videoItem?.usersWhoDislikedIt?.includes(videoDisliked => videoDisliked?.userId === user?.id && videoDisliked?.videoId === videoItem?.id)
+
     return (
 
         <>
@@ -788,15 +796,35 @@ export default function VideoItemPage({validateUser}:any) {
                                     
                                     <div className="like-wrapper">
 
-                                        <i className="material-icons" onClick={function (e) {
-                                            addVideoLike(e)
-                                        }}>thumb_up</i>
+                                        { isVideoLiked ? 
+                                        
+                                            (
+                                                <i className="material-icons filled" onClick={function (e) {
+                                                    deleteVideoLike(e)
+                                                }}>thumb_up</i>
+                                            ): (
+                                                <i className="material-icons" onClick={function (e) {
+                                                    addVideoLike(e)
+                                                }}>thumb_up</i>
+                                            )
+
+                                        }
 
                                         <span className="span-2-comments">{comment?.countLikesInside}</span>
 
-                                        <i className="material-icons" onClick={function (e) {
-                                            addVideoDislike(e)
-                                        }}>thumb_down</i>
+                                        { isVideoDisliked ? 
+                                        
+                                            (
+                                                <i className="material-icons" onClick={function (e) {
+                                                    deleteVideoDislike(e)
+                                                }}>thumb_down</i>
+                                            ): (
+                                                <i className="material-icons" onClick={function (e) {
+                                                    addVideoDislike(e)
+                                                }}>thumb_down</i>
+                                            )
+
+                                        }
 
                                         <span className="span-2-comments">{comment?.countDislikesInside}</span>
 
