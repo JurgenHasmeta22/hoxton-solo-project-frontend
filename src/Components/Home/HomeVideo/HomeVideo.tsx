@@ -21,12 +21,20 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
     // #endregion
 
     // #region "fetching stuff from server"
-    async function getVideosSavedFromServer ():Promise<void> {
+    function getVideosSavedFromServer (): any {
 
-        await fetch(`http://localhost:4000/videosSaved`)
-          .then(resp => resp.json())
-          .then(videosSavedFromServer => setVideosSaved(videosSavedFromServer))
+        try {
+
+            fetch(`http://localhost:4000/videosSaved`)
+            .then(resp => resp.json())
+            .then(videosSavedFromServer => setVideosSaved(videosSavedFromServer))
         
+        }
+
+        catch(error) {
+            console.log(error)
+        }
+
     }
     
     //@ts-ignore
@@ -79,7 +87,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
                 
     }
 
-    async function removeVideoSaved(videoId:any, userId:any) {
+    function removeVideoSaved(videoId:any, userId:any) {
 
         //@ts-ignore
         const videosSavedArray = videosSaved?.find(videoSaved => videoSaved?.userId === userId && videoSaved?.videoId === videoId)
@@ -89,7 +97,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
             try {
 
-                await fetch(`http://localhost:4000/videosSaved/${videosSavedArray.id}`, {
+                fetch(`http://localhost:4000/videosSaved/${videosSavedArray.id}`, {
 
                     method: 'DELETE',
 
@@ -123,11 +131,11 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
     }
 
-    async function removeVideo(videoId:any, videoTitle: any) {
+    function removeVideo(videoId:any, videoTitle: any) {
     
         try {
     
-            await fetch(`http://localhost:4000/removeMedia/${videoTitle}`, {
+            fetch(`http://localhost:4000/removeMedia/${videoTitle}`, {
         
                 method: "POST",
         
@@ -145,7 +153,7 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
             })
 
-            await fetch(`http://localhost:4000/videos/${videoId}`, {
+            fetch(`http://localhost:4000/videos/${videoId}`, {
         
                 method: "DELETE",
         

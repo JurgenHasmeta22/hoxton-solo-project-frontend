@@ -16,19 +16,35 @@ export default function HomePage({validateUser}:any) {
         validateUser();
     }, []);
 
-    async function getVideosFromServer():Promise<void> {
+    function getVideosFromServer(): void {
 
-        await fetch(`http://localhost:4000/videos`)
-          .then(resp => resp.json())
-          .then(videosFromServer => setVideos(videosFromServer))
+        try {
+
+            fetch(`http://localhost:4000/videos`)
+            .then(resp => resp.json())
+            .then(videosFromServer => setVideos(videosFromServer))
+
+        }
+
+        catch(error) {
+            console.log(error)
+        }
 
     }
 
-    async function getCategoriesFromServer():Promise<void> {
+    function getCategoriesFromServer(): void {
 
-        await fetch(`http://localhost:4000/categories`)
-          .then(resp => resp.json())
-          .then(categoriesFromServer => setCategories(categoriesFromServer))
+        try {
+
+            fetch(`http://localhost:4000/categories`)
+            .then(resp => resp.json())
+            .then(categoriesFromServer => setCategories(categoriesFromServer))
+
+        }
+
+        catch(error) {
+            console.log(error)
+        }
 
     }
 

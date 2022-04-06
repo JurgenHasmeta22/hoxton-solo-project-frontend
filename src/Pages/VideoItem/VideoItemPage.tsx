@@ -26,22 +26,38 @@ export default function VideoItemPage({validateUser}:any) {
         validateUser();
     }, []);
     
-    async function getIndividualVideoFromServer ():Promise<void> {
+    function getIndividualVideoFromServer (): any {
 
-        await fetch(`http://localhost:4000/videos/${params.id}`)
-          .then(resp => resp.json())
-          .then(videoFromServer => setVideoItem(videoFromServer))
+        try {
+
+            fetch(`http://localhost:4000/videos/${params.id}`)
+            .then(resp => resp.json())
+            .then(videoFromServer => setVideoItem(videoFromServer))
+
+        }
+
+        catch(error) {
+            console.log(error)
+        }
         
     }
 
     //@ts-ignore
     useEffect(getIndividualVideoFromServer, [])
 
-    function getCommentsFromServer ():any {
+    function getCommentsFromServer (): any {
 
-        fetch(`http://localhost:4000/comments`)
-          .then(resp => resp.json())
-          .then(commentsFromServer => setComments(commentsFromServer))
+        try {
+
+            fetch(`http://localhost:4000/comments`)
+            .then(resp => resp.json())
+            .then(commentsFromServer => setComments(commentsFromServer))
+
+        }
+
+        catch(error) {
+            console.log(error)
+        }
         
     }
 
@@ -65,7 +81,7 @@ export default function VideoItemPage({validateUser}:any) {
     // #endregion
 
     // #region "save video functionality"
-    async function saveVideo() {
+    function saveVideo() {
 
         const videoSavedData = {
             videoId: videoItem?.id,
@@ -74,7 +90,7 @@ export default function VideoItemPage({validateUser}:any) {
 
         try {
 
-            await fetch('http://localhost:4000/videosSaved', {
+            fetch('http://localhost:4000/videosSaved', {
 
                 method: 'POST',
 
@@ -86,9 +102,9 @@ export default function VideoItemPage({validateUser}:any) {
                 body: JSON.stringify(videoSavedData)
 
             })
-                .then(resp => resp.json())
-                .then(data => {
-            
+            .then(resp => resp.json())
+            .then(data => {
+        
                 if (data.error) {
                     alert(data.error)
                 } 
@@ -124,30 +140,38 @@ export default function VideoItemPage({validateUser}:any) {
             videoId: videoItem?.id,
         };
 
-        fetch("http://localhost:4000/comments", {
+        try {
 
-            method: "POST",
+            fetch("http://localhost:4000/comments", {
 
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.token,
-            },
+                method: "POST",
 
-            body: JSON.stringify(commentData)
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
 
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
+                body: JSON.stringify(commentData)
 
-            if (data.error) {
-                alert(data.error);
-            } 
-            
-            else {
-                setVideoItem(data);
-            }
+            })
+                .then((resp) => resp.json())
+                .then((data) => {
 
-        });
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideoItem(data);
+                }
+
+            });
+
+        }
+
+        catch(error) {
+            console.log(error)
+        }
 
     }
 
@@ -168,34 +192,42 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (getComment) {
 
-            fetch(`http://localhost:4000/comments/${getComment.id}`, {
+            try {
 
-                method: "DELETE",
+                fetch(`http://localhost:4000/comments/${getComment.id}`, {
 
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: localStorage.token
-                }
+                    method: "DELETE",
 
-            })
-            .then((resp) => resp.json())
-            .then((data) => {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token
+                    }
 
-                if (data.error) {
-                    alert(data.error);
-                } 
-                
-                else {
-                    setVideoItem(data);
-                }
+                })
+                .then((resp) => resp.json())
+                .then((data) => {
 
-            });
+                    if (data.error) {
+                        alert(data.error);
+                    } 
+                    
+                    else {
+                        setVideoItem(data);
+                    }
+
+                });
+
+            }
+
+            catch(error) {
+                console.log(error)
+            }
 
         }
 
     }
 
-    async function addVideoLike(e:any) {
+    function addVideoLike(e:any) {
 
         e.preventDefault()
         
@@ -204,18 +236,20 @@ export default function VideoItemPage({validateUser}:any) {
             videoId: videoItem?.id
         }
 
-        await fetch('http://localhost:4000/videoLikes', {
+        try {
 
-            method: 'POST',
+            fetch('http://localhost:4000/videoLikes', {
 
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: localStorage.token
-            },
+                method: 'POST',
 
-            body: JSON.stringify(videoLikeData)
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token
+                },
 
-        })
+                body: JSON.stringify(videoLikeData)
+
+            })
             .then(resp => resp.json())
             .then(data => {
         
@@ -229,9 +263,15 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+        }
+
+        catch(error) {
+            console.log(error)
+        }     
+
     }
 
-    async function deleteVideoLike(e:any) {
+    function deleteVideoLike(e:any) {
         
         const getVideo = {
             userId: user?.id,
@@ -246,35 +286,43 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            await fetch(`http://localhost:4000/videoLikes/${result}`, {
+            try {
 
-                method: 'DELETE',
+                fetch(`http://localhost:4000/videoLikes/${result}`, {
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: localStorage.token,
-                    videoId: String(videoItem?.id)
-                }
+                    method: 'DELETE',
 
-            })
-            .then(resp => resp.json())
-            .then(data => {
-            
-                if (data.error) {
-                    alert(data.error)
-                } 
-                    
-                else {
-                    setVideoItem(data)
-                }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.token,
+                        videoId: String(videoItem?.id)
+                    }
 
-            })
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                
+                    if (data.error) {
+                        alert(data.error)
+                    } 
+                        
+                    else {
+                        setVideoItem(data)
+                    }
+
+                })
+
+            }
+
+            catch(error) {
+                console.log(error)
+            }
 
         }
 
     }
 
-    async function addVideoDislike(e:any) {
+    function addVideoDislike(e:any) {
 
         e.preventDefault()
         
@@ -283,18 +331,20 @@ export default function VideoItemPage({validateUser}:any) {
             videoId: videoItem?.id
         }
 
-        await fetch('http://localhost:4000/videoDislikes', {
+        try {
 
-            method: 'POST',
+            fetch('http://localhost:4000/videoDislikes', {
 
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: localStorage.token
-            },
+                method: 'POST',
 
-            body: JSON.stringify(videoDislikeData)
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token
+                },
 
-        })
+                body: JSON.stringify(videoDislikeData)
+
+            })
             .then(resp => resp.json())
             .then(data => {
         
@@ -308,9 +358,15 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+        }
+
+        catch(error) {
+            console.log(error)
+        }
+
     }
 
-    async function deleteVideoDislike(e:any) {
+    function deleteVideoDislike(e:any) {
         
         const getVideo = {
             userId: user?.id,
@@ -325,35 +381,43 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            await fetch(`http://localhost:4000/videoDislikes/${result}`, {
+            try {
 
-                method: 'DELETE',
+                fetch(`http://localhost:4000/videoDislikes/${result}`, {
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: localStorage.token,
-                    videoId: String(videoItem?.id)
-                }
+                    method: 'DELETE',
 
-            })
-            .then(resp => resp.json())
-            .then(data => {
-            
-                if (data.error) {
-                    alert(data.error)
-                } 
-                    
-                else {
-                    setVideoItem(data)
-                }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.token,
+                        videoId: String(videoItem?.id)
+                    }
 
-            })
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                
+                    if (data.error) {
+                        alert(data.error)
+                    } 
+                        
+                    else {
+                        setVideoItem(data)
+                    }
+
+                })
+
+            }
+
+            catch(error) {
+                console.log(error)
+            }
 
         }
 
     }
 
-    async function addCommentLike(e:any, commentId:any) {
+    function addCommentLike(e:any, commentId:any) {
 
         e.preventDefault()
         
@@ -362,19 +426,21 @@ export default function VideoItemPage({validateUser}:any) {
             commentId: commentId
         }
 
-        await fetch('http://localhost:4000/comentLikes', {
+        try {
 
-            method: 'POST',
+            fetch('http://localhost:4000/comentLikes', {
 
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: localStorage.token,
-                videoId: String(videoItem?.id)
-            },
+                method: 'POST',
 
-            body: JSON.stringify(commentLikeData)
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
+                },
 
-        })
+                body: JSON.stringify(commentLikeData)
+
+            })
             .then(resp => resp.json())
             .then(data => {
         
@@ -388,9 +454,15 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+        }
+
+        catch(error) {
+            console.log(error)
+        }
+
     }
 
-    async function deleteCommentLike(e:any) {
+    function deleteCommentLike(e:any) {
         
         const getVideo = {
             userId: user?.id,
@@ -405,35 +477,43 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            await fetch(`http://localhost:4000/commentLikes/${result}`, {
+            try {
 
-                method: 'DELETE',
+                fetch(`http://localhost:4000/commentLikes/${result}`, {
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: localStorage.token,
-                    videoId: String(videoItem?.id)
-                }
+                    method: 'DELETE',
 
-            })
-            .then(resp => resp.json())
-            .then(data => {
-            
-                if (data.error) {
-                    alert(data.error)
-                } 
-                    
-                else {
-                    setVideoItem(data)
-                }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.token,
+                        videoId: String(videoItem?.id)
+                    }
 
-            })
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                
+                    if (data.error) {
+                        alert(data.error)
+                    } 
+                        
+                    else {
+                        setVideoItem(data)
+                    }
+
+                })
+
+            }
+
+            catch(error) {
+                console.log(error)
+            }
 
         }
 
     }
 
-    async function addCommentDislike(e:any, commentId:any) {
+    function addCommentDislike(e:any, commentId:any) {
 
         e.preventDefault()
         
@@ -442,19 +522,21 @@ export default function VideoItemPage({validateUser}:any) {
             commentId: commentId
         }
 
-        await fetch('http://localhost:4000/commentDislikes', {
+        try {
 
-            method: 'POST',
+            fetch('http://localhost:4000/commentDislikes', {
 
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: localStorage.token,
-                videoId: String(videoItem?.id)
-            },
+                method: 'POST',
 
-            body: JSON.stringify(commentDislikeData)
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
+                },
 
-        })
+                body: JSON.stringify(commentDislikeData)
+
+            })
             .then(resp => resp.json())
             .then(data => {
         
@@ -468,9 +550,15 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+        }
+
+        catch(error) {
+            console.log(error)
+        }
+
     }
 
-    async function deleteCommentDislike(e:any, commentId:any) {
+    function deleteCommentDislike(e:any, commentId:any) {
         
         const getComment = {
             userId: user?.id,
@@ -485,29 +573,37 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            await fetch(`http://localhost:4000/commentDislikes/${result}`, {
+            try {
 
-                method: 'DELETE',
+                fetch(`http://localhost:4000/commentDislikes/${result}`, {
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: localStorage.token,
-                    videoId: String(videoItem?.id)
-                }
+                    method: 'DELETE',
 
-            })
-            .then(resp => resp.json())
-            .then(data => {
-            
-                if (data.error) {
-                    alert(data.error)
-                } 
-                    
-                else {
-                    setVideoItem(data)
-                }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.token,
+                        videoId: String(videoItem?.id)
+                    }
 
-            })
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                
+                    if (data.error) {
+                        alert(data.error)
+                    } 
+                        
+                    else {
+                        setVideoItem(data)
+                    }
+
+                })
+
+            }
+
+            catch(error) {
+                console.log(error)
+            }
 
         }
 
