@@ -13,10 +13,11 @@ export default function VideoItemPage({validateUser}:any) {
     const params = useParams()
     const navigate = useNavigate()
 
-    const [comment, setComment] = useState<any>()
+    const [comment, setComment] = useState<any>("")
 
-    const { videoItem, setVideoItem, user, videos, comments, setComments, setVideos, setUser } = useStore()
+    const { videoItem, setVideoItem, user, videos, comments, setComments, setUser } = useStore()
     
+    //@ts-ignore
     const videosFiltered = videos.filter(video => video.id !== videoItem?.id)
     // #endregion
 
@@ -35,6 +36,17 @@ export default function VideoItemPage({validateUser}:any) {
 
     //@ts-ignore
     useEffect(getIndividualVideoFromServer, [])
+
+    function getCommentsFromServer ():any {
+
+        fetch(`http://localhost:4000/comments`)
+          .then(resp => resp.json())
+          .then(commentsFromServer => setComments(commentsFromServer))
+        
+    }
+
+    //@ts-ignore
+    useEffect(getCommentsFromServer, [])
 
     if (videoItem === null) {
         
@@ -139,26 +151,30 @@ export default function VideoItemPage({validateUser}:any) {
 
     }
 
-    async function deleteComment(e: any) {
+    function deleteComment(e: any) {
+
+        e.preventDefault()
+        e.stopPropagation()
 
         const commentsArray = [...comments];
 
         //@ts-ignore
-        const getComment: any = commentsArray.find(
-            (comment) =>
+        const getComment: any = commentsArray.find((commentNew) =>
+
             //@ts-ignore
-            comment?.userId === user?.id && comment?.videoId === videoItem?.id
+            commentNew.userId === user?.id && commentNew?.videoId === videoItem?.id
+
         );
 
         if (getComment) {
 
-            await fetch(`http://localhost:4000/comments/${getComment.id}`, {
+            fetch(`http://localhost:4000/comments/${getComment.id}`, {
 
                 method: "DELETE",
 
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: localStorage.token,
+                    Authorization: localStorage.token
                 }
 
             })
@@ -236,7 +252,8 @@ export default function VideoItemPage({validateUser}:any) {
 
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: localStorage.token
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
                 }
 
             })
@@ -308,13 +325,14 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            await fetch(`http://localhost:4000/videoDisliked/${result}`, {
+            await fetch(`http://localhost:4000/videoDislikes/${result}`, {
 
                 method: 'DELETE',
 
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: localStorage.token
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
                 }
 
             })
@@ -350,7 +368,8 @@ export default function VideoItemPage({validateUser}:any) {
 
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: localStorage.token
+                Authorization: localStorage.token,
+                videoId: String(videoItem?.id)
             },
 
             body: JSON.stringify(commentLikeData)
@@ -392,7 +411,8 @@ export default function VideoItemPage({validateUser}:any) {
 
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: localStorage.token
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
                 }
 
             })
@@ -428,7 +448,8 @@ export default function VideoItemPage({validateUser}:any) {
 
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: localStorage.token
+                Authorization: localStorage.token,
+                videoId: String(videoItem?.id)
             },
 
             body: JSON.stringify(commentDislikeData)
@@ -464,13 +485,14 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            await fetch(`http://localhost:4000/commentsDisliked/${result}`, {
+            await fetch(`http://localhost:4000/commentDislikes/${result}`, {
 
                 method: 'DELETE',
 
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: localStorage.token
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
                 }
 
             })
@@ -518,7 +540,7 @@ export default function VideoItemPage({validateUser}:any) {
                             {
 
                                 // @ts-ignore
-                                videoItem.hashtags.map(hashtag => 
+                                videoItem?.hashtags.map(hashtag => 
                                     
                                     <li key={hashtag.id}>
                                         #{hashtag.hashtag.name}
@@ -633,11 +655,16 @@ export default function VideoItemPage({validateUser}:any) {
                             }}>
 
                                  {/* @ts-ignore */}
-                                <textarea className="text-ribbon" placeholder="Add a public comment: " name="text-add" id="text-area-special" cols="80" rows="4"></textarea>
+                                <textarea className="text-ribbon" placeholder="Add a public comment: " value = {comment} name="text-add" id="text-area-special" cols="80" rows="4" 
+                                    //@ts-ignore
+                                    onChange = {function (e) {
+                                        handleCommentChange(e)
+                                    }}
+                                >
+
+                                </textarea>
                                 
-                                <button className="add-comment-video" onChange={function (e) {
-                                    handleCommentChange(e)
-                                }}>Add Comment</button>
+                                <button className="add-comment-video">Add Comment</button>
                         
                             </form>
 
@@ -650,18 +677,18 @@ export default function VideoItemPage({validateUser}:any) {
                         {
 
                             //@ts-ignore
-                            videoItem.comments.map(comment => 
+                            videoItem?.comments?.map(comment => 
                                 
                                 <div className="comments-wrapper" key={comment.id}>
 
-                                    <img className="img-comments"  src={`http://localhost:4000/avatar/${comment.userWhoCreatedIt.userName}`} alt="" />
+                                    <img className="img-comments"  src={`http://localhost:4000/avatar/${comment?.userWhoCreatedIt?.userName}`} alt="" />
 
                                     <div className="h4-wrapper">
-                                        <h4 className="h4-comments">{comment.userWhoCreatedIt.userName}</h4>
-                                        <span className="span-1-comments">{comment.createdAt}</span>
+                                        <h4 className="h4-comments">{comment?.userWhoCreatedIt?.userName}</h4>
+                                        <span className="span-1-comments">{comment?.createdAt}</span>
                                     </div>
 
-                                    <p className="p-comments">{comment.content}</p>
+                                    <p className="p-comments">{comment?.content}</p>
                                     
                                     <div className="like-wrapper">
 
@@ -669,13 +696,13 @@ export default function VideoItemPage({validateUser}:any) {
                                             addVideoLike(e)
                                         }}>thumb_up</i>
 
-                                        <span className="span-2-comments">{comment.countLikesInside}</span>
+                                        <span className="span-2-comments">{comment?.countLikesInside}</span>
 
                                         <i className="material-icons" onClick={function (e) {
                                             addVideoDislike(e)
                                         }}>thumb_down</i>
 
-                                        <span className="span-2-comments">{comment.countDislikesInside}</span>
+                                        <span className="span-2-comments">{comment?.countDislikesInside}</span>
 
                                         <span className="span-reply">REPLY</span>
 
