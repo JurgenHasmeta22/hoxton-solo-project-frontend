@@ -27,7 +27,17 @@ export default function VideoItemPage({validateUser}:any) {
 
         fetch(`http://localhost:4000/videos/${params.id}`)
         .then(resp => resp.json())
-        .then(videoFromServer => setVideoItem(videoFromServer))
+        .then(videoFromServer => {
+
+            if (videoFromServer.error) {
+                alert(videoFromServer.error)
+            } 
+        
+            else {
+                setVideoItem(videoFromServer)
+            }
+            
+        })
 
         return () => {
             setVideoItem(null)
@@ -165,7 +175,33 @@ export default function VideoItemPage({validateUser}:any) {
                     setVideoItem(data);
                 }
 
-            });
+            })
+
+            fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+
+                //@ts-ignore
+                body: JSON.stringify({countCommentsInside: videoItem?.countCommentsInside + 1})
+
+            })
+                .then((resp) => resp.json())
+                .then((data) => {
+
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideoItem(data);
+                }
+
+            })
 
         }
 
@@ -178,7 +214,6 @@ export default function VideoItemPage({validateUser}:any) {
     function deleteComment(e: any) {
 
         e.preventDefault()
-        e.stopPropagation()
 
         const commentsArray = [...comments];
 
@@ -213,7 +248,33 @@ export default function VideoItemPage({validateUser}:any) {
                         setVideoItem(data);
                     }
 
-                });
+                })
+
+                fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+
+                //@ts-ignore
+                body: JSON.stringify({countCommentsInside: videoItem?.countCommentsInside - 1})
+
+                })
+                .then((resp) => resp.json())
+                .then((data) => {
+
+                    if (data.error) {
+                        alert(data.error);
+                    } 
+                    
+                    else {
+                        setVideoItem(data);
+                    }
+
+                })
 
             }
 
@@ -234,48 +295,61 @@ export default function VideoItemPage({validateUser}:any) {
             videoId: videoItem?.id
         }
 
-        try {
+        fetch('http://localhost:4000/videoLikes', {
 
-            fetch('http://localhost:4000/videoLikes', {
+            method: 'POST',
 
-                method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+
+            body: JSON.stringify(videoLikeData)
+
+        })
+        .then(resp => resp.json())
+        .then(data => {
+    
+            if (data.error) {
+                alert(data.error)
+            } 
+            
+            else {
+                setVideoItem(data)
+            }
+
+        })
+        
+        fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+
+                method: "PATCH",
 
                 headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: localStorage.token
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
                 },
 
-                body: JSON.stringify(videoLikeData)
+                //@ts-ignore
+                body: JSON.stringify({countLikesInside: videoItem?.countLikesInside + 1})
 
             })
-            .then(resp => resp.json())
-            .then(data => {
-        
-                if (data.error) {
-                    alert(data.error)
-                } 
-                
-                else {
-                    setVideoItem(data)
-                }
+            .then((resp) => resp.json())
+            .then((data) => {
 
-            })
+            if (data.error) {
+                alert(data.error);
+            } 
+            
+            else {
+                setVideoItem(data);
+            }
 
-        }
-
-        catch(error) {
-            console.log(error)
-        }     
+        })
 
     }
 
     function deleteVideoLike(e:any) {
         
-        const getVideo = {
-            userId: user?.id,
-            videoId: videoItem?.id
-        }    
-
         //@ts-ignore
         const result = user.videosLiked.filter(videoNew => video.id === videoNew.videoId)
 
@@ -306,6 +380,32 @@ export default function VideoItemPage({validateUser}:any) {
                         
                     else {
                         setVideoItem(data)
+                    }
+
+                })
+
+                fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+
+                    //@ts-ignore
+                    body: JSON.stringify({countLikesInside: videoItem?.countLikesInside - 1})
+
+                })
+                .then((resp) => resp.json())
+                .then((data) => {
+
+                    if (data.error) {
+                        alert(data.error);
+                    } 
+                    
+                    else {
+                        setVideoItem(data);
                     }
 
                 })
@@ -356,6 +456,32 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+            fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+
+                //@ts-ignore
+                body: JSON.stringify({countDislikesInside: videoItem?.countDislikesInside + 1})
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideoItem(data);
+                }
+
+            })
+
         }
 
         catch(error) {
@@ -366,11 +492,6 @@ export default function VideoItemPage({validateUser}:any) {
 
     function deleteVideoDislike(e:any) {
         
-        const getVideo = {
-            userId: user?.id,
-            videoId: videoItem?.id
-        }    
-
         //@ts-ignore
         const result = user.videosDisliked.filter(videoNew => video.id === videoNew.videoId)
 
@@ -401,6 +522,32 @@ export default function VideoItemPage({validateUser}:any) {
                         
                     else {
                         setVideoItem(data)
+                    }
+
+                })
+                
+                fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+
+                    //@ts-ignore
+                    body: JSON.stringify({countDislikesInside: videoItem?.countDislikesInside - 1})
+
+                })
+                .then((resp) => resp.json())
+                .then((data) => {
+
+                    if (data.error) {
+                        alert(data.error);
+                    } 
+                    
+                    else {
+                        setVideoItem(data);
                     }
 
                 })
@@ -452,6 +599,32 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+            fetch(`http://localhost:4000/comments/${commentId}`, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+
+                //@ts-ignore
+                body: JSON.stringify({countLikesInside: comments[commentId - 1].countLikesInside + 1})
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideoItem(data);
+                }
+
+            })
+
         }
 
         catch(error) {
@@ -460,13 +633,8 @@ export default function VideoItemPage({validateUser}:any) {
 
     }
 
-    function deleteCommentLike(e:any) {
-        
-        const getVideo = {
-            userId: user?.id,
-            videoId: videoItem?.id
-        }    
-
+    function deleteCommentLike(e:any, commentId: any) {
+    
         //@ts-ignore
         const result = user.commentsLiked.filter(commentNew => commentId === commentNew.commentId)
 
@@ -497,6 +665,32 @@ export default function VideoItemPage({validateUser}:any) {
                         
                     else {
                         setVideoItem(data)
+                    }
+
+                })
+
+                fetch(`http://localhost:4000/comments/${commentId}`, {
+
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+
+                    //@ts-ignore
+                    body: JSON.stringify({countLikesInside: comments[commentId - 1].countLikesInside - 1})
+
+                })
+                .then((resp) => resp.json())
+                .then((data) => {
+
+                    if (data.error) {
+                        alert(data.error);
+                    } 
+                    
+                    else {
+                        setVideoItem(data);
                     }
 
                 })
@@ -548,6 +742,32 @@ export default function VideoItemPage({validateUser}:any) {
 
             })
 
+            fetch(`http://localhost:4000/comments/${commentId}`, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+
+                //@ts-ignore
+                body: JSON.stringify({countDislikesInside: comments[commentId - 1].countDislikesInside + 1})
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideoItem(data);
+                }
+
+            })
+
         }
 
         catch(error) {
@@ -557,12 +777,7 @@ export default function VideoItemPage({validateUser}:any) {
     }
 
     function deleteCommentDislike(e:any, commentId:any) {
-        
-        const getComment = {
-            userId: user?.id,
-            commentId: commentId
-        }    
-
+            
         //@ts-ignore
         const result = user.commentsDisliked.filter(commentNew => comment.id === commentNew.commntId)
 
@@ -597,6 +812,32 @@ export default function VideoItemPage({validateUser}:any) {
 
                 })
 
+                fetch(`http://localhost:4000/comments/${commentId}`, {
+
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+
+                    //@ts-ignore
+                    body: JSON.stringify({countDislikesInside: comments[commentId - 1].countDislikesInside - 1})
+
+                })
+                .then((resp) => resp.json())
+                .then((data) => {
+
+                    if (data.error) {
+                        alert(data.error);
+                    } 
+                    
+                    else {
+                        setVideoItem(data);
+                    }
+
+                })
+
             }
 
             catch(error) {
@@ -622,6 +863,7 @@ export default function VideoItemPage({validateUser}:any) {
     //@ts-ignore
     const videosFiltered = videos?.filter(video => video.id !== videoItem?.id)
 
+    // console.log("Is Liked : ", isVideoLiked, "Is disliked: ", isVideoDisliked)
     // #endregion
     
     return (
@@ -670,11 +912,61 @@ export default function VideoItemPage({validateUser}:any) {
 
                         <div className="group-video-2">
 
-                            <i className="material-icons">thumb_up</i>
-                            <span>{videoItem.countLikesInside}</span>
+                        { isVideoLiked ? (
 
-                            <i className="material-icons">thumb_down</i>
-                            <span>{videoItem.countDislikesInside}</span>
+                            <>
+
+                                <i className={isVideoLiked ? "filled-like" : "material-icons"} onClick={function (e) {
+                                    deleteVideoLike(e)
+                                }}>thumb_up</i>
+
+                                <span>{videoItem.countLikesInside}</span>
+
+                            </>
+
+                            ): (
+
+                                <>
+
+                                    <i className={isVideoLiked ? "filled-like" : "material-icons"} onClick={function (e) {
+                                        addVideoLike(e)
+                                    }}>thumb_up</i>
+
+                                    <span>{videoItem.countLikesInside}</span>
+
+                                </>
+
+                            )
+
+                        }
+
+                        { isVideoDisliked ? (
+
+                            <>
+
+                                <i className={isVideoDisliked ? "filled-like" : "material-icons"} onClick={function (e) {
+                                    deleteVideoDislike(e)
+                                }}>thumb_down</i>
+
+                                <span>{videoItem.countDislikesInside}</span>
+
+                            </>
+
+                            ): (
+
+                                    <>
+
+                                        <i className={isVideoDisliked ? "filled-like" : "material-icons"} onClick={function (e) {
+                                            addVideoDislike(e)
+                                        }}>thumb_down</i>
+
+                                        <span>{videoItem.countDislikesInside}</span>
+
+                                    </>
+
+                                )
+
+                            }
 
                             {
 
@@ -800,12 +1092,12 @@ export default function VideoItemPage({validateUser}:any) {
                                         { isVideoLiked ? 
                                         
                                             (
-                                                <i className="material-icons filled" onClick={function (e) {
-                                                    deleteVideoLike(e)
+                                                <i className="material-icons filled-like" onClick={function (e) {
+                                                    deleteCommentLike(e, comment.id)
                                                 }}>thumb_up</i>
                                             ): (
                                                 <i className="material-icons" onClick={function (e) {
-                                                    addVideoLike(e)
+                                                    addCommentLike(e, comment.id)
                                                 }}>thumb_up</i>
                                             )
 
@@ -816,12 +1108,12 @@ export default function VideoItemPage({validateUser}:any) {
                                         { isVideoDisliked ? 
                                         
                                             (
-                                                <i className="material-icons" onClick={function (e) {
-                                                    deleteVideoDislike(e)
+                                                <i className="material-icons filled-like" onClick={function (e) {
+                                                    deleteCommentDislike(e, comment.id)
                                                 }}>thumb_down</i>
                                             ): (
                                                 <i className="material-icons" onClick={function (e) {
-                                                    addVideoDislike(e)
+                                                    addCommentDislike(e, comment.id)
                                                 }}>thumb_down</i>
                                             )
 

@@ -306,8 +306,8 @@ main.main-menu .video-ribbon .ribbon-wrapper-row-1 {
     /* padding-left: 50px; */
 }
 
-.filled {
-    background-color: #F00;
+.filled-like {
+    color: #cc0000;
 }
 
 main.main-menu .video-ribbon .ribbon-wrapper-row-2 {
