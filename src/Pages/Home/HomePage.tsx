@@ -1,5 +1,5 @@
 // #region "importing"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import HeaderNewCommon from "../../Components/Common/HeaderCommon/HeaderNewCommon"
 import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
 import { useStore } from "../../Zustand/store"
@@ -11,6 +11,7 @@ export default function HomePage({validateUser}:any) {
 
     // #region "State and fetching stuff"
     const { videos, setVideos, setCategories, categories } = useStore()
+    const [tabCategory, setTabCategory] = useState("All")
 
     useEffect(() => {
         validateUser();
@@ -18,38 +19,22 @@ export default function HomePage({validateUser}:any) {
 
     function getVideosFromServer(): void {
 
-        try {
-
-            fetch(`http://localhost:4000/videos`)
-            .then(resp => resp.json())
-            .then(videosFromServer => setVideos(videosFromServer))
-
-        }
-
-        catch(error) {
-            console.log(error)
-        }
-
-    }
-
-    function getCategoriesFromServer(): void {
-
-        try {
-
-            fetch(`http://localhost:4000/categories`)
-            .then(resp => resp.json())
-            .then(categoriesFromServer => setCategories(categoriesFromServer))
-
-        }
-
-        catch(error) {
-            console.log(error)
-        }
+        fetch(`http://localhost:4000/videos`)
+        .then(resp => resp.json())
+        .then(videosFromServer => setVideos(videosFromServer))
 
     }
 
     //@ts-ignore
     useEffect(getVideosFromServer, [])
+
+    function getCategoriesFromServer(): void {
+
+        fetch(`http://localhost:4000/categories`)
+        .then(resp => resp.json())
+        .then(categoriesFromServer => setCategories(categoriesFromServer))
+
+    }
 
     //@ts-ignore
     useEffect(getCategoriesFromServer, [])
@@ -67,6 +52,19 @@ export default function HomePage({validateUser}:any) {
     }
     // #endregion
     
+    function changeChategory(categoryName: any):void {
+        setTabCategory(categoryName)
+    }
+
+    if (videos === null || undefined) {
+        <main>Loading...</main>
+    }
+
+    function filterVideos() {
+        const videosFiltered = [...videos]
+        return videosFiltered.filter(video => video.category.name === tabCategory)
+    }
+
     return (
 
         <>
@@ -80,9 +78,12 @@ export default function HomePage({validateUser}:any) {
                             <ul className="elements-wrapper">
 
                                 {
+
                                     categories.map(category => 
 
-                                        <li className="list-items" key={category.id}>{category.name}</li>
+                                        <li className="list-items" key={category.id} onClick = {function (e) {
+                                            changeChategory(category.name)
+                                        }}>{category.name}</li>
 
                                     )
 
@@ -95,19 +96,40 @@ export default function HomePage({validateUser}:any) {
                     <main className="main-menu">
 
                         {
+                            tabCategory !== "All" ? (
 
-                            videos.map(video => 
-                                
-                                <HomeVideo 
-                                    key = {video.id}
-                                    video = {video}
-                                    liked = {"not"}
-                                    videoLiked = {null}
-                                    videoSaved = {null}
-                                    user = {null}
-                                    videoMine = {null}
-                                />  
-                                
+                                //@ts-ignore
+                                filterVideos().map(video => 
+                                    
+                                    <HomeVideo 
+                                        key = {video.id}
+                                        video = {video}
+                                        liked = {"not"}
+                                        videoLiked = {null}
+                                        videoSaved = {null}
+                                        user = {null}
+                                        videoMine = {null}
+                                    />  
+                                    
+                                )
+
+                            ): (
+
+                                //@ts-ignore
+                                videos?.map(video => 
+                                    
+                                    <HomeVideo 
+                                        key = {video.id}
+                                        video = {video}
+                                        liked = {"not"}
+                                        videoLiked = {null}
+                                        videoSaved = {null}
+                                        user = {null}
+                                        videoMine = {null}
+                                    />  
+                                    
+                                )
+
                             )
 
                         }

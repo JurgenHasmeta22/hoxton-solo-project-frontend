@@ -24,17 +24,7 @@ import FileUpload from "./Components/FileUpload/FileUpload"
 
 function App() {
 
-  const { setUser, setVideos } = useStore()
-  
-  function getVideosFromServer () {
-
-    fetch(`http://localhost:4000/videos`)
-      .then(resp => resp.json())
-      .then(videosFromServer => setVideos(videosFromServer))
-      
-  }
-
-  useEffect(getVideosFromServer, [])
+  const { setUser } = useStore()
 
   function validateUser() {
 
@@ -82,10 +72,6 @@ function App() {
         <Route path="/users/:id" element={
           <ProfilePage validateUser = {validateUser} />} 
         />
-
-        {/* <Route path="/profile" element={
-          <ProfilePage validateUser = {validateUser} />} 
-        /> */}
 
         <Route path="/login" element={
           <LoginPage 

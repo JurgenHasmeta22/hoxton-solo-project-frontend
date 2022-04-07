@@ -14,13 +14,8 @@ export default function VideoItemPage({validateUser}:any) {
     const navigate = useNavigate()
 
     const [comment, setComment] = useState<any>("")
-    // const [likeClicked, setLikeClicked] = useState<any>(false)
-    // const [dislikeClicked, setDislikeClicked] = useState<any>(false)
 
-    const { videoItem, setVideoItem, user, videos, comments, setComments, setUser } = useStore()
-    
-    //@ts-ignore
-    const videosFiltered = videos.filter(video => video.id !== videoItem?.id)
+    const { videoItem, setVideoItem, user, videos, setVideos, comments, setComments, setUser } = useStore()
     // #endregion
 
     // #region "getting stuff from server and checking loading etc"
@@ -29,8 +24,6 @@ export default function VideoItemPage({validateUser}:any) {
     }, []);
     
     function getIndividualVideoFromServer (): any {
-
-        // console.log(params.id)
 
         fetch(`http://localhost:4000/videos/${params.id}`)
         .then(resp => resp.json())
@@ -45,16 +38,16 @@ export default function VideoItemPage({validateUser}:any) {
     //@ts-ignore
     useEffect(getIndividualVideoFromServer, [])
 
-    // function getCommentsFromServer (): any {
+    function getCommentsFromServer (): any {
 
-    //     fetch(`http://localhost:4000/comments`)
-    //     .then(resp => resp.json())
-    //     .then(commentsFromServer => setComments(commentsFromServer))
+        fetch(`http://localhost:4000/comments`)
+        .then(resp => resp.json())
+        .then(commentsFromServer => setComments(commentsFromServer))
 
-    // }
+    }
 
-    // //@ts-ignore
-    // useEffect(getCommentsFromServer, [])
+    //@ts-ignore
+    useEffect(getCommentsFromServer, [])
 
     if (videoItem === null) {
         
@@ -69,6 +62,21 @@ export default function VideoItemPage({validateUser}:any) {
     if (videoItem.title === undefined) {
         return <main>Video item not found</main>
     }
+
+    // function getVideosFromServer(): void {
+
+    //     fetch(`http://localhost:4000/videos`)
+    //     .then(resp => resp.json())
+    //     .then(videosFromServer => setVideos(videosFromServer))
+
+    // }
+
+    // //@ts-ignore
+    // useEffect(getVideosFromServer, [])
+
+    // if (videos === undefined) {
+    //     <main>Loading...</main>
+    // }
 
     // #endregion
 
@@ -176,10 +184,8 @@ export default function VideoItemPage({validateUser}:any) {
 
         //@ts-ignore
         const getComment: any = commentsArray.find((commentNew) =>
-
             //@ts-ignore
             commentNew.userId === user?.id && commentNew?.videoId === videoItem?.id
-
         );
 
         if (getComment) {
@@ -603,6 +609,7 @@ export default function VideoItemPage({validateUser}:any) {
     // #endregion
 
     // #region 'Checking some is is liked etc"
+
     //@ts-ignore
     const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved?.videoId === videoItem?.id)
 
@@ -611,6 +618,10 @@ export default function VideoItemPage({validateUser}:any) {
 
     // @ts-ignore
     const isVideoDisliked = videoItem?.usersWhoDislikedIt?.includes(videoDisliked => videoDisliked?.userId === user?.id && videoDisliked?.videoId === videoItem?.id)
+   
+    //@ts-ignore
+    const videosFiltered = videos?.filter(video => video.id !== videoItem?.id)
+
     // #endregion
     
     return (
@@ -708,8 +719,6 @@ export default function VideoItemPage({validateUser}:any) {
                             <p className="p-video">
                                 {videoItem.description}
                             </p>
-
-                            {/* <a href="#" className="a-video">Show More</a> */}
 
                             <div className="btn-wrapper">
 
@@ -854,6 +863,7 @@ export default function VideoItemPage({validateUser}:any) {
 
                             <img className="image-post" src={`http://localhost:4000/thumbnail/${video?.title}`} alt="" />
                             <h2 className="video-title">{video?.title}</h2>
+                            
                             <span className="video-user">{video?.userWhoCreatedIt?.userName}</span>
                             <span className="video-views">{video?.views} views - {video?.createdAt} </span>
                         

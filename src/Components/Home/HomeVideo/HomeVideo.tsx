@@ -23,17 +23,10 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
     // #region "fetching stuff from server"
     function getVideosSavedFromServer (): any {
 
-        try {
-
-            fetch(`http://localhost:4000/videosSaved`)
-            .then(resp => resp.json())
-            .then(videosSavedFromServer => setVideosSaved(videosSavedFromServer))
-        
-        }
-
-        catch(error) {
-            console.log(error)
-        }
+        //signals control
+        fetch(`http://localhost:4000/videosSaved`)
+        .then(resp => resp.json())
+        .then(videosSavedFromServer => setVideosSaved(videosSavedFromServer))
 
     }
     
@@ -133,55 +126,47 @@ export default function HomeVideo({video, liked, videoLiked, videoSaved, user, v
 
     function removeVideo(videoId:any, videoTitle: any) {
     
-        try {
+        fetch(`http://localhost:4000/removeMedia/${videoTitle}`, {
     
-            fetch(`http://localhost:4000/removeMedia/${videoTitle}`, {
-        
-                method: "POST",
-        
-                headers: {
-                    "Content-Type": "application/json",
-                }
+            method: "POST",
+    
+            headers: {
+                "Content-Type": "application/json",
+            }
 
-            })
-            .then((resp) => resp.json())
-            .then((data) => {
-    
-                if (data.error) {
-                    alert(data.error);
-                } 
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
 
-            })
+            if (data.error) {
+                alert(data.error);
+            } 
 
-            fetch(`http://localhost:4000/videos/${videoId}`, {
-        
-                method: "DELETE",
-        
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: localStorage.token
-                }
+        })
 
-            })
-            .then((resp) => resp.json())
-            .then((data) => {
+        fetch(`http://localhost:4000/videos/${videoId}`, {
     
-                if (data.error) {
-                    alert(data.error);
-                } 
-                
-                else {
-                    setVideos(data);
-                    navigate("../home")
-                }
+            method: "DELETE",
     
-            });
-    
-        }
-    
-        catch (err:any) {
-          console.log({"its error": err})
-        }
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.token
+            }
+
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+
+            if (data.error) {
+                alert(data.error);
+            } 
+            
+            else {
+                setVideos(data);
+                navigate("../home")
+            }
+
+        });
         
     }
     // #endregion

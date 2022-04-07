@@ -23,16 +23,6 @@ export default function ProfilePage({validateUser}:any) {
 
     const params = useParams()
 
-    // function getUsersFromServer () {
-
-    //     fetch(`http://localhost:4000/users`)
-    //     .then(resp => resp.json())
-    //     .then(usersFromServer => setUsers(usersFromServer))
-        
-    // }
-
-    // useEffect(getUsersFromServer, [])
-
     function getIndividualUserFromServer () {
 
         fetch(`http://localhost:4000/users/${params.id}`)
@@ -42,16 +32,6 @@ export default function ProfilePage({validateUser}:any) {
     }
     
     useEffect(getIndividualUserFromServer, [])
-
-    // function getFollowersFromServer () {
-
-    //     fetch(`http://localhost:4000/subscribers`)
-    //     .then(resp => resp.json())
-    //     .then(followersFromServer => setFollowers(followersFromServer))
-        
-    // }
-
-    // useEffect(getFollowersFromServer, [])
     // #endregion
 
     // #region "Checking stuff from server wich came and loading"

@@ -35,7 +35,8 @@ export type Video = {
     views: number,
     hashtags: any,
     usersWhoLikedIt: any,
-    usersWhoDislikedIt: any
+    usersWhoDislikedIt: any,
+    category: any
 
 }
 
