@@ -320,7 +320,11 @@ export default function VideoItemPage({validateUser}:any) {
 
         })
         
-        fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+        const dataUpdated = {
+            countLikesInside: videoItem?.countLikesInside! + 1
+        }
+
+        fetch(`http://localhost:4000/videos/${params.id}`, {
 
                 method: "PATCH",
 
@@ -330,7 +334,7 @@ export default function VideoItemPage({validateUser}:any) {
                 },
 
                 //@ts-ignore
-                body: JSON.stringify({countLikesInside: videoItem?.countLikesInside + 1})
+                body: JSON.stringify(dataUpdated)
 
             })
             .then((resp) => resp.json())
@@ -358,63 +362,59 @@ export default function VideoItemPage({validateUser}:any) {
 
         if (result) {
 
-            try {
+            fetch(`http://localhost:4000/videoLikes/${result}`, {
 
-                fetch(`http://localhost:4000/videoLikes/${result}`, {
+                method: 'DELETE',
 
-                    method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
+                }
 
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: localStorage.token,
-                        videoId: String(videoItem?.id)
-                    }
-
-                })
-                .then(resp => resp.json())
-                .then(data => {
-                
-                    if (data.error) {
-                        alert(data.error)
-                    } 
-                        
-                    else {
-                        setVideoItem(data)
-                    }
-
-                })
-
-                fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
-
-                    method: "PATCH",
-
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: localStorage.token,
-                    },
-
-                    //@ts-ignore
-                    body: JSON.stringify({countLikesInside: videoItem?.countLikesInside - 1})
-
-                })
-                .then((resp) => resp.json())
-                .then((data) => {
-
-                    if (data.error) {
-                        alert(data.error);
-                    } 
+            })
+            .then(resp => resp.json())
+            .then(data => {
+            
+                if (data.error) {
+                    alert(data.error)
+                } 
                     
-                    else {
-                        setVideoItem(data);
-                    }
+                else {
+                    setVideoItem(data)
+                }
 
-                })
+            })
 
+            const dataUpdated = {
+                countLikesInside: videoItem?.countLikesInside! - 1
             }
 
-            catch(error) {
-                console.log(error)
-            }
+            fetch(`http://localhost:4000/videos/${params.id}`, {
+
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+
+                //@ts-ignore
+                body: JSON.stringify(dataUpdated)
+
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+
+                if (data.error) {
+                    alert(data.error);
+                } 
+                
+                else {
+                    setVideoItem(data);
+                }
+
+            })
 
         }
 
@@ -429,34 +429,103 @@ export default function VideoItemPage({validateUser}:any) {
             videoId: videoItem?.id
         }
 
-        try {
 
-            fetch('http://localhost:4000/videoDislikes', {
+        fetch('http://localhost:4000/videoDislikes', {
 
-                method: 'POST',
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token
+            },
+
+            body: JSON.stringify(videoDislikeData)
+
+        })
+        .then(resp => resp.json())
+        .then(data => {
+    
+            if (data.error) {
+                alert(data.error)
+            } 
+            
+            else {
+                setVideoItem(data)
+            }
+
+        })
+
+        const dataUpdated = {
+            countDislikesInside: videoItem?.countDislikesInside! + 1
+        }
+
+        fetch(`http://localhost:4000/videos/${params.id}`, {
+
+            method: "PATCH",
+
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.token,
+            },
+
+            //@ts-ignore
+            body: JSON.stringify(dataUpdated)
+
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+
+            if (data.error) {
+                alert(data.error);
+            } 
+            
+            else {
+                setVideoItem(data);
+            }
+
+        })
+
+    }
+
+    function deleteVideoDislike(e:any) {
+        
+        //@ts-ignore
+        const result = user.videosDisliked.filter(videoNew => video.id === videoNew.videoId)
+
+        //@ts-ignore
+        const findId = videoDisliked.findIndex(videoNew => videoNew.userId === user.id && videoNew.videoId === video.id )
+
+        if (result) {
+
+            fetch(`http://localhost:4000/videoDislikes/${result}`, {
+
+                method: 'DELETE',
 
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: localStorage.token
-                },
-
-                body: JSON.stringify(videoDislikeData)
+                    Authorization: localStorage.token,
+                    videoId: String(videoItem?.id)
+                }
 
             })
             .then(resp => resp.json())
             .then(data => {
-        
+            
                 if (data.error) {
                     alert(data.error)
                 } 
-                
+                    
                 else {
                     setVideoItem(data)
                 }
 
             })
+                
+            const dataUpdated = {
+                countDislikesInside: videoItem?.countDislikesInside! - 1
+            }
 
-            fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
+            fetch(`http://localhost:4000/videos/${params.id}`, {
 
                 method: "PATCH",
 
@@ -466,7 +535,7 @@ export default function VideoItemPage({validateUser}:any) {
                 },
 
                 //@ts-ignore
-                body: JSON.stringify({countDislikesInside: videoItem?.countDislikesInside + 1})
+                body: JSON.stringify(dataUpdated)
 
             })
             .then((resp) => resp.json())
@@ -481,82 +550,6 @@ export default function VideoItemPage({validateUser}:any) {
                 }
 
             })
-
-        }
-
-        catch(error) {
-            console.log(error)
-        }
-
-    }
-
-    function deleteVideoDislike(e:any) {
-        
-        //@ts-ignore
-        const result = user.videosDisliked.filter(videoNew => video.id === videoNew.videoId)
-
-        //@ts-ignore
-        const findId = videoDisliked.findIndex(videoNew => videoNew.userId === user.id && videoNew.videoId === video.id )
-
-        if (result) {
-
-            try {
-
-                fetch(`http://localhost:4000/videoDislikes/${result}`, {
-
-                    method: 'DELETE',
-
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: localStorage.token,
-                        videoId: String(videoItem?.id)
-                    }
-
-                })
-                .then(resp => resp.json())
-                .then(data => {
-                
-                    if (data.error) {
-                        alert(data.error)
-                    } 
-                        
-                    else {
-                        setVideoItem(data)
-                    }
-
-                })
-                
-                fetch(`http://localhost:4000/videos/${videoItem?.id}`, {
-
-                    method: "PATCH",
-
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: localStorage.token,
-                    },
-
-                    //@ts-ignore
-                    body: JSON.stringify({countDislikesInside: videoItem?.countDislikesInside - 1})
-
-                })
-                .then((resp) => resp.json())
-                .then((data) => {
-
-                    if (data.error) {
-                        alert(data.error);
-                    } 
-                    
-                    else {
-                        setVideoItem(data);
-                    }
-
-                })
-
-            }
-
-            catch(error) {
-                console.log(error)
-            }
 
         }
 
@@ -571,65 +564,61 @@ export default function VideoItemPage({validateUser}:any) {
             commentId: commentId
         }
 
-        try {
+        fetch('http://localhost:4000/commentLikes', {
 
-            fetch('http://localhost:4000/commentLikes', {
+            method: 'POST',
 
-                method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.token,
+                videoId: String(videoItem?.id)
+            },
 
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: localStorage.token,
-                    videoId: String(videoItem?.id)
-                },
+            body: JSON.stringify(commentLikeData)
 
-                body: JSON.stringify(commentLikeData)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+    
+            if (data.error) {
+                alert(data.error)
+            } 
+            
+            else {
+                setVideoItem(data)
+            }
 
-            })
-            .then(resp => resp.json())
-            .then(data => {
-        
-                if (data.error) {
-                    alert(data.error)
-                } 
-                
-                else {
-                    setVideoItem(data)
-                }
+        })
 
-            })
-
-            fetch(`http://localhost:4000/comments/${commentId}`, {
-
-                method: "PATCH",
-
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: localStorage.token,
-                },
-
-                //@ts-ignore
-                body: JSON.stringify({countLikesInside: comments[commentId - 1].countLikesInside + 1})
-
-            })
-            .then((resp) => resp.json())
-            .then((data) => {
-
-                if (data.error) {
-                    alert(data.error);
-                } 
-                
-                else {
-                    setVideoItem(data);
-                }
-
-            })
-
+        const dataUpdated = {
+            countLikesInside: comments[commentId - 1].countLikesInside + 1
         }
 
-        catch(error) {
-            console.log(error)
-        }
+        fetch(`http://localhost:4000/comments/${commentId}`, {
+
+            method: "PATCH",
+
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.token,
+            },
+
+            //@ts-ignore
+            body: JSON.stringify(dataUpdated)
+
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+
+            if (data.error) {
+                alert(data.error);
+            } 
+            
+            else {
+                setVideoItem(data);
+            }
+
+        })
 
     }
 
@@ -852,18 +841,18 @@ export default function VideoItemPage({validateUser}:any) {
     // #region 'Checking some is is liked etc"
 
     //@ts-ignore
-    const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved?.videoId === videoItem?.id)
+    const isVideoSaved = user?.savedVideos?.includes(videoSaved => videoSaved.videoId === videoItem?.id)
 
     // @ts-ignore
-    const isVideoLiked = videoItem?.usersWhoLikedIt?.includes(videoLiked => videoLiked?.userId === user?.id && videoLiked?.videoId === videoItem?.id)
+    const isVideoLiked = user?.videosLiked?.includes(videoLiked => videoLiked.userId === user?.id && videoLiked.videoId === videoItem?.id)
 
     // @ts-ignore
-    const isVideoDisliked = videoItem?.usersWhoDislikedIt?.includes(videoDisliked => videoDisliked?.userId === user?.id && videoDisliked?.videoId === videoItem?.id)
+    const isVideoDisliked = user?.videosDisliked?.includes(videoDisliked => videoDisliked.userId === user?.id && videoDisliked.videoId === videoItem?.id)
    
     //@ts-ignore
     const videosFiltered = videos?.filter(video => video.id !== videoItem?.id)
 
-    // console.log("Is Liked : ", isVideoLiked, "Is disliked: ", isVideoDisliked)
+    // console.log("Is Liked : ", isVideoLiked, "Is disliked: ", isVideoDisliked, "Is saved: ", isVideoSaved)
     // #endregion
     
     return (
