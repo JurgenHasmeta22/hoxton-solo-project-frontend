@@ -1,11 +1,3 @@
 export default function AboutSection() {
-
-    return (
-
-        <>
-        
-        </>
-
-    )
-    
+  return <></>;
 }

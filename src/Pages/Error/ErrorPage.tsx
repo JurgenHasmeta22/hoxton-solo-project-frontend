@@ -1,17 +1,13 @@
 import { useEffect } from "react";
 
-export default function ErrorPage({validateUser}:any) {
+export default function ErrorPage({ validateUser }: any) {
+  useEffect(() => {
+    validateUser();
+  }, []);
 
-    useEffect(() => {
-        validateUser();
-    }, []);
-
-    return (
-
-        <>
-            <main>ERROR 404</main>
-        </>
-
-    )
-    
+  return (
+    <>
+      <main>ERROR 404</main>
+    </>
+  );
 }

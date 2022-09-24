@@ -1,14 +1,14 @@
 .footer-welcome {
-    display: grid;
-    grid-template-rows: 1fr;
-    place-items: center;
-    height: 30vh;
-    background-color: #000;
+  display: grid;
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 30vh;
+  background-color: #000;
 }
 
 .footer-welcome span {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #fff;
 }

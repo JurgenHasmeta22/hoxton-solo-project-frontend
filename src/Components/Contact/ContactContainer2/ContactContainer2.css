@@ -1,11 +1,11 @@
 /*Here the content for contact page */
 section.contact-container-2 {
-    height: auto;
-    width: 100%;
-    display: grid;
-    place-items: center;
-    grid-gap: 30px;
-    grid-template-rows: 0.1fr 0.9fr;
+  height: auto;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  grid-gap: 30px;
+  grid-template-rows: 0.1fr 0.9fr;
 }
 
 section.contact-container-2 .map-contact {

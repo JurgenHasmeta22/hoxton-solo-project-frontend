@@ -1,62 +1,61 @@
 .main-post {
-    /* outline: 0.5px solid #1e1f20; */
-    display: grid;
-    grid-template: 
+  /* outline: 0.5px solid #1e1f20; */
+  display: grid;
+  grid-template:
     "image-post image-post image-post" 0.7fr
     "icon-post video-title video-title" 0.2fr
     "icon-post video-user video-user" 0.05fr
     "icon-post video-views video-views" 0.05fr /
     0.2fr 0.4fr 0.4fr;
-    grid-row-gap: 5px;
-    grid-column-gap: 3px;
-    /* grid-area: main-post; */
-    cursor: pointer;
+  grid-row-gap: 5px;
+  grid-column-gap: 3px;
+  /* grid-area: main-post; */
+  cursor: pointer;
 }
 
-.main-post:hover
-{
-    transform: scale(1.2);
-    margin-right: 3%;
-    margin-left: 3%;
-    transition: 1s;
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
+.main-post:hover {
+  transform: scale(1.2);
+  margin-right: 3%;
+  margin-left: 3%;
+  transition: 1s;
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
 }
 
 .main-post .video-title {
-    grid-area: video-title;
-    font-size: 14px;
-    padding-bottom: 5px;
+  grid-area: video-title;
+  font-size: 14px;
+  padding-bottom: 5px;
 }
 
 .remove-my-video {
-    background-color: rgba(227, 54, 54, 0.898);
-    font-weight: 900;
-    border: none;
-    cursor: pointer;
+  background-color: rgba(227, 54, 54, 0.898);
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
 }
 
 .main-post .video-user {
-    grid-area: video-user;
-    font-size: 12px;
+  grid-area: video-user;
+  font-size: 12px;
 }
 
 .main-post .video-views {
-    grid-area: video-views;
-    font-size: 12px;
+  grid-area: video-views;
+  font-size: 12px;
 }
 
- .main-post img.image-post {
-    height: 150px;
-    width: 260px;
-    grid-area: image-post;
+.main-post img.image-post {
+  height: 150px;
+  width: 260px;
+  grid-area: image-post;
 }
 
 .main-post img.icon-post {
-    border-radius: 20px;
-    height: 36px;
-    width: 36px;
-    grid-area: icon-post;
+  border-radius: 20px;
+  height: 36px;
+  width: 36px;
+  grid-area: icon-post;
 }

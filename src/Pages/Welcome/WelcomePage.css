@@ -1,71 +1,71 @@
 section.container-menus-welcome {
-    height: auto;
-    width: 100%;
+  height: auto;
+  width: 100%;
 
-    display: grid;
-    grid-template-rows: 70px 0.4fr 0.3fr 0.1fr 70px;
+  display: grid;
+  grid-template-rows: 70px 0.4fr 0.3fr 0.1fr 70px;
 }
 
 section.container-menus-welcome .main-welcome {
-    display: grid;
-    grid-template-rows: 1fr;
-    place-items: center;
-    height: 100vh;
-    background-image: url(/assets/images/computer1.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}   
+  display: grid;
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 100vh;
+  background-image: url(/assets/images/computer1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 
 section.container-menus-welcome .main-welcome h2 {
-    font-size: 32px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: antiquewhite;
+  font-size: 32px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: antiquewhite;
 }
 
 section.container-menus-welcome .about-us-welcome {
-    display: grid;
-    grid-template-rows: 1fr;
-    place-items: center;
-    height: 60vh;
-    background-color: #9e6df2;
+  display: grid;
+  grid-template-rows: 1fr;
+  place-items: center;
+  height: 60vh;
+  background-color: #9e6df2;
 }
 
 section.container-menus-welcome .about-us-welcome p {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    width: 65ch;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  width: 65ch;
 }
 
 section.container-menus-welcome .contact-us {
-    display: grid;
-    grid-template-rows: 0.8fr 0.2fr;
-    place-items: center;
-    height: 50vh;
-    background-color: rgb(71, 71, 250);
+  display: grid;
+  grid-template-rows: 0.8fr 0.2fr;
+  place-items: center;
+  height: 50vh;
+  background-color: rgb(71, 71, 250);
 }
 
 section.container-menus-welcome .contact-us span {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 section.container-menus-welcome .contact-us button {
-    padding: 5px 15px;
-    border: none;
-    background-color: #fb7145;
-    height: 40px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
+  padding: 5px 15px;
+  border: none;
+  background-color: #fb7145;
+  height: 40px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
 }

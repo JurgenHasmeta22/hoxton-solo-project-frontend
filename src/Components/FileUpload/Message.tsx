@@ -1,34 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-export default function Message({msg, setMessage}:any) {
-
+export default function Message({ msg, setMessage }: any) {
   return (
-
-    <div className='alert alert-info alert-dismissible fade show' role='alert'>
-      
+    <div className="alert alert-info alert-dismissible fade show" role="alert">
       {msg}
 
       <button
-        type='button'
-        className='close'
-        data-dismiss='alert'
-        aria-label='Close'
+        type="button"
+        className="close"
+        data-dismiss="alert"
+        aria-label="Close"
         onClick={() => {
-          setMessage('')
+          setMessage("");
         }}
       >
-
-        <span aria-hidden='true'>&times;</span>
-        
+        <span aria-hidden="true">&times;</span>
       </button>
-      
     </div>
-
   );
-  
-};
+}
 
 Message.propTypes = {
-  msg: PropTypes.string.isRequired
+  msg: PropTypes.string.isRequired,
 };

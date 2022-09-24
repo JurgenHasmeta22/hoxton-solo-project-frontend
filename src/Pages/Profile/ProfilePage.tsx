@@ -1,249 +1,229 @@
 // #region "importing"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon"
-import FileUpload from "../../Components/FileUpload/FileUpload"
-import { useStore } from "../../Zustand/store"
-import "./ProfilePage.css"
-import ReactLoading from 'react-loading';
-import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import HeaderCommon from "../../Components/Common/HeaderCommon/HeaderCommon";
+import FileUpload from "../../Components/FileUpload/FileUpload";
+import { useStore } from "../../Zustand/store";
+import "./ProfilePage.css";
+import ReactLoading from "react-loading";
+import HomeVideo from "../../Components/Home/HomeVideo/HomeVideo";
 // #endregion
 
-export default function ProfilePage({validateUser}:any) {
+export default function ProfilePage({ validateUser }: any) {
+  // #region "state"
+  const [tab, setTab] = useState<any>("home");
+  const { user, userItem, setUserItem, users } = useStore();
+  // #endregion
 
-    // #region "state"
-    const [tab, setTab] = useState<any>("home")
-    const { user, userItem, setUserItem, users } = useStore()
-    // #endregion
+  // #region "fetch things"
+  useEffect(() => {
+    validateUser();
+  }, []);
 
-    // #region "fetch things"
-    useEffect(() => {
-        validateUser();
-    }, []);
+  const params = useParams();
 
-    const params = useParams()
+  function getIndividualUserFromServer() {
+    fetch(`http://localhost:4000/users/${params.id}`)
+      .then((resp) => resp.json())
+      .then((userFromServer) => setUserItem(userFromServer));
+  }
 
-    function getIndividualUserFromServer () {
+  useEffect(getIndividualUserFromServer, []);
+  // #endregion
 
-        fetch(`http://localhost:4000/users/${params.id}`)
-            .then(resp => resp.json())
-            .then(userFromServer => setUserItem(userFromServer))
-        
-    }
-    
-    useEffect(getIndividualUserFromServer, [])
-    // #endregion
-
-    // #region "Checking stuff from server wich came and loading"
-    if (userItem === null) {
-
-        return (
-            <div className="loading-wrapper">
-                <ReactLoading type={"spin"} color={"#000"} height={200} width={100} className="loading" />
-            </div>
-        )    
-    
-    }
-
-    if (userItem.userName === undefined) {
-        return <main>User not found not found</main>
-    }
-
-    if(user === null) {
-
-        return (
-            <div className="loading-wrapper">
-                <ReactLoading type={"spin"} color={"#000"} height={200} width={100} className="loading" />
-            </div>
-        )
-        
-    }
-    // #endregion
-
-    const userCheck = user.userName === userItem.userName
-
+  // #region "Checking stuff from server wich came and loading"
+  if (userItem === null) {
     return (
+      <div className="loading-wrapper">
+        <ReactLoading
+          type={"spin"}
+          color={"#000"}
+          height={200}
+          width={100}
+          className="loading"
+        />
+      </div>
+    );
+  }
 
-        <main>
+  if (userItem.userName === undefined) {
+    return <main>User not found not found</main>;
+  }
 
-            <HeaderCommon />
+  if (user === null) {
+    return (
+      <div className="loading-wrapper">
+        <ReactLoading
+          type={"spin"}
+          color={"#000"}
+          height={200}
+          width={100}
+          className="loading"
+        />
+      </div>
+    );
+  }
+  // #endregion
 
-            <section className="container-profile-menus">
+  const userCheck = user.userName === userItem.userName;
 
-                <div className="container-profile-nav">
+  return (
+    <main>
+      <HeaderCommon />
 
-                    <div className="profile-info">
+      <section className="container-profile-menus">
+        <div className="container-profile-nav">
+          <div className="profile-info">
+            <img src={`http://localhost:4000/avatar/${userItem.userName}`} />
+            <span className="subscribe-span">
+              {userItem.countSubscribers} Subscribers
+            </span>
+            <span className="userName-span">{userItem.userName}</span>
+          </div>
+        </div>
 
-                        <img src={`http://localhost:4000/avatar/${userItem.userName}`} />
-                        <span className="subscribe-span">{userItem.countSubscribers} Subscribers</span>
-                        <span className="userName-span">{userItem.userName}</span>
+        <div className="container-tabs">
+          <ul className="list-tabs">
+            <li
+              className={tab === "home" ? "clicked" : "home-tab"}
+              onClick={() => {
+                setTab("home");
+              }}
+            >
+              Upload
+            </li>
 
-                    </div>
+            <li
+              className={tab === "videos" ? "clicked" : "videos-tab"}
+              onClick={() => {
+                setTab("videos");
+              }}
+            >
+              Videos Created
+            </li>
 
-                </div>
+            <li
+              className={tab === "saved" ? "clicked" : "playlists-tab"}
+              onClick={() => {
+                setTab("saved");
+              }}
+            >
+              Saved Videos
+            </li>
 
-                <div className="container-tabs">
+            <li
+              className={tab === "liked" ? "clicked" : "liked-tab"}
+              onClick={() => {
+                setTab("liked");
+              }}
+            >
+              Liked Videos
+            </li>
 
-                    <ul className="list-tabs">
+            <li
+              className={tab === "about" ? "clicked" : "about-tab"}
+              onClick={() => {
+                setTab("about");
+              }}
+            >
+              About Channel
+            </li>
+          </ul>
 
-                        <li className= {tab === "home" ? "clicked": "home-tab"} onClick={() => {
-                            setTab("home")
-                        }}>Upload</li>
+          {tab === "home" ? (
+            <div className="upload-video">
+              {user.userName === userItem.userName ? (
+                <>
+                  <h2>Upload a video with thumbnail to get started</h2>
+                  <p>
+                    Start sharing your story and connecting with viewers. Videos
+                    you upload will show up in videos tab.
+                  </p>
+                  {/* <button>Upload Video</button> */}
 
-                        <li className= {tab === "videos" ? "clicked": "videos-tab"} onClick={() => {
-                            setTab("videos")
-                        }}>Videos Created</li>
+                  <FileUpload
+                    validateUser={validateUser}
+                    typeOfUpload={"video"}
+                  />
+                  <FileUpload
+                    validateUser={validateUser}
+                    typeOfUpload={"thumbnail"}
+                  />
+                </>
+              ) : (
+                <span>You cant upload if you are not this user</span>
+              )}
+            </div>
+          ) : tab === "videos" ? (
+            <>
+              <h3 className="special-video-you">Videos created by you</h3>
 
-                        <li className= {tab === "saved" ? "clicked": "playlists-tab"} onClick={() => {
-                            setTab("saved")
-                        }}>Saved Videos</li>
+              <div className="container-videos">
+                {
+                  // @ts-ignore
+                  user?.videos?.map((video) => (
+                    <HomeVideo
+                      key={video.id}
+                      video={null}
+                      liked={"not"}
+                      videoLiked={null}
+                      videoSaved={null}
+                      user={user}
+                      videoMine={video}
+                    />
+                  ))
+                }
+              </div>
+            </>
+          ) : tab === "about" ? (
+            <div className="container-about">
+              <span>{user?.description}</span>
+            </div>
+          ) : tab === "saved" ? (
+            <>
+              <h3 className="special-video-you">Videos saved by you</h3>
 
-                        <li className= {tab === "liked" ? "clicked": "liked-tab"} onClick={() => {
-                            setTab("liked")
-                        }}>Liked Videos</li>
-                        
-                        <li className= {tab === "about" ? "clicked": "about-tab"} onClick={() => {
-                            setTab("about")
-                        }}>About Channel</li>
+              <div className="container-videos">
+                {
+                  // @ts-ignore
+                  user?.savedVideos?.map((video) => (
+                    <HomeVideo
+                      key={video.id}
+                      video={null}
+                      liked={"not"}
+                      videoLiked={null}
+                      videoSaved={video}
+                      user={user}
+                      videoMine={null}
+                    />
+                  ))
+                }
+              </div>
+            </>
+          ) : tab === "liked" ? (
+            <>
+              <h3 className="special-video-you">Videos liked by you</h3>
 
-                    </ul>
-
-                    { 
-                    
-                        tab === "home" ? (
-
-                            <div className="upload-video">
-
-                                {user.userName === userItem.userName ? (
-
-                                    <>
-
-                                        <h2>Upload a video with thumbnail to get started</h2>
-                                        <p>Start sharing your story and connecting with viewers. Videos you upload will show up in videos tab.</p>
-                                        {/* <button>Upload Video</button> */}
-
-                                        <FileUpload validateUser = {validateUser} typeOfUpload = {"video"} />
-                                        <FileUpload validateUser = {validateUser} typeOfUpload = {"thumbnail"} />
-
-                                    </>
-
-                                ): (
-                                    <span>You cant upload if you are not this user</span>
-                                )
-                                
-                            }
-
-                            </div>
-
-                        ): tab === "videos" ? (
-
-                            <>
-                            
-                                <h3 className="special-video-you">Videos created by you</h3>
-
-                                <div className="container-videos">
-
-                                    {
-
-                                        // @ts-ignore
-                                        user?.videos?.map(video => 
-
-                                            <HomeVideo 
-                                                key = {video.id}
-                                                video = {null}
-                                                liked = {"not"}
-                                                videoLiked = {null}
-                                                videoSaved = {null}
-                                                user = {user}
-                                                videoMine = {video}
-                                            />
-
-                                        )
-
-                                    }
-
-                                </div>
-
-                            </>
-
-                        ): tab === "about" ? (
-
-                            <div className="container-about">
-                                <span>{user?.description}</span>
-                            </div>
-
-                        ): tab === "saved" ? (
-
-                            <>
-                            
-                                <h3 className="special-video-you">Videos saved by you</h3>
-
-                                <div className="container-videos">
-
-                                    {
-
-                                        // @ts-ignore
-                                        user?.savedVideos?.map(video => 
-
-                                            <HomeVideo 
-                                                key = {video.id}
-                                                video = {null}
-                                                liked = {"not"}
-                                                videoLiked = {null}
-                                                videoSaved = {video}
-                                                user = {user}
-                                                videoMine = {null}
-                                            />
-
-                                        )
-
-                                    }
-
-                                </div>
-
-                            </>
-
-                        ): tab === "liked" ? (
-
-                            <>
-                            
-                                <h3 className="special-video-you">Videos liked by you</h3>
-
-                                <div className="container-videos">
-
-                                    {
-
-                                        // @ts-ignore
-                                        user?.videosLiked?.map(video => 
-
-                                            <HomeVideo 
-                                                key = {video.id}
-                                                video = {null}
-                                                liked = {"liked"}
-                                                videoLiked = {video}
-                                                videoSaved = {null}
-                                                user = {null}
-                                                videoMine = {null}
-                                            />
-
-                                        )
-
-                                    }
-
-                                </div>
-
-                            </>
-
-                        ):null
-
-                    }
-
-                </div>
-
-            </section>
-        
-        </main>
-
-    )
-    
+              <div className="container-videos">
+                {
+                  // @ts-ignore
+                  user?.videosLiked?.map((video) => (
+                    <HomeVideo
+                      key={video.id}
+                      video={null}
+                      liked={"liked"}
+                      videoLiked={video}
+                      videoSaved={null}
+                      user={null}
+                      videoMine={null}
+                    />
+                  ))
+                }
+              </div>
+            </>
+          ) : null}
+        </div>
+      </section>
+    </main>
+  );
 }

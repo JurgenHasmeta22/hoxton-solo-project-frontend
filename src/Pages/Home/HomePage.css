@@ -1,53 +1,53 @@
 /* HERE THE GIRD LAYOUT FOR THE PAGE */
 section.container-menus {
-    height: 100vh;
-    display: grid;
-    grid-template: 
+  height: 100vh;
+  display: grid;
+  grid-template:
     "header header" 0.1fr
     "mini-header mini-header" 0.08fr
     "main-menu main-menu" 0.82fr /
     0.15fr 0.85fr;
-    grid-gap: 15px 0px;
-    /* overflow: scroll; */
+  grid-gap: 15px 0px;
+  /* overflow: scroll; */
 }
 
 .videoManiaLogo {
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: #4190d1;
-    font-style: italic;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #4190d1;
+  font-style: italic;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 section.container-menus aside.left-menu .left-menu-sub-1 {
-    grid-area: left-menu-sub-1;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    /* align-content: start; */
+  grid-area: left-menu-sub-1;
+
+  display: grid;
+  place-items: center;
+  justify-content: center;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  /* align-content: start; */
 }
 
 section.container-menus aside.left-menu .left-menu-sub-2 {
-    grid-area: left-menu-sub-2;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 10px;
-    /* align-content: start; */
+  grid-area: left-menu-sub-2;
+
+  display: grid;
+  place-items: center;
+  justify-content: center;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
+  /* align-content: start; */
 }
 
 section.container-menus aside.left-menu {
-    grid-area: left-menu;
-    
-    width: 100%;
-    display: grid;
-    grid-template: 
+  grid-area: left-menu;
+
+  width: 100%;
+  display: grid;
+  grid-template:
     "left-menu-sub-1" 0.15fr
     "left-menu-sub-2" 0.15fr
     "left-menu-sub-3" 0.15fr
@@ -57,305 +57,303 @@ section.container-menus aside.left-menu {
     "left-menu-sub-7" 0.3fr
     "left-menu-sub-8"; 0.3fr */
     1fr;
-    /* overflow: scroll; */
-    grid-gap: 10px;
-    background-color: #f9f9f9;
-    /* overflow-x: hidden; */
+  /* overflow: scroll; */
+  grid-gap: 10px;
+  background-color: #f9f9f9;
+  /* overflow-x: hidden; */
 }
 
 section.container-menus main.main-menu {
-    grid-area: main-menu;
-    
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 0.25fr);
-    grid-gap: 20px;
-    place-items: center;
-    justify-content: center;
-    overflow: scroll; 
-    overflow-x: hidden; 
-    padding-top: 25px;
+  grid-area: main-menu;
+
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 0.25fr);
+  grid-gap: 20px;
+  place-items: center;
+  justify-content: center;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding-top: 25px;
 }
 
 section.container-menus aside.left-menu .left-menu-sub-3 {
-    grid-area: left-menu-sub-3;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    grid-template-rows: 1fr;
-    grid-gap: 20px;
-    /* align-content: start; */
+  grid-area: left-menu-sub-3;
+
+  display: grid;
+  place-items: center;
+  justify-content: center;
+  grid-template-rows: 1fr;
+  grid-gap: 20px;
+  /* align-content: start; */
 }
 
 section.container-menus aside.left-menu .left-menu-sub-4 {
-    grid-area: left-menu-sub-4;
-    
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 16px;
-    /* align-content: start; */
+  grid-area: left-menu-sub-4;
+
+  display: grid;
+  place-items: center;
+  justify-content: center;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 16px;
+  /* align-content: start; */
 }
 
 header.mini-header ul.elements-wrapper {
-    display: grid;
-    grid-template-columns: repeat(8, 130px);
-    grid-gap: 15px;
-    place-items: center;
-    justify-content: left;
-    /* padding-left: 10px; */
-    overflow: hidden;
-    width: auto;
+  display: grid;
+  grid-template-columns: repeat(8, 130px);
+  grid-gap: 15px;
+  place-items: center;
+  justify-content: left;
+  /* padding-left: 10px; */
+  overflow: hidden;
+  width: auto;
 }
 
 header.mini-header ul.elements-wrapper li {
-    border-radius: 20px;
-    background-color: #f5eded;
-    padding: 5px 15px;
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    color: #111111;
-    letter-spacing: 0.1px;
-    cursor: pointer;
-    border: 1px solid #aca3a3;
-    /*display: grid;
+  border-radius: 20px;
+  background-color: #f5eded;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: #111111;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  border: 1px solid #aca3a3;
+  /*display: grid;
     place-items: center;
      */
 }
 
 header.mini-header ul.elements-wrapper li:hover {
-    background-color: #141616;
-    transition: 1s;
-    color: #fff;
-    border: 2px solid #ffffff;
+  background-color: #141616;
+  transition: 1s;
+  color: #fff;
+  border: 2px solid #ffffff;
 }
 
 aside.left-menu .left-menu-sub-1 .left-group-1 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* place-items: center; */
-    justify-content:center;
-    place-items: center;
-    /* align-items: center; */
-    /* align-content: center; this fixe text not centering like place-items */
-    grid-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* place-items: center; */
+  justify-content: center;
+  place-items: center;
+  /* align-items: center; */
+  /* align-content: center; this fixe text not centering like place-items */
+  grid-gap: 20px;
 }
 
 aside.left-menu .left-menu-sub-2 .left-group-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    grid-gap: 20px;
-    align-items: center;
-    place-items: center;
-    align-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  grid-gap: 20px;
+  align-items: center;
+  place-items: center;
+  align-content: center;
 }
 
 aside.left-menu .left-menu-sub-3 .left-group-3 {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    justify-content: center;
-    grid-gap: 20px;
-    align-items: center;
-    place-items: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  grid-gap: 20px;
+  align-items: center;
+  place-items: center;
 }
 
 aside.left-menu .left-menu-sub-4 .left-group-4 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    grid-gap: 10px;
-    align-items: center;
-    place-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  grid-gap: 10px;
+  align-items: center;
+  place-items: center;
 }
 
 aside.left-menu .left-menu-sub-1 .left-group-1 span {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.5px;
-    font-weight: normal;
-    color: #030303;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  color: #030303;
 }
 
 aside.left-menu .left-menu-sub-2 .left-group-2 span {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.5px;
-    font-weight: normal;
-    color: #030303;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  color: #030303;
 }
 
 aside.left-menu .left-menu-sub-3 .left-group-3 span {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.2px;
-    font-weight: normal;
-    color: #030303;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.2px;
+  font-weight: normal;
+  color: #030303;
 }
 
 aside.left-menu .left-menu-sub-4 .left-group-4 span {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.2px;
-    font-weight: normal;
-    color: #030303;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.2px;
+  font-weight: normal;
+  color: #030303;
 }
 
 aside.left-menu .left-menu-sub-3 .left-group-3 button {
-    text-transform: uppercase;
-    border: 1px solid #065fd4;
-    background-color: #fff;
-    font-size: 14px;
-    padding: 10px 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    font-family: sans-serif;
-    color: #065fd4;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: center;
+  text-transform: uppercase;
+  border: 1px solid #065fd4;
+  background-color: #fff;
+  font-size: 14px;
+  padding: 10px 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-family: sans-serif;
+  color: #065fd4;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
 }
 
 aside.left-menu .left-menu-sub-3 .left-group-3 button:hover {
-    background-color: #065fd4;
-    color: #fff;
-    border: 1px solid #111111;
-    transition: 1s;
+  background-color: #065fd4;
+  color: #fff;
+  border: 1px solid #111111;
+  transition: 1s;
 }
 
-aside.left-menu .left-menu-sub-3 .left-group-3 i{
-    color: #065fd4;
-    transition: 1s;
+aside.left-menu .left-menu-sub-3 .left-group-3 i {
+  color: #065fd4;
+  transition: 1s;
 }
 
-aside.left-menu .left-menu-sub-3 .left-group-3 span{
-    color: #065fd4;
-    font-size: 12px;
-    font-weight: 600;
+aside.left-menu .left-menu-sub-3 .left-group-3 span {
+  color: #065fd4;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-aside.left-menu .left-menu-sub-3 .left-group-3 button:hover i{
-    color: #fff;
-    transition: 1s;
+aside.left-menu .left-menu-sub-3 .left-group-3 button:hover i {
+  color: #fff;
+  transition: 1s;
 }
 
-aside.left-menu .left-menu-sub-3 .left-group-3 button:hover span{
-    color: #fff;
-    transition: 1s;
+aside.left-menu .left-menu-sub-3 .left-group-3 button:hover span {
+  color: #fff;
+  transition: 1s;
 }
 
 aside.left-menu .left-menu-sub-3 .left-group-3 p {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: normal;
-    font-weight: normal;
-    padding-left: 20px;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: normal;
+  font-weight: normal;
+  padding-left: 20px;
 }
 
 aside.left-menu .left-menu-sub-4 .special-case-4 {
-    display: grid;
-    grid-template-columns: 1fr;
-    place-items: center;
-    justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  justify-content: center;
 }
 
 aside.left-menu .left-menu-sub-4 .special-case-4 span {
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
 }
 
 aside.left-menu .left-menu-sub-4 .left-group-4 img {
-    height: 30px;
-    width: 30px;
-    border-radius: 20px;
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
 }
 
 main.main-menu .row-wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-    place-items: center;
-    justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+  place-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1250px) {
-    header.mini-header ul.elements-wrapper {
-        overflow: hidden;
-    }
+  header.mini-header ul.elements-wrapper {
+    overflow: hidden;
+  }
 
-    section.container-menus main.main-menu {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        grid-gap: 30px;
-    }
+  section.container-menus main.main-menu {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 30px;
+  }
 
-    section.container-menus main.main-menu .row-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 15px;
-    }
+  section.container-menus main.main-menu .row-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+  }
 }
 
 @media screen and (max-width: 850px) {
-    section.container-menus header.header {
-        width: 100vw;
-    }
-    /* header.header .header-sub-3 .header-group-3 {
+  section.container-menus header.header {
+    width: 100vw;
+  }
+  /* header.header .header-sub-3 .header-group-3 {
         /* width: 100vw; */
 }
 
 @media screen and (max-width: 600px) {
+  section.container-menus {
+    height: 100vh;
+    display: grid;
+    grid-template:
+      "header" 0.1fr
+      "mini-header" 0.08fr
+      "main-menu" 0.82fr /
+      1fr;
+  }
 
-    section.container-menus {
-        height: 100vh;
-        display: grid;
-        grid-template: 
-        "header" 0.1fr
-        "mini-header" 0.08fr
-        "main-menu" 0.82fr /
-        1fr;
-    }
+  section.container-menus main.main-menu .row-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+  }
 
-    section.container-menus main.main-menu .row-wrapper {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-gap: 15px;
-    }
-
-    section.container-menus aside.left-menu {
-        display: none;
-    }
-
+  section.container-menus aside.left-menu {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 900px) {
-    header.header .header-sub-2 .header-group-2 {
-        display: grid;
-        grid-template-columns: auto auto ;
-        place-items: center;
-        justify-content: center;
-        grid-gap: 5px;
-        width: 100%;
-    }
+  header.header .header-sub-2 .header-group-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    place-items: center;
+    justify-content: center;
+    grid-gap: 5px;
+    width: 100%;
+  }
 
-    header.header .header-sub-3 .header-group-3 {
-        display: grid;
-        grid-template-columns: auto auto auto;
-        grid-gap: 10px;
-        width: 100%;
-    }
+  header.header .header-sub-3 .header-group-3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    width: 100%;
+  }
 
-    header.header .header-sub-1 .header-group-1 {
-        display: grid;
-        grid-template-columns: auto auto ;
-        place-items: center;
-        justify-content: center;
-        grid-gap: 5px;
-        width: 100%;
-    }
+  header.header .header-sub-1 .header-group-1 {
+    display: grid;
+    grid-template-columns: auto auto;
+    place-items: center;
+    justify-content: center;
+    grid-gap: 5px;
+    width: 100%;
+  }
 }

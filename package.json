@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pretty": "prettier --write \"./**/*.{js,jsx,tsx,css,ts,html,json}\""
   },
   "dependencies": {
     "@types/axios": "^0.14.0",

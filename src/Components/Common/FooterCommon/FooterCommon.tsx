@@ -1,17 +1,11 @@
-import "./FooterCommon.css"
+import "./FooterCommon.css";
 
 export default function FooterCommon() {
-
-    return (
-
-        <>
-
-            <footer className="footer-welcome">
-                <span>Copyright VideoMania</span>
-            </footer>
-        
-        </>
-
-    )
-    
+  return (
+    <>
+      <footer className="footer-welcome">
+        <span>Copyright VideoMania</span>
+      </footer>
+    </>
+  );
 }

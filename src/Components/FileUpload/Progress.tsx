@@ -1,28 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-export default function Progress({percentage}:any) {
-
+export default function Progress({ percentage }: any) {
   return (
-
-    <div className='progress'>
-
+    <div className="progress">
       <div
-        className='progress-bar progress-bar-striped bg-success'
-        role='progressbar'
+        className="progress-bar progress-bar-striped bg-success"
+        role="progressbar"
         style={{ width: `${percentage}%` }}
       >
-
         {percentage}%
-
       </div>
-
     </div>
-    
   );
-
-};
+}
 
 Progress.propTypes = {
-  percentage: PropTypes.number.isRequired
+  percentage: PropTypes.number.isRequired,
 };

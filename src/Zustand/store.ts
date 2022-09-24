@@ -1,10 +1,8 @@
-import create from 'zustand'
-import { mountStoreDevtool } from 'simple-zustand-devtools';
-import AppStoreState from './types/interfaceStore'
+import create from "zustand";
+import AppStoreState from "./types/interfaceStore";
 
-export const useStore = create<AppStoreState>((set, get):AppStoreState => ({
-
-    // #region 'GeneralState'
+export const useStore = create<AppStoreState>(
+  (set, get): AppStoreState => ({
     users: [],
     videos: [],
     searchTerm: "",
@@ -13,88 +11,63 @@ export const useStore = create<AppStoreState>((set, get):AppStoreState => ({
     categories: [],
     videoItem: null,
     comments: [],
-
     setComments: (array) => {
-        set({comments: array})
+      set({ comments: array });
     },
-
     setSearchTerm: (string) => {
-        set({searchTerm: string})
+      set({ searchTerm: string });
     },
-
     setVideoItem: (data) => {
-        set({videoItem: data})
+      set({ videoItem: data });
     },
-
     setCategories: (arrayFromServer) => {
-        set({categories: arrayFromServer})
+      set({ categories: arrayFromServer });
     },
-
     setVideos: (arrayFromServer) => {
-        set({videos: arrayFromServer})
+      set({ videos: arrayFromServer });
     },
-
     setUser: (data) => {
-        set({user: data})
+      set({ user: data });
     },
-    
     setUserItem: (data) => {
-        set({userItem: data})
+      set({ userItem: data });
     },
-    // #endregion
 
-    // #region 'Login State'
     emailLogin: "",
     passwordLogin: "",
-
     handleEmailChangeLogin: (e) => {
-        set({emailLogin: e.target.value})
+      set({ emailLogin: e.target.value });
     },
-
     handlePasswordChangeLogin: (e) => {
-        set({passwordLogin: e.target.value})
+      set({ passwordLogin: e.target.value });
     },
-
     handleFormSubmitLogin: (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const formData = {
+        email: email,
+        password: password,
+      };
 
-        e.preventDefault();
-
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        const formData = {
-            email: email,
-            password: password,
-        };
-
-        fetch("http://localhost:4000/login", {
-
+      fetch("http://localhost:4000/login", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-        })
+      })
         .then((resp) => resp.json())
         .then((data) => {
-
-            if (data.error) {
-                alert(data.error);
-            } 
-            
-            else {
-                // we managed to sign in!
-                localStorage.setItem("token", data.token);
-                set({user: data.user});
-                // navigate("/home");
-            }
-
+          if (data.error) {
+            alert(data.error);
+          } else {
+            localStorage.setItem("token", data.token);
+            set({ user: data.user });
+          }
         });
-      
     },
-    // #endregion
 
-    // #region 'Register State'
     firstNameRegister: "",
     lastNameRegister: "",
     userNameRegister: "",
@@ -103,131 +76,108 @@ export const useStore = create<AppStoreState>((set, get):AppStoreState => ({
     phoneNumberRegister: "",
     emailRegister: "",
     passwordRegister: "",
-
     handleFormSubmitRegister: (e: any) => {
-
-        e.preventDefault()
-
-        const { 
-            users, firstNameRegister, lastNameRegister, userNameRegister, phoneNumberRegister,
-            genderRegister, birthdayRegister, emailRegister, passwordRegister
-        } = get()
-
-        const formData = {
-            firstName: firstNameRegister,
-            lastName: lastNameRegister,
-            userName: userNameRegister,
-            phoneNumber: phoneNumberRegister,
-            gender: genderRegister,
-            birthday: birthdayRegister,
-            email: emailRegister,
-            password: passwordRegister
-        }
-
-        fetch('http://localhost:4000/users', {
-
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-            })
-            .then(resp => resp.json())
-            .then(data => {
-
-                if (data.error) {
-                    alert('Oops, something went wrong.')
-                } 
-                
-                else {
-                    // we managed to create our user!
-                    localStorage.setItem('token', data.token)
-                    set({user: data.user})
-                }
-
-            })
-
+      e.preventDefault();
+      const {
+        users,
+        firstNameRegister,
+        lastNameRegister,
+        userNameRegister,
+        phoneNumberRegister,
+        genderRegister,
+        birthdayRegister,
+        emailRegister,
+        passwordRegister,
+      } = get();
+      const formData = {
+        firstName: firstNameRegister,
+        lastName: lastNameRegister,
+        userName: userNameRegister,
+        phoneNumber: phoneNumberRegister,
+        gender: genderRegister,
+        birthday: birthdayRegister,
+        email: emailRegister,
+        password: passwordRegister,
+      };
+      fetch("http://localhost:4000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data.error) {
+            alert("Oops, something went wrong.");
+          } else {
+            localStorage.setItem("token", data.token);
+            set({ user: data.user });
+          }
+        });
     },
-
     handleFirstNameRegister: (e: any) => {
-        set({firstNameRegister: e.target.value})
+      set({ firstNameRegister: e.target.value });
     },
-
     handleLastNameRegister: (e: any) => {
-        set({lastNameRegister: e.target.value})
+      set({ lastNameRegister: e.target.value });
     },
-
     handleUserNameRegister: (e: any) => {
-        set({userNameRegister: e.target.value})
+      set({ userNameRegister: e.target.value });
     },
-
     handleGenderRegister: (e: any) => {
-        set({genderRegister: e.target.value})
+      set({ genderRegister: e.target.value });
     },
-
     handleBirthdayRegister: (e: any) => {
-        set({birthdayRegister: e.target.value})
+      set({ birthdayRegister: e.target.value });
     },
-
     handlePhoneNumberRegister: (e: any) => {
-        set({phoneNumberRegister: e.target.value})
+      set({ phoneNumberRegister: e.target.value });
     },
-
     handleEmailRegister: (e: any) => {
-        set({emailRegister: e.target.value})
+      set({ emailRegister: e.target.value });
     },
-
     handlePasswordChangeRegister: (e: any) => {
-        set({passwordRegister: e.target.value})
+      set({ passwordRegister: e.target.value });
     },
-    //#endregion
 
-    // #region 'Contact us state'
     nameContactUs: "",
     emailContactUs: "",
     phoneContactUs: "",
     subjectContactUs: "",
     textAreaContactUs: "",
     formContactUs: null,
-
     handleContactSubmit: (e) => {
-
-        const {
-            nameContactUs, emailContactUs, subjectContactUs,
-            phoneContactUs, textAreaContactUs 
-        } = get()
-
-        const formData = {
-            name: nameContactUs,
-            email: emailContactUs,
-            phone: phoneContactUs,
-            subject: subjectContactUs,
-            description: textAreaContactUs
-        }
-
-        set({formContactUs: formData})
-
+      const {
+        nameContactUs,
+        emailContactUs,
+        subjectContactUs,
+        phoneContactUs,
+        textAreaContactUs,
+      } = get();
+      const formData = {
+        name: nameContactUs,
+        email: emailContactUs,
+        phone: phoneContactUs,
+        subject: subjectContactUs,
+        description: textAreaContactUs,
+      };
+      set({ formContactUs: formData });
     },
-
     handleTextAreaChange: (e) => {
-        set({textAreaContactUs: e.target.value})
+      set({ textAreaContactUs: e.target.value });
     },
-
     handlePhoneChange: (e) => {
-        set({phoneContactUs: e.target.value})
+      set({ phoneContactUs: e.target.value });
     },
-
     handleEmailChange: (e) => {
-        set({emailContactUs: e.target.value})
+      set({ emailContactUs: e.target.value });
     },
-    
     handleSubjectChange: (e) => {
-        set({subjectContactUs: e.target.value})
+      set({ subjectContactUs: e.target.value });
     },
-
     handleNameChange: (e) => {
-        set({nameContactUs: e.target.value})
-    }
-    // #endregion
-
-}))
+      set({ nameContactUs: e.target.value });
+    },
+  })
+);
